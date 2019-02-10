@@ -1,0 +1,70 @@
+{
+    "DATABASES":{
+            "database_name_md5_hash_1" : {
+            "ENCRYPTION" : "database_name_with_AES_encryption",
+            "TABLES":{
+                "table_name_with_AES_encryption_1" : "md5_hashed_value_1",
+                "table_name_with_AES_encryption_2" : "md5_hashed_value_2",
+                "table_name_with_AES_encryption_3" : "md5_hashed_value_3",
+                "table_name_with_AES_encryption_N" : "md5_hashed_value_N"
+            }
+        }
+    }
+},
+{
+    "HOST":"host_name",
+    "USER":"user_name",
+    "PASSWORD":"password",
+    "DATABASES":{
+        "database_name_1":{
+            "TABLES":{
+                "table_name_1":{
+                        "TABLE_CONSTRAINS":{
+                            "table attribute 1":"datatype of the attribute 1",
+                            "table attribute 2":"datatype of the attribute 2",
+                            "table attribute N":"datatype of the attribute N"
+                        }
+                    },
+                    "table_name_2":{
+                        "TABLE_CONSTRAINS":{
+                            "table attribute 1":"datatype of the attribute 1",
+                            "table attribute 2":"datatype of the attribute 2",
+                            "table attribute N":"datatype of the attribute N"
+                        }
+                    },
+                    "table_name_N":{
+                        "TABLE_CONSTRAINS":{
+                            "table attribute 1":"datatype of the attribute 1",
+                            "table attribute 2":"datatype of the attribute 2",
+                            "table attribute N":"datatype of the attribute N"
+                        }
+                    }
+                }
+            }
+        },
+        "database_name_2":{
+            "TABLES":{
+                "table_name_1":{
+                    "TABLE_CONSTRAINS":{
+                        "table attribute 1":"datatype of the attribute 1",
+                        "table attribute 2":"datatype of the attribute 2",
+                        "table attribute N":"datatype of the attribute N"
+                    }
+                },
+                "table_name_2":{
+                    "TABLE_CONSTRAINS":{
+                        "table attribute 1":"datatype of the attribute 1",
+                        "table attribute 2":"datatype of the attribute 2",
+                        "table attribute N":"datatype of the attribute N"
+                    }
+                },
+                "table_name_N":{
+                    "TABLE_CONSTRAINS":{
+                        "table attribute 1":"datatype of the attribute 1",
+                        "table attribute 2":"datatype of the attribute 2",
+                        "table attribute N":"datatype of the attribute N"
+                    }   
+            }
+        }
+    }
+}

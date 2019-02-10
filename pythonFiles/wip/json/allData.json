@@ -1,0 +1,3369 @@
+
+
+{
+  "students": {
+    "RSK15EC053": {
+      "RAIL ID": "RSK15EC053",
+      "STUDENT NAME": "TARAKESHAVA C R ",
+      "USN": "1SK15EC053",
+      "BRANCH": "EC",
+      "YEAR OF JOINING": "2015",
+      "EMAIL ADDRESS": "tarakeshavacr@gmail.com",
+      "CONTACT NUMBER": "9880393073",
+      "DAY OF LAB": "ALL ACCESS",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK15EC040": {
+      "RAIL ID": "RSK15EC040",
+      "STUDENT NAME": "SANDEEP V",
+      "USN": "1SK15EC040",
+      "BRANCH": "EC",
+      "YEAR OF JOINING": "2015",
+      "EMAIL ADDRESS": "sandeep65328140@gmail.com",
+      "CONTACT NUMBER": "7019038523",
+      "DAY OF LAB": "ALL ACCESS",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK15EC059": {
+      "RAIL ID": "RSK15EC059",
+      "STUDENT NAME": "VIVEKANANDA P",
+      "USN": "1SK15EC059",
+      "BRANCH": "EC",
+      "YEAR OF JOINING": "2015",
+      "EMAIL ADDRESS": "viveksksti59@gmail.com",
+      "CONTACT NUMBER": "8660277075",
+      "DAY OF LAB": "ALL ACCESS",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK17CS036": {
+      "RAIL ID": "RSK17CS036",
+      "STUDENT NAME": "TARUN GOPALKRISHNA A",
+      "USN": "1SK17CS036",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2017",
+      "EMAIL ADDRESS": "tarungopalkrishna@gmail.com",
+      "CONTACT NUMBER": "8296177426",
+      "DAY OF LAB": "ALL ACCESS",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK17CS022": {
+      "RAIL ID": "RSK17CS022",
+      "STUDENT NAME": "OMKAR R IYER",
+      "USN": "1SK17CS022",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2017",
+      "EMAIL ADDRESS": "omkariyer99@gmail.com",
+      "CONTACT NUMBER": "8951069861",
+      "DAY OF LAB": "ALL ACCESS",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK17CS023": {
+      "RAIL ID": "RSK17CS023",
+      "STUDENT NAME": "PRAJWAL H D",
+      "USN": "1SK17CS023",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2017",
+      "EMAIL ADDRESS": "hdprajwalgowda@gmail.com",
+      "CONTACT NUMBER": "8951041906",
+      "DAY OF LAB": "ALL ACCESS",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK17CS024": {
+      "RAIL ID": "RSK17CS024",
+      "STUDENT NAME": "PRATHIK S",
+      "USN": "1SK17CS024",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2017",
+      "EMAIL ADDRESS": "prathikrebellion@gmail.com",
+      "CONTACT NUMBER": "9148021668",
+      "DAY OF LAB": "ALL ACCESS",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK17CS038": {
+      "RAIL ID": "RSK17CS038",
+      "STUDENT NAME": "VENKATARAMAN RAO",
+      "USN": "1SK17CS038",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2017",
+      "EMAIL ADDRESS": "venkatramana21rao@gmail.com",
+      "CONTACT NUMBER": "9483921028",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK17CS033": {
+      "RAIL ID": "RSK17CS033",
+      "STUDENT NAME": "SUHAAS SWAMY M H",
+      "USN": "1SK17CS033",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2017",
+      "EMAIL ADDRESS": "suhaasswamy1999@gmail.com ",
+      "CONTACT NUMBER": "9916452082",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK17CS018": {
+      "RAIL ID": "RSK17CS018",
+      "STUDENT NAME": "MUNIRAJ M",
+      "USN": "1SK17CS018",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2017",
+      "EMAIL ADDRESS": "muniraj1502999@gmail.com",
+      "CONTACT NUMBER": "7338252714",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK17CS039": {
+      "RAIL ID": "RSK17CS039",
+      "STUDENT NAME": "VISHWAS GOWDA M",
+      "USN": "1SK17CS039",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2017",
+      "EMAIL ADDRESS": "vishugowda2017@gmail.com ",
+      "CONTACT NUMBER": "7338040593",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK17CS011": {
+      "RAIL ID": "RSK17CS011",
+      "STUDENT NAME": "IMPANA S GOWDA",
+      "USN": "1SK17CS011",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2017",
+      "EMAIL ADDRESS": "impanagowda662@gmail.com ",
+      "CONTACT NUMBER": "9663425239",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK17CS021": {
+      "RAIL ID": "RSK17CS021",
+      "STUDENT NAME": "NIDHISHREE TALASHTA",
+      "USN": "1SK17CS021",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2017",
+      "EMAIL ADDRESS": "talasthanidhi@gmail.com",
+      "CONTACT NUMBER": "9113017615",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK17CS007": {
+      "RAIL ID": "RSK17CS007",
+      "STUDENT NAME": "FATHIMA TANZEEM",
+      "USN": "1SK17CS007",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2017",
+      "EMAIL ADDRESS": "fathimatanzeem99@gmail.com",
+      "CONTACT NUMBER": "9449056604",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK17CS028": {
+      "RAIL ID": "RSK17CS028",
+      "STUDENT NAME": "SHASHANK YADAV M",
+      "USN": "1SK17CS028",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2017",
+      "EMAIL ADDRESS": "shashanky907@gmail.com",
+      "CONTACT NUMBER": "9113930689",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK17CS020": {
+      "RAIL ID": "RSK17CS020",
+      "STUDENT NAME": "NANDAN KUMAR N",
+      "USN": "1SK17CS020",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2017",
+      "EMAIL ADDRESS": "nandankumarnaveen28@gmil.com",
+      "CONTACT NUMBER": "9902978819",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK15CV051": {
+      "RAIL ID": "RSK15CV051",
+      "STUDENT NAME": "SHILPARANI",
+      "USN": "1SK15CV051",
+      "BRANCH": "CV",
+      "YEAR OF JOINING": "2015",
+      "EMAIL ADDRESS": "812shilpa@gmail.com",
+      "CONTACT NUMBER": "7411624820",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK15CV054": {
+      "RAIL ID": "RSK15CV054",
+      "STUDENT NAME": "SWATHI N.S",
+      "USN": "1SK15CV054",
+      "BRANCH": "CV",
+      "YEAR OF JOINING": "2015",
+      "EMAIL ADDRESS": "NULL",
+      "CONTACT NUMBER": "NULL",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK15EC037": {
+      "RAIL ID": "RSK15EC037",
+      "STUDENT NAME": "ROHAN J",
+      "USN": "1SK15EC037",
+      "BRANCH": "EC",
+      "YEAR OF JOINING": "2015",
+      "EMAIL ADDRESS": "rohanchiltu@gmail.com",
+      "CONTACT NUMBER": "8867687737",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK15EC020": {
+      "RAIL ID": "RSK15EC020",
+      "STUDENT NAME": "KIRAN KUMAR H S",
+      "USN": "1SK15EC020",
+      "BRANCH": "EC",
+      "YEAR OF JOINING": "2015",
+      "EMAIL ADDRESS": "NULL",
+      "CONTACT NUMBER": "NULL",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK15CS010": {
+      "RAIL ID": "RSK15CS010",
+      "STUDENT NAME": "CHAITRA L",
+      "USN": "1SK15CS010",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2015",
+      "EMAIL ADDRESS": "chaitrachithu1997@gmail.com ",
+      "CONTACT NUMBER": "8867544249",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK15CS011": {
+      "RAIL ID": "RSK15CS011",
+      "STUDENT NAME": "CHAITRA R H",
+      "USN": "1SK15CS011",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2015",
+      "EMAIL ADDRESS": "chaitraram07@gmail.com",
+      "CONTACT NUMBER": "9481815185",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK15CS066": {
+      "RAIL ID": "RSK15CS066",
+      "STUDENT NAME": "POOJA H N",
+      "USN": "1SK15CS066",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2015",
+      "EMAIL ADDRESS": "hn4pooja@gmail.com",
+      "CONTACT NUMBER": "7411442806",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK15CS046": {
+      "RAIL ID": "RSK15CS046",
+      "STUDENT NAME": "RUCHITHA K R",
+      "USN": "1SK15CS046",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2015",
+      "EMAIL ADDRESS": "NULL",
+      "CONTACT NUMBER": "NULL",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK18CS01": {
+      "RAIL ID": "RSK18CS01",
+      "STUDENT NAME": "Maithri Udupa",
+      "USN": "NULL",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2018",
+      "EMAIL ADDRESS": "kmudupa09@gmail.com",
+      "CONTACT NUMBER": "9380750794",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK18CS02": {
+      "RAIL ID": "RSK18CS02",
+      "STUDENT NAME": "VENNELA V",
+      "USN": "NULL",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2018",
+      "EMAIL ADDRESS": "vennelav000@gmail.com",
+      "CONTACT NUMBER": "7996136909",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK18CS03": {
+      "RAIL ID": "RSK18CS03",
+      "STUDENT NAME": "RUCHITHA S",
+      "USN": "NULL",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2018",
+      "EMAIL ADDRESS": "ruchithasiddesh097@gmail.com",
+      "CONTACT NUMBER": "7619671064",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK18EC021": {
+      "RAIL ID": "RSK18EC021",
+      "STUDENT NAME": "HARSH P",
+      "USN": "1SK18EC021",
+      "BRANCH": "EC",
+      "YEAR OF JOINING": "2018",
+      "EMAIL ADDRESS": "mpharsh675@gmail.com",
+      "CONTACT NUMBER": "9916865636",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK18CS05": {
+      "RAIL ID": "RSK18CS05",
+      "STUDENT NAME": "Dakshta Tomar",
+      "USN": "NULL",
+      "BRANCH": "EC",
+      "YEAR OF JOINING": "2018",
+      "EMAIL ADDRESS": "jwo.vktomar@gmail.com",
+      "CONTACT NUMBER": "9425799157",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK18CS06": {
+      "RAIL ID": "RSK18CS06",
+      "STUDENT NAME": "Akshatha.p",
+      "USN": "NULL",
+      "BRANCH": "EC",
+      "YEAR OF JOINING": "2018",
+      "EMAIL ADDRESS": "akshathaprakash07@gmail.com",
+      "CONTACT NUMBER": "7411171776",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK18CS07": {
+      "RAIL ID": "RSK18CS07",
+      "STUDENT NAME": "Palle varidhi ",
+      "USN": "NULL",
+      "BRANCH": "EC",
+      "YEAR OF JOINING": "2018",
+      "EMAIL ADDRESS": "pallevaridhi@gmail.com",
+      "CONTACT NUMBER": "9505200149",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK18CS08": {
+      "RAIL ID": "RSK18CS08",
+      "STUDENT NAME": "Shivam Kumar",
+      "USN": "NULL",
+      "BRANCH": "EC",
+      "YEAR OF JOINING": "2018",
+      "EMAIL ADDRESS": "shivam.kumar488@gmail.com",
+      "CONTACT NUMBER": "9590608091",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK18CS09": {
+      "RAIL ID": "RSK18CS09",
+      "STUDENT NAME": "Bhoomika Manjunath",
+      "USN": "NULL",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2018",
+      "EMAIL ADDRESS": "kullegowdamamatha@gmail.com",
+      "CONTACT NUMBER": "9663211551",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK18CS10": {
+      "RAIL ID": "RSK18CS10",
+      "STUDENT NAME": "Ashwin Chakravarthy",
+      "USN": "NULL",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2018",
+      "EMAIL ADDRESS": "ashwinchakravarthy2000@gmail.com",
+      "CONTACT NUMBER": "8884628478",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK18CS11": {
+      "RAIL ID": "RSK18CS11",
+      "STUDENT NAME": "Vineet",
+      "USN": "NULL",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2018",
+      "EMAIL ADDRESS": "vineetpuram@gmail.com",
+      "CONTACT NUMBER": "8660215434",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK18CS004": {
+      "RAIL ID": "RSK18CS004",
+      "STUDENT NAME": "Arbhasun  Banerjee",
+      "USN": "1SK18CS004",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2018",
+      "EMAIL ADDRESS": "arbhasun1606@gmail.com",
+      "CONTACT NUMBER": "7829527954",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK17CS014": {
+      "RAIL ID": "RSK17CS014",
+      "STUDENT NAME": "LEKHANA D",
+      "USN": "1SK17CS014",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2017",
+      "EMAIL ADDRESS": "lekhanad1999@gmail.com",
+      "CONTACT NUMBER": "9902012265",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    },
+    "RSK17CS019": {
+      "RAIL ID": "RSK17CS019",
+      "STUDENT NAME": "N NANDA KUMAR",
+      "USN": "1SK17CS019",
+      "BRANCH": "CSE",
+      "YEAR OF JOINING": "2017",
+      "EMAIL ADDRESS": "nandunandakumar98@gmail.com",
+      "CONTACT NUMBER": "8271455940",
+      "DAY OF LAB": "NULL",
+      "LOGIN STATUS": "NO",
+      "COMPONENT STATUS": "NO",
+      "ASSOCIATED TEAM": "NULL",
+      "ALL PROJECTS": "NULL"
+    }
+  },
+  "StudentsAttendence": {
+    "RSK17CS039": {
+      "RAIL ID": "RSK17CS039",
+      "STUDENT NAME": "VISHWAS GOWDA M",
+      "DATE IN": "29/1/2019",
+      "TIME IN": "9:50:38",
+      "DATE OUT": "29/1/2019",
+      "TIME OUT": "14:59:24",
+      "TEAM": "Team C",
+      "PROJECT": "STUDY"
+    },
+    "RSK17CS007": {
+      "RAIL ID": "RSK17CS007",
+      "STUDENT NAME": "FATHIMA TANZEEM",
+      "DATE IN": "28/1/2019",
+      "TIME IN": "10:11:52",
+      "DATE OUT": "28/1/2019",
+      "TIME OUT": "15:26:45",
+      "TEAM": "Team A",
+      "PROJECT": "SIH"
+    },
+    "RSK17CS021": {
+      "RAIL ID": "RSK17CS021",
+      "STUDENT NAME": "NIDHISHREE TALASHTA",
+      "DATE IN": "28/1/2019",
+      "TIME IN": "10:10:37",
+      "DATE OUT": "28/1/2019",
+      "TIME OUT": "15:27:13",
+      "TEAM": "Team A",
+      "PROJECT": "SIH"
+    },
+    "RSK15CS010": {
+      "RAIL ID": "RSK15CS010",
+      "STUDENT NAME": "CHAITRA L",
+      "DATE IN": "19/1/2019",
+      "TIME IN": "11:23:57",
+      "DATE OUT": "19/1/2019",
+      "TIME OUT": "14:27:54",
+      "TEAM": "Team A",
+      "PROJECT": "SIH"
+    },
+    "RSK17CS023": {
+      "RAIL ID": "RSK17CS023",
+      "STUDENT NAME": "PRAJWAL H D",
+      "DATE IN": "29/1/2019",
+      "TIME IN": "9:49:21",
+      "DATE OUT": "29/1/2019",
+      "TIME OUT": "16:31:01",
+      "TEAM": "Team A",
+      "PROJECT": "RAIL DEVELOPEMENT"
+    },
+    "RSK15EC059": {
+      "RAIL ID": "RSK15EC059",
+      "STUDENT NAME": "VIVEKANANDA P",
+      "DATE IN": "29/1/2019",
+      "TIME IN": "12:51:17",
+      "DATE OUT": "29/1/2019",
+      "TIME OUT": "16:32:33",
+      "TEAM": "Team A",
+      "PROJECT": "SIH"
+    },
+    "RSK17CS024": {
+      "RAIL ID": "RSK17CS024",
+      "STUDENT NAME": "PRATHIK S",
+      "DATE IN": "29/1/2019",
+      "TIME IN": "12:50:06",
+      "DATE OUT": "29/1/2019",
+      "TIME OUT": "16:33:26",
+      "TEAM": "Team A",
+      "PROJECT": "RAIL DEVELOPEMENT"
+    },
+    "RSK17CS022": {
+      "RAIL ID": "RSK17CS022",
+      "STUDENT NAME": "OMKAR R IYER",
+      "DATE IN": "17/1/2019",
+      "TIME IN": "11:57:58",
+      "DATE OUT": "17/1/2019",
+      "TIME OUT": "17:32:00",
+      "TEAM": "Team A",
+      "PROJECT": "SIH"
+    },
+    "RSK17CS036": {
+      "RAIL ID": "RSK17CS036",
+      "STUDENT NAME": "TARUN GOPALKRISHNA A",
+      "DATE IN": "29/1/2019",
+      "TIME IN": "10:05:22",
+      "DATE OUT": "29/1/2019",
+      "TIME OUT": "16:33:47",
+      "TEAM": "Team A",
+      "PROJECT": "RAIL DEVELOPEMENT"
+    },
+    "RSK15EC053": {
+      "RAIL ID": "RSK15EC053",
+      "STUDENT NAME": "TARAKESHAVA C R ",
+      "DATE IN": "29/1/2019",
+      "TIME IN": "10:04:33",
+      "DATE OUT": "29/1/2019",
+      "TIME OUT": "16:32:58",
+      "TEAM": "Team A",
+      "PROJECT": "SIH"
+    },
+    "RSK18EC021": {
+      "RAIL ID": "RSK18EC021",
+      "STUDENT NAME": "HARSH P",
+      "DATE IN": "17/1/2019",
+      "TIME IN": "10:34:57",
+      "DATE OUT": "17/1/2019",
+      "TIME OUT": "17:08:21",
+      "TEAM": "Team A",
+      "PROJECT": "SIH"
+    },
+    "RSK18CS004": {
+      "RAIL ID": "RSK18CS004",
+      "STUDENT NAME": "Arbhasun  Banerjee",
+      "DATE IN": "17/1/2019",
+      "TIME IN": "10:37:05",
+      "DATE OUT": "17/1/2019",
+      "TIME OUT": "17:12:23",
+      "TEAM": "Team A",
+      "PROJECT": "SIH"
+    },
+    "RSK15CS011": {
+      "RAIL ID": "RSK15CS011",
+      "STUDENT NAME": "CHAITRA R H",
+      "DATE IN": "19/1/2019",
+      "TIME IN": "11:25:39",
+      "DATE OUT": "19/1/2019",
+      "TIME OUT": "14:28:34",
+      "TEAM": "Team A",
+      "PROJECT": "SIH"
+    },
+    "RSK17CS020": {
+      "RAIL ID": "RSK17CS020",
+      "STUDENT NAME": "NANDAN KUMAR N",
+      "DATE IN": "29/1/2019",
+      "TIME IN": "9:52:14",
+      "DATE OUT": "29/1/2019",
+      "TIME OUT": "14:56:54",
+      "TEAM": "Team C",
+      "PROJECT": "STUDY"
+    },
+    "RSK17CS018": {
+      "RAIL ID": "RSK17CS018",
+      "STUDENT NAME": "MUNIRAJ M",
+      "DATE IN": "29/1/2019",
+      "TIME IN": "9:53:46",
+      "DATE OUT": "29/1/2019",
+      "TIME OUT": "15:02:12",
+      "TEAM": "Team C",
+      "PROJECT": "STUDY"
+    },
+    "RSK17CS028": {
+      "RAIL ID": "RSK17CS028",
+      "STUDENT NAME": "SHASHANK YADAV M",
+      "DATE IN": "29/1/2019",
+      "TIME IN": "9:57:44",
+      "DATE OUT": "29/1/2019",
+      "TIME OUT": "15:00:55",
+      "TEAM": "Team C",
+      "PROJECT": "STUDY"
+    },
+    "RSK17CS014": {
+      "RAIL ID": "RSK17CS014",
+      "STUDENT NAME": "LEKHANA D",
+      "DATE IN": "29/1/2019",
+      "TIME IN": "10:19:23",
+      "DATE OUT": "29/1/2019",
+      "TIME OUT": "15:03:38",
+      "TEAM": "Team C",
+      "PROJECT": "STUDY"
+    },
+    "RSK17CS019": {
+      "RAIL ID": "RSK17CS019",
+      "STUDENT NAME": "N NANDA KUMAR",
+      "DATE IN": "29/1/2019",
+      "TIME IN": "10:02:09",
+      "DATE OUT": "29/1/2019",
+      "TIME OUT": "15:00:11",
+      "TEAM": "Team C",
+      "PROJECT": "STUDY"
+    },
+    "RSK17CS038": {
+      "RAIL ID": "RSK17CS038",
+      "STUDENT NAME": "VENKATARAMAN RAO",
+      "DATE IN": "29/1/2019",
+      "TIME IN": "9:58:45",
+      "DATE OUT": "29/1/2019",
+      "TIME OUT": "16:12:15",
+      "TEAM": "Team C",
+      "PROJECT": "STUDY"
+    }
+  },
+  "component": {
+    "1": {
+      "SL.NO": "1",
+      "COMPONENT ID": "RL-GW-T001",
+      "COMPONENT NAME": "992-DIGITAL T BEVEL",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "2": {
+      "SL.NO": "2",
+      "COMPONENT ID": "RL-GW-T002",
+      "COMPONENT NAME": "992-DIGITAL T BEVEL",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "3": {
+      "SL.NO": "3",
+      "COMPONENT ID": "RL-GW-T003",
+      "COMPONENT NAME": "42-465 LEVEL TORPEDO 9\" MAGNETIC",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "4": {
+      "SL.NO": "4",
+      "COMPONENT ID": "RL-GW-T004",
+      "COMPONENT NAME": "42-465 LEVEL TORPEDO 9\" MAGNETIC",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "5": {
+      "SL.NO": "5",
+      "COMPONENT ID": "RL-GW-T005",
+      "COMPONENT NAME": "MEASURING TAPE 10MTRS",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "6": {
+      "SL.NO": "6",
+      "COMPONENT ID": "RL-GW-T006",
+      "COMPONENT NAME": "MEASURING TAPE 10MTRS",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "7": {
+      "SL.NO": "7",
+      "COMPONENT ID": "RL-GW-T007",
+      "COMPONENT NAME": "KNIFE CMP-2",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "8": {
+      "SL.NO": "8",
+      "COMPONENT ID": "RL-GW-T008",
+      "COMPONENT NAME": "KNIFE CMP-3",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "9": {
+      "SL.NO": "9",
+      "COMPONENT ID": "RL-GW-T009",
+      "COMPONENT NAME": "ROLLER KNIFE RTV - 2G",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "10": {
+      "SL.NO": "10",
+      "COMPONENT ID": "RL-GW-T010",
+      "COMPONENT NAME": "ROLLER KNIFE RTV - 2G",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "11": {
+      "SL.NO": "11",
+      "COMPONENT ID": "RL-GW-T011",
+      "COMPONENT NAME": "CUTTER CIRCLE CMP -1",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "12": {
+      "SL.NO": "12",
+      "COMPONENT ID": "RL-GW-T012",
+      "COMPONENT NAME": "CUTTER CIRCLE CMP -1",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "13": {
+      "SL.NO": "13",
+      "COMPONENT ID": "RL-GW-T013",
+      "COMPONENT NAME": "ANGLE FINDER 4\" CS",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "14": {
+      "SL.NO": "14",
+      "COMPONENT ID": "RL-GW-T014",
+      "COMPONENT NAME": "ANGLE FINDER 4\" CS",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "15": {
+      "SL.NO": "15",
+      "COMPONENT ID": "RL-GW-T015",
+      "COMPONENT NAME": "704.45 TRACING AWLS",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "16": {
+      "SL.NO": "16",
+      "COMPONENT ID": "RL-GW-T016",
+      "COMPONENT NAME": "704.45 TRACING AWLS",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "17": {
+      "SL.NO": "17",
+      "COMPONENT ID": "RL-GW-T017",
+      "COMPONENT NAME": "INSTRUCTABLE LED TORCH",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "18": {
+      "SL.NO": "18",
+      "COMPONENT ID": "RL-GW-T018",
+      "COMPONENT NAME": "INSTRUCTABLE LED TORCH",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "19": {
+      "SL.NO": "19",
+      "COMPONENT ID": "RL-GW-T019",
+      "COMPONENT NAME": "SOLDERING STATION - 936 A",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "20": {
+      "SL.NO": "20",
+      "COMPONENT ID": "RL-GW-T020",
+      "COMPONENT NAME": "SOLDERING STATION - 936 A",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "21": {
+      "SL.NO": "21",
+      "COMPONENT ID": "RL-GW-T021",
+      "COMPONENT NAME": "87-623 WRENCH PIPE 12",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "22": {
+      "SL.NO": "22",
+      "COMPONENT ID": "RL-GW-T022",
+      "COMPONENT NAME": "87-623 WRENCH PIPE 12",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "23": {
+      "SL.NO": "23",
+      "COMPONENT ID": "RL-GW-T023",
+      "COMPONENT NAME": "83 -031K C CLAMP MAX STEEL 1\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "24": {
+      "SL.NO": "24",
+      "COMPONENT ID": "RL-GW-T024",
+      "COMPONENT NAME": "83 -031K C CLAMP MAX STEEL 1\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "25": {
+      "SL.NO": "25",
+      "COMPONENT ID": "RL-GW-T025",
+      "COMPONENT NAME": "83 -032K C CLAMP MAX STEEL 2\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "26": {
+      "SL.NO": "26",
+      "COMPONENT ID": "RL-GW-T026",
+      "COMPONENT NAME": "83 -032K C CLAMP MAX STEEL 2\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "27": {
+      "SL.NO": "27",
+      "COMPONENT ID": "RL-GW-T027",
+      "COMPONENT NAME": "83 -032K C CLAMP MAX STEEL 3\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "28": {
+      "SL.NO": "28",
+      "COMPONENT ID": "RL-GW-T028",
+      "COMPONENT NAME": "83 -032K C CLAMP MAX STEEL 3\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "29": {
+      "SL.NO": "29",
+      "COMPONENT ID": "RL-GW-T029",
+      "COMPONENT NAME": "83 -032K C CLAMP MAX STEEL 4\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "30": {
+      "SL.NO": "30",
+      "COMPONENT ID": "RL-GW-T030",
+      "COMPONENT NAME": "83 -032K C CLAMP MAX STEEL 4\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "31": {
+      "SL.NO": "31",
+      "COMPONENT ID": "RL-GW-T031",
+      "COMPONENT NAME": "6mm NUMBER PUNCH",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "32": {
+      "SL.NO": "32",
+      "COMPONENT ID": "RL-GW-T032",
+      "COMPONENT NAME": "6mm NUMBER PUNCH",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "33": {
+      "SL.NO": "33",
+      "COMPONENT ID": "RL-GW-T033",
+      "COMPONENT NAME": "LETTER PUNCH 6mm 1/4\" 27Pcs",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "34": {
+      "SL.NO": "34",
+      "COMPONENT ID": "RL-GW-T034",
+      "COMPONENT NAME": "LETTER PUNCH 6mm 1/4\" 27Pcs",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "35": {
+      "SL.NO": "35",
+      "COMPONENT ID": "RL-GW-T035",
+      "COMPONENT NAME": "MULTIMETER - XB33F",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "36": {
+      "SL.NO": "36",
+      "COMPONENT ID": "RL-GW-T036",
+      "COMPONENT NAME": "MULTIMETER - XB33F",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "37": {
+      "SL.NO": "37",
+      "COMPONENT ID": "RL-GW-T037",
+      "COMPONENT NAME": "JB - 18 PLASTIC TOOL BOX",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "38": {
+      "SL.NO": "38",
+      "COMPONENT ID": "RL-GW-T038",
+      "COMPONENT NAME": "JB - 18 PLASTIC TOOL BOX",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "39": {
+      "SL.NO": "39",
+      "COMPONENT ID": "RL-GW-T039",
+      "COMPONENT NAME": "HELPING HAND SN - 394",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "40": {
+      "SL.NO": "40",
+      "COMPONENT ID": "RL-GW-T040",
+      "COMPONENT NAME": "HELPING HAND SN - 394",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "41": {
+      "SL.NO": "41",
+      "COMPONENT ID": "RL-GW-I001",
+      "COMPONENT NAME": "DIGITAL VERNIER CALLIPER 6\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "42": {
+      "SL.NO": "42",
+      "COMPONENT ID": "RL-GW-I002",
+      "COMPONENT NAME": "DIGITAL VERNIER CALLIPER 6\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "43": {
+      "SL.NO": "43",
+      "COMPONENT ID": "RL-GW-I003",
+      "COMPONENT NAME": "DIGITAL MICROMETER 0 - 25 293-831",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "44": {
+      "SL.NO": "44",
+      "COMPONENT ID": "RL-GW-I004",
+      "COMPONENT NAME": "DIGITAL MICROMETER 0 - 25 293-831",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "45": {
+      "SL.NO": "45",
+      "COMPONENT ID": "RL-GW-T041",
+      "COMPONENT NAME": "SCALE SIZE 6\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "46": {
+      "SL.NO": "46",
+      "COMPONENT ID": "RL-GW-T042",
+      "COMPONENT NAME": "SCALE SIZE 6\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "47": {
+      "SL.NO": "47",
+      "COMPONENT ID": "RL-GW-T043",
+      "COMPONENT NAME": "SCALE SIZE 12\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "48": {
+      "SL.NO": "48",
+      "COMPONENT ID": "RL-GW-T044",
+      "COMPONENT NAME": "SCALE SIZE 12\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "49": {
+      "SL.NO": "49",
+      "COMPONENT ID": "RL-GW-T045",
+      "COMPONENT NAME": "SCALE SIZE 24\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "50": {
+      "SL.NO": "50",
+      "COMPONENT ID": "RL-GW-T046",
+      "COMPONENT NAME": "SCALE SIZE 24\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "51": {
+      "SL.NO": "51",
+      "COMPONENT ID": "RL-GW-T047",
+      "COMPONENT NAME": "SCALE SIZE 48\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "52": {
+      "SL.NO": "52",
+      "COMPONENT ID": "RL-GW-T048",
+      "COMPONENT NAME": "SCALE SIZE 48\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "53": {
+      "SL.NO": "53",
+      "COMPONENT ID": "RL-GW-T049",
+      "COMPONENT NAME": "69 - 256 HEX KEY SET 9 Pcs METRIC 1/ARMBALL",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "54": {
+      "SL.NO": "54",
+      "COMPONENT ID": "RL-GW-T050",
+      "COMPONENT NAME": "69 - 256 HEX KEY SET 9 Pcs METRIC 1/ARMBALL",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "55": {
+      "SL.NO": "55",
+      "COMPONENT ID": "RL-GW-T051",
+      "COMPONENT NAME": "69 - 257 HEX KEY SET 12 Pcs IMPERIAL 1/ARM",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "56": {
+      "SL.NO": "56",
+      "COMPONENT ID": "RL-GW-T052",
+      "COMPONENT NAME": "69 - 257 HEX KEY SET 12 Pcs IMPERIAL 1/ARM",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "57": {
+      "SL.NO": "57",
+      "COMPONENT ID": "RL-GW-T053",
+      "COMPONENT NAME": "1-84-519 MULTI TOOL 12 IN 1 WITH A POUCH",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "58": {
+      "SL.NO": "58",
+      "COMPONENT ID": "RL-GW-T054",
+      "COMPONENT NAME": "1-84-519 MULTI TOOL 12 IN 1 WITH A POUCH",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "59": {
+      "SL.NO": "59",
+      "COMPONENT ID": "RL-GW-T055",
+      "COMPONENT NAME": "TPS - 8S ALLEN KEY",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "60": {
+      "SL.NO": "60",
+      "COMPONENT ID": "RL-GW-T056",
+      "COMPONENT NAME": "TPS - 8S ALLEN KEY",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "61": {
+      "SL.NO": "61",
+      "COMPONENT ID": "RL-GW-T057",
+      "COMPONENT NAME": "DIVIDER 150mm",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "62": {
+      "SL.NO": "62",
+      "COMPONENT ID": "RL-GW-T058",
+      "COMPONENT NAME": "DIVIDER 150mm",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "63": {
+      "SL.NO": "63",
+      "COMPONENT ID": "RL-GW-T059",
+      "COMPONENT NAME": "TRI SQUARE 12\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "64": {
+      "SL.NO": "64",
+      "COMPONENT ID": "RL-GW-T060",
+      "COMPONENT NAME": "TRI SQUARE 12\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "65": {
+      "SL.NO": "65",
+      "COMPONENT ID": "RL-GW-T061",
+      "COMPONENT NAME": "COMBINATION TRI SQUARE MI-11001516C",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "66": {
+      "SL.NO": "66",
+      "COMPONENT ID": "RL-GW-T062",
+      "COMPONENT NAME": "COMBINATION TRI SQUARE MI-11001516C",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "67": {
+      "SL.NO": "67",
+      "COMPONENT ID": "RL-GW-T063",
+      "COMPONENT NAME": "DEGREE PROTRACTOR - 1501",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "68": {
+      "SL.NO": "68",
+      "COMPONENT ID": "RL-GW-T064",
+      "COMPONENT NAME": "DEGREE PROTRACTOR - 1501",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "69": {
+      "SL.NO": "69",
+      "COMPONENT ID": "RL-GW-T065",
+      "COMPONENT NAME": "3\" BENCH GRINDER",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "70": {
+      "SL.NO": "70",
+      "COMPONENT ID": "RL-GW-T066",
+      "COMPONENT NAME": "3\" BENCH GRINDER",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "71": {
+      "SL.NO": "71",
+      "COMPONENT ID": "RL-GW-T067",
+      "COMPONENT NAME": "FIXED TABLE VICE 40mm TS - 1023",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "72": {
+      "SL.NO": "72",
+      "COMPONENT ID": "RL-GW-T068",
+      "COMPONENT NAME": "FIXED TABLE VICE 40mm TS - 1023",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "73": {
+      "SL.NO": "73",
+      "COMPONENT ID": "RL-GW-T069",
+      "COMPONENT NAME": "FIXED TABLE VICE 60mm TS - 1022",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "74": {
+      "SL.NO": "74",
+      "COMPONENT ID": "RL-GW-T070",
+      "COMPONENT NAME": "FIXED TABLE VICE 80mm TS - 1021",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "75": {
+      "SL.NO": "75",
+      "COMPONENT ID": "RL-GW-T071",
+      "COMPONENT NAME": "UNIVERSAL TABLE VICE TS-1019-1",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "76": {
+      "SL.NO": "76",
+      "COMPONENT ID": "RL-GW-T072",
+      "COMPONENT NAME": "UNIVERSAL TABLE VICE TS-1018",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "77": {
+      "SL.NO": "77",
+      "COMPONENT ID": "RL-GW-T073",
+      "COMPONENT NAME": "32 PEWXAION SCREWDRIVER SET TS-1032",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "78": {
+      "SL.NO": "78",
+      "COMPONENT ID": "RL-GW-T074",
+      "COMPONENT NAME": "33 PEWXAION SCREWDRIVER SET TS-1032",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "79": {
+      "SL.NO": "79",
+      "COMPONENT ID": "RL-GW-T075",
+      "COMPONENT NAME": "COMBINATION SPANNER SET MM HW-609",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "80": {
+      "SL.NO": "80",
+      "COMPONENT ID": "RL-GW-T076",
+      "COMPONENT NAME": "COMBINATION SPANNER SET MM HW-609",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "81": {
+      "SL.NO": "81",
+      "COMPONENT ID": "RL-GW-T077",
+      "COMPONENT NAME": "70115 - S FEELER GAUGE 25 BLADE-METRIC",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "82": {
+      "SL.NO": "82",
+      "COMPONENT ID": "RL-GW-T078",
+      "COMPONENT NAME": "70115 - S FEELER GAUGE 25 BLADE-METRIC",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "83": {
+      "SL.NO": "83",
+      "COMPONENT ID": "RL-GW-T079",
+      "COMPONENT NAME": "STHT 738 W ST MULTIHAMMER CL",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "84": {
+      "SL.NO": "84",
+      "COMPONENT ID": "RL-GW-T080",
+      "COMPONENT NAME": "STHT 738 W ST MULTIHAMMER CL",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "85": {
+      "SL.NO": "85",
+      "COMPONENT ID": "RL-GW-T081",
+      "COMPONENT NAME": "RP-5D PLIERS",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "86": {
+      "SL.NO": "86",
+      "COMPONENT ID": "RL-GW-T082",
+      "COMPONENT NAME": "RP-5D PLIERS",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "87": {
+      "SL.NO": "87",
+      "COMPONENT ID": "RL-GW-T083",
+      "COMPONENT NAME": "CUTTING PLIERS PL14-8-55",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "88": {
+      "SL.NO": "88",
+      "COMPONENT ID": "RL-GW-T084",
+      "COMPONENT NAME": "CUTTING PLIERS PL14-8-55",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "89": {
+      "SL.NO": "89",
+      "COMPONENT ID": "RL-GW-T085",
+      "COMPONENT NAME": "YT-64271 SPRING LAMP",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "90": {
+      "SL.NO": "90",
+      "COMPONENT ID": "RL-GW-T086",
+      "COMPONENT NAME": "YT-64271 SPRING LAMP",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "91": {
+      "SL.NO": "91",
+      "COMPONENT ID": "RL-GW-T087",
+      "COMPONENT NAME": "SPRING CLAMP 40mm",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "92": {
+      "SL.NO": "92",
+      "COMPONENT ID": "RL-GW-T088",
+      "COMPONENT NAME": "SPRING CLAMP 40mm",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "93": {
+      "SL.NO": "93",
+      "COMPONENT ID": "RL-GW-T089",
+      "COMPONENT NAME": "NEEDLE FILE SET MF-10B",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "94": {
+      "SL.NO": "94",
+      "COMPONENT ID": "RL-GW-T090",
+      "COMPONENT NAME": "NEEDLE FILE SET MF-10B",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "95": {
+      "SL.NO": "95",
+      "COMPONENT ID": "RL-GW-T091",
+      "COMPONENT NAME": "15-218 HACKSAW-JOINOR,6\" BLADE,8-1/2",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "96": {
+      "SL.NO": "96",
+      "COMPONENT ID": "RL-GW-T092",
+      "COMPONENT NAME": "15-218 HACKSAW-JOINOR,6\" BLADE,8-1/2",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "97": {
+      "SL.NO": "97",
+      "COMPONENT ID": "RL-GW-T093",
+      "COMPONENT NAME": "JUINOR SAW BLADE",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "98": {
+      "SL.NO": "98",
+      "COMPONENT ID": "RL-GW-T094",
+      "COMPONENT NAME": "JUINOR SAW BLADE",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "99": {
+      "SL.NO": "99",
+      "COMPONENT ID": "RL-GW-T095",
+      "COMPONENT NAME": "15-166 HACKSAW-STEELFRAME 450mm FOR 12 BLADE",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "100": {
+      "SL.NO": "100",
+      "COMPONENT ID": "RL-GW-T096",
+      "COMPONENT NAME": "15-166 HACKSAW-STEELFRAME 450mm FOR 12 BLADE",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "101": {
+      "SL.NO": "101",
+      "COMPONENT ID": "RL-GW-T097",
+      "COMPONENT NAME": "70-380 E 12 Pcs D/E SPANNER SET 6-32mm",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "102": {
+      "SL.NO": "102",
+      "COMPONENT ID": "RL-GW-T098",
+      "COMPONENT NAME": "70-380 E 12 Pcs D/E SPANNER SET 6-32mm",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "103": {
+      "SL.NO": "103",
+      "COMPONENT ID": "RL-GW-T099",
+      "COMPONENT NAME": "70-395 E 12 Pcs RING SPANNER SET 6-32mm",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "104": {
+      "SL.NO": "104",
+      "COMPONENT ID": "RL-GW-T100",
+      "COMPONENT NAME": "70-395 E 12 Pcs RING SPANNER SET 6-32mm",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "105": {
+      "SL.NO": "105",
+      "COMPONENT ID": "RL-GW-T101",
+      "COMPONENT NAME": "SCRAPPER KNIFE A11CSK",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "106": {
+      "SL.NO": "106",
+      "COMPONENT ID": "RL-GW-T102",
+      "COMPONENT NAME": "SCRAPPER KNIFE A11CSK",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "107": {
+      "SL.NO": "107",
+      "COMPONENT ID": "RL-GW-T103",
+      "COMPONENT NAME": "AUTOMATIVE TOOLS - AHP - 5S",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "108": {
+      "SL.NO": "108",
+      "COMPONENT ID": "RL-GW-T104",
+      "COMPONENT NAME": "AUTOMATIVE TOOLS - AHP - 5S",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "109": {
+      "SL.NO": "109",
+      "COMPONENT ID": "RL-GW-T105",
+      "COMPONENT NAME": "ADJUTABLE SNPANNER AWS - 8\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "110": {
+      "SL.NO": "110",
+      "COMPONENT ID": "RL-GW-T106",
+      "COMPONENT NAME": "ADJUTABLE SNPANNER AWS - 8\"",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "111": {
+      "SL.NO": "111",
+      "COMPONENT ID": "RL-GW-T107",
+      "COMPONENT NAME": "MULTI TOOL WITH DUAL SPEED",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "112": {
+      "SL.NO": "112",
+      "COMPONENT ID": "RL-GW-T108",
+      "COMPONENT NAME": "MULTI TOOL WITH DUAL SPEED",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "113": {
+      "SL.NO": "113",
+      "COMPONENT ID": "RL-GW-T109",
+      "COMPONENT NAME": "ENGRAVING TOOL",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "114": {
+      "SL.NO": "114",
+      "COMPONENT ID": "RL-GW-T110",
+      "COMPONENT NAME": "ENGRAVING TOOL",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "115": {
+      "SL.NO": "115",
+      "COMPONENT ID": "RL-GW-T111",
+      "COMPONENT NAME": "HAMMER 110",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "116": {
+      "SL.NO": "116",
+      "COMPONENT ID": "RL-GW-T112",
+      "COMPONENT NAME": "HAMMER 110",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "117": {
+      "SL.NO": "117",
+      "COMPONENT ID": "RL-GW-T113",
+      "COMPONENT NAME": "HAMMER 112",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "118": {
+      "SL.NO": "118",
+      "COMPONENT ID": "RL-GW-T114",
+      "COMPONENT NAME": "HAMMER 112",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "119": {
+      "SL.NO": "119",
+      "COMPONENT ID": "RL-GW-T115",
+      "COMPONENT NAME": "HAMMER HDB - 45",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "120": {
+      "SL.NO": "120",
+      "COMPONENT ID": "RL-GW-T116",
+      "COMPONENT NAME": "HAMMER HDB - 45",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "121": {
+      "SL.NO": "121",
+      "COMPONENT ID": "RL-GW-T117",
+      "COMPONENT NAME": "DP - J = HD 6 DEGREE PROTRACTOR",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "122": {
+      "SL.NO": "122",
+      "COMPONENT ID": "RL-GW-T118",
+      "COMPONENT NAME": "DP - J = HD 6 DEGREE PROTRACTOR",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "123": {
+      "SL.NO": "123",
+      "COMPONENT ID": "RL-GW-T119",
+      "COMPONENT NAME": "SDM REWORK STATION 850 A",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "124": {
+      "SL.NO": "124",
+      "COMPONENT ID": "RL-GW-T120",
+      "COMPONENT NAME": "MAGNIFING GLASS 8093",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "125": {
+      "SL.NO": "125",
+      "COMPONENT ID": "RL-GW-T121",
+      "COMPONENT NAME": "MAGNIFING GLASS 8093",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "126": {
+      "SL.NO": "126",
+      "COMPONENT ID": "RL-GW-T122",
+      "COMPONENT NAME": "TS-100 NOSEPLIER 150mm WITH SERATION",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "127": {
+      "SL.NO": "127",
+      "COMPONENT ID": "RL-GW-T123",
+      "COMPONENT NAME": "TS-100 NOSEPLIER 150mm WITH SERATION",
+      "GROUP": "GOODWILL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "128": {
+      "SL.NO": "128",
+      "COMPONENT ID": "RL-PI-K001",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "129": {
+      "SL.NO": "129",
+      "COMPONENT ID": "RL-PI-K002",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "130": {
+      "SL.NO": "130",
+      "COMPONENT ID": "RL-PI-K003",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "131": {
+      "SL.NO": "131",
+      "COMPONENT ID": "RL-PI-K004",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "132": {
+      "SL.NO": "132",
+      "COMPONENT ID": "RL-PI-K005",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "133": {
+      "SL.NO": "133",
+      "COMPONENT ID": "RL-PI-K006",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "134": {
+      "SL.NO": "134",
+      "COMPONENT ID": "RL-PI-K007",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "135": {
+      "SL.NO": "135",
+      "COMPONENT ID": "RL-PI-K008",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "136": {
+      "SL.NO": "136",
+      "COMPONENT ID": "RL-PI-K009",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "137": {
+      "SL.NO": "137",
+      "COMPONENT ID": "RL-PI-K010",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "138": {
+      "SL.NO": "138",
+      "COMPONENT ID": "RL-PI-K011",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "139": {
+      "SL.NO": "139",
+      "COMPONENT ID": "RL-PI-K012",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "140": {
+      "SL.NO": "140",
+      "COMPONENT ID": "RL-PI-K013",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "141": {
+      "SL.NO": "141",
+      "COMPONENT ID": "RL-PI-K014",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "142": {
+      "SL.NO": "142",
+      "COMPONENT ID": "RL-PI-K015",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "143": {
+      "SL.NO": "143",
+      "COMPONENT ID": "RL-PI-K016",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "144": {
+      "SL.NO": "144",
+      "COMPONENT ID": "RL-PI-K017",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "145": {
+      "SL.NO": "145",
+      "COMPONENT ID": "RL-PI-K018",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "146": {
+      "SL.NO": "146",
+      "COMPONENT ID": "RL-PI-K019",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "147": {
+      "SL.NO": "147",
+      "COMPONENT ID": "RL-PI-K020",
+      "COMPONENT NAME": "RASPBERRY Pi 3 MODEL-B COMPLETE KIT",
+      "GROUP": "RASPBERRY",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "148": {
+      "SL.NO": "148",
+      "COMPONENT ID": "RL-NI-SW01",
+      "COMPONENT NAME": "NI MULTISIM SOFTWARE",
+      "GROUP": "NI",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "149": {
+      "SL.NO": "149",
+      "COMPONENT ID": "RL-NI-K001",
+      "COMPONENT NAME": "NI myDAQ",
+      "GROUP": "NI",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "150": {
+      "SL.NO": "150",
+      "COMPONENT ID": "RL-NI-K002",
+      "COMPONENT NAME": "NI myRIO BUNDLE HARDWARE",
+      "GROUP": "NI",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "151": {
+      "SL.NO": "151",
+      "COMPONENT ID": "RL-NI-K003",
+      "COMPONENT NAME": "NI VIRTUAL BENCH WITH ACCESSORIES",
+      "GROUP": "NI",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "152": {
+      "SL.NO": "152",
+      "COMPONENT ID": "RL-BS-I001",
+      "COMPONENT NAME": "BOSCH 46 Pcs SCREWDRIVER SET 2607019504",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "153": {
+      "SL.NO": "153",
+      "COMPONENT ID": "RL-BS-I002",
+      "COMPONENT NAME": "BOSCH 46 Pcs SCREWDRIVER SET 2607019504",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "154": {
+      "SL.NO": "154",
+      "COMPONENT ID": "RL-BS-I003",
+      "COMPONENT NAME": "BOSCH XLINE SER 50 Pcs 2607019327",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "155": {
+      "SL.NO": "155",
+      "COMPONENT ID": "RL-BS-I004",
+      "COMPONENT NAME": "BOSCH XLINE SER 50 Pcs 2607019327",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "156": {
+      "SL.NO": "156",
+      "COMPONENT ID": "RL-BS-I005",
+      "COMPONENT NAME": "BOSCH GSP 10RE KIT IMPACT DRILL 06012131F4",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "157": {
+      "SL.NO": "157",
+      "COMPONENT ID": "RL-BS-I006",
+      "COMPONENT NAME": "BOSCH GSP 10RE KIT IMPACT DRILL 06012131F4",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "158": {
+      "SL.NO": "158",
+      "COMPONENT ID": "RL-BS-I007",
+      "COMPONENT NAME": "BOSCH GSP 13RE KIT IMPACT DRILL",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "159": {
+      "SL.NO": "159",
+      "COMPONENT ID": "RL-BS-I008",
+      "COMPONENT NAME": "BOSCH GSP 13RE KIT IMPACT DRILL",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "160": {
+      "SL.NO": "160",
+      "COMPONENT ID": "RL-BS-I009",
+      "COMPONENT NAME": "BOSCH CORDLESS DRILL DRIVER GSR1080-2-LI06019E20K2",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "161": {
+      "SL.NO": "161",
+      "COMPONENT ID": "RL-BS-I010",
+      "COMPONENT NAME": "SKILL WOLVERING 2614 DRILL DRIVER",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "162": {
+      "SL.NO": "162",
+      "COMPONENT ID": "RL-BS-M001",
+      "COMPONENT NAME": "BOSCH JIGSAW M/C GST 85PBE",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "163": {
+      "SL.NO": "163",
+      "COMPONENT ID": "RL-BS-M002",
+      "COMPONENT NAME": "BOSCH JIGSAW M/C GST 85PBE",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "164": {
+      "SL.NO": "164",
+      "COMPONENT ID": "RL-BS-M003",
+      "COMPONENT NAME": "BOSCH GTS 10J TABLE SAW",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "165": {
+      "SL.NO": "165",
+      "COMPONENT ID": "RL-BS-M004",
+      "COMPONENT NAME": "BOSCH ROUTER POF 1400 ACE 06032626C8 00",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "166": {
+      "SL.NO": "166",
+      "COMPONENT ID": "RL-BS-M005",
+      "COMPONENT NAME": "BOSCH ROUTER POF 1400 ACE 06032626C8 00",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "167": {
+      "SL.NO": "167",
+      "COMPONENT ID": "RL-BS-I011",
+      "COMPONENT NAME": "BOSCH GLL3 X PROFESSIONAL",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "168": {
+      "SL.NO": "168",
+      "COMPONENT ID": "RL-BS-I012",
+      "COMPONENT NAME": "BOSCH GLM 40 DISTANCE MEASURING UNIT",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "169": {
+      "SL.NO": "169",
+      "COMPONENT ID": "RL-BS-I013",
+      "COMPONENT NAME": "BOSCH GPL 5",
+      "GROUP": "BOSCH",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "170": {
+      "SL.NO": "170",
+      "COMPONENT ID": "RL-SN-S001",
+      "COMPONENT NAME": "PHOTO CELL",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "171": {
+      "SL.NO": "171",
+      "COMPONENT ID": "RL-SN-S002",
+      "COMPONENT NAME": "DIGITAL SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "172": {
+      "SL.NO": "172",
+      "COMPONENT ID": "RL-SN-S003",
+      "COMPONENT NAME": "DIGITAL LUMINOSITY/LUX/LIGHT SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "173": {
+      "SL.NO": "173",
+      "COMPONENT ID": "RL-SN-S004",
+      "COMPONENT NAME": "GPS SENSOR-66 CHANNEL W/10HZ",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "174": {
+      "SL.NO": "174",
+      "COMPONENT ID": "RL-SN-S005",
+      "COMPONENT NAME": "ELECTRIC MICROPHONE AMPLIFIER",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "175": {
+      "SL.NO": "175",
+      "COMPONENT ID": "RL-SN-S006",
+      "COMPONENT NAME": "MINI SPV CAMERA FOR PHOTO/VIDEO",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "176": {
+      "SL.NO": "176",
+      "COMPONENT ID": "RL-SN-S007",
+      "COMPONENT NAME": "9-DOF ABSOLUTE ORIENTATION",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "177": {
+      "SL.NO": "177",
+      "COMPONENT ID": "RL-SN-S008",
+      "COMPONENT NAME": "ANALOG TEMPERATURE SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "178": {
+      "SL.NO": "178",
+      "COMPONENT ID": "RL-SN-S009",
+      "COMPONENT NAME": "RGB COLOR SENSOR WITH IR FILTER+LED",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "179": {
+      "SL.NO": "179",
+      "COMPONENT ID": "RL-SN-S010",
+      "COMPONENT NAME": "TEMPERATURE-HUMIDITY SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "180": {
+      "SL.NO": "180",
+      "COMPONENT ID": "RL-SN-S011",
+      "COMPONENT NAME": "PIR (MOTION) SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "181": {
+      "SL.NO": "181",
+      "COMPONENT ID": "RL-SN-S012",
+      "COMPONENT NAME": "IR BREAK BEAM SENSOR-3MM LEDS",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "182": {
+      "SL.NO": "182",
+      "COMPONENT ID": "RL-SN-S013",
+      "COMPONENT NAME": "PLASTIC WATER SOL-VALVE-12-1/2 NOMINAL",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "183": {
+      "SL.NO": "183",
+      "COMPONENT ID": "RL-SN-S014",
+      "COMPONENT NAME": "ROUND FORCE-SENSITIVE RESISTOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "184": {
+      "SL.NO": "184",
+      "COMPONENT ID": "RL-SN-S015",
+      "COMPONENT NAME": "TEMPERATURE-HUMIDITY-PRESSURE SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "185": {
+      "SL.NO": "185",
+      "COMPONENT ID": "RL-SN-S016",
+      "COMPONENT NAME": "FAST VIBRATION SESNOR SWITCH-EASY",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "186": {
+      "SL.NO": "186",
+      "COMPONENT ID": "RL-SN-S017",
+      "COMPONENT NAME": "HIGH ACCURACY 12C TEMP-SESNORBR-BOARD",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "187": {
+      "SL.NO": "187",
+      "COMPONENT ID": "RL-SN-S018",
+      "COMPONENT NAME": "SQUARE FORCE-SENSITVIE RESISTOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "188": {
+      "SL.NO": "188",
+      "COMPONENT ID": "RL-SN-S019",
+      "COMPONENT NAME": "IR (INFRARED) RECEIVER SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "189": {
+      "SL.NO": "189",
+      "COMPONENT ID": "RL-SN-S020",
+      "COMPONENT NAME": "PIEZO BUZZER",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "190": {
+      "SL.NO": "190",
+      "COMPONENT ID": "RL-SN-S021",
+      "COMPONENT NAME": "SMALL ENCLOSED PIEZO W/WIRES",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "191": {
+      "SL.NO": "191",
+      "COMPONENT ID": "RL-SN-S022",
+      "COMPONENT NAME": "BARO-PRES/TEMP/ALT SENSOR-5V WITH AUTOGAIN CONTROL",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "192": {
+      "SL.NO": "192",
+      "COMPONENT ID": "RL-SN-S023",
+      "COMPONENT NAME": "12-KEY CAPACITIVE TOUCH SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "193": {
+      "SL.NO": "193",
+      "COMPONENT ID": "RL-SN-S024",
+      "COMPONENT NAME": "TRIPLE AXIS ACEL(+12G/4G/8G/16)",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "194": {
+      "SL.NO": "194",
+      "COMPONENT ID": "RL-SN-S025",
+      "COMPONENT NAME": "THERMOCOUPLE AMPLIFIER",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "195": {
+      "SL.NO": "195",
+      "COMPONENT ID": "RL-SN-S026",
+      "COMPONENT NAME": "MEDIUM VIBRATION SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "196": {
+      "SL.NO": "196",
+      "COMPONENT ID": "RL-SN-S027",
+      "COMPONENT NAME": "HALL EFFECT SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "197": {
+      "SL.NO": "197",
+      "COMPONENT ID": "RL-SN-S028",
+      "COMPONENT NAME": "PHOTO TRANSISTOR LIGHT SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "198": {
+      "SL.NO": "198",
+      "COMPONENT ID": "RL-SN-S029",
+      "COMPONENT NAME": "10K PRECISION EPOXY THERMISTOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "199": {
+      "SL.NO": "199",
+      "COMPONENT ID": "RL-SN-S030",
+      "COMPONENT NAME": "ROTARY ENCODER",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "200": {
+      "SL.NO": "200",
+      "COMPONENT ID": "RL-SN-S031",
+      "COMPONENT NAME": "HIGH DYNAMIC RANGE DIGITAL LIGHT SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "201": {
+      "SL.NO": "201",
+      "COMPONENT ID": "RL-SN-S032",
+      "COMPONENT NAME": "SHORT FLEX SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "202": {
+      "SL.NO": "202",
+      "COMPONENT ID": "RL-SN-S033",
+      "COMPONENT NAME": "MAGNETIC SONTACT SWITCH",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "203": {
+      "SL.NO": "203",
+      "COMPONENT ID": "RL-SN-S034",
+      "COMPONENT NAME": "ANALOG 2-AXIS THUMBJOYSTIC+SEL-BUTTON",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "204": {
+      "SL.NO": "204",
+      "COMPONENT ID": "RL-SN-S035",
+      "COMPONENT NAME": "STANDALONE MOMENTARY CAP-TOUCH SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "205": {
+      "SL.NO": "205",
+      "COMPONENT ID": "RL-SN-S036",
+      "COMPONENT NAME": "THERMOCOUPLE AMPLIFIER+1-WIREBR-BOARD",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "206": {
+      "SL.NO": "206",
+      "COMPONENT ID": "RL-SN-S037",
+      "COMPONENT NAME": "MINI 2-AXIS ANALOG THUMBSTICK",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "207": {
+      "SL.NO": "207",
+      "COMPONENT ID": "RL-SN-S038",
+      "COMPONENT NAME": "LOG-SCALE ANALOG LIGHT SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "208": {
+      "SL.NO": "208",
+      "COMPONENT ID": "RL-SN-S039",
+      "COMPONENT NAME": "LIQUID FLOW METER-1/2 NPS THREADED",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "209": {
+      "SL.NO": "209",
+      "COMPONENT ID": "RL-SN-S040",
+      "COMPONENT NAME": "PROXIMITY /LIGHT SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "210": {
+      "SL.NO": "210",
+      "COMPONENT ID": "RL-SN-S041",
+      "COMPONENT NAME": "MEMBRANCE 3X4MATRIXKEYPAD",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "211": {
+      "SL.NO": "211",
+      "COMPONENT ID": "RL-SN-S042",
+      "COMPONENT NAME": "SLOW VIBRATION SENSOR SWITCH",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "212": {
+      "SL.NO": "212",
+      "COMPONENT ID": "RL-SN-S043",
+      "COMPONENT NAME": "MEMBRANCE 1X4 KEYPAD",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "213": {
+      "SL.NO": "213",
+      "COMPONENT ID": "RL-SN-S044",
+      "COMPONENT NAME": "ULTIMATE GPS LOGGER SHIELD+GPS MODULE",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "214": {
+      "SL.NO": "214",
+      "COMPONENT ID": "RL-SN-S045",
+      "COMPONENT NAME": "SILICON MEMS MICROPHONE BREAKOUT",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "215": {
+      "SL.NO": "215",
+      "COMPONENT ID": "RL-SN-S046",
+      "COMPONENT NAME": "ALCOHOL AND VOC GAS SENSOR BREAKOUT",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "216": {
+      "SL.NO": "216",
+      "COMPONENT ID": "RL-SN-S047",
+      "COMPONENT NAME": "POTENTIOMETER KNOB-SOFT TOUCH",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "217": {
+      "SL.NO": "217",
+      "COMPONENT ID": "RL-SN-S048",
+      "COMPONENT NAME": "CONTACT-LESS INFRARED THRMOPILE SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "218": {
+      "SL.NO": "218",
+      "COMPONENT ID": "RL-SN-S049",
+      "COMPONENT NAME": "IR DISTANCE SENSOR+ CABLE (10CM-80CM)",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "219": {
+      "SL.NO": "219",
+      "COMPONENT ID": "RL-SN-S050",
+      "COMPONENT NAME": "ANALOG UV LIGHT SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "220": {
+      "SL.NO": "220",
+      "COMPONENT ID": "RL-SN-S051",
+      "COMPONENT NAME": "ANALOG LIGHT SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "221": {
+      "SL.NO": "221",
+      "COMPONENT ID": "RL-SN-S052",
+      "COMPONENT NAME": "9-DOF IMU BREAKOUT",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "222": {
+      "SL.NO": "222",
+      "COMPONENT ID": "RL-SN-S053",
+      "COMPONENT NAME": "TILT BALL SWITCH",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "223": {
+      "SL.NO": "223",
+      "COMPONENT ID": "RL-SN-S054",
+      "COMPONENT NAME": "MINI-8-WAY ROTARY SELETOR SWITCH",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "224": {
+      "SL.NO": "224",
+      "COMPONENT ID": "RL-SN-S055",
+      "COMPONENT NAME": "DIGITAL UV INDEX/R/VISIBLE LIGHT SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "225": {
+      "SL.NO": "225",
+      "COMPONENT ID": "RL-SN-S056",
+      "COMPONENT NAME": "ELECTRET MICROPHONE-OMNIDIRECTIONAL",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "226": {
+      "SL.NO": "226",
+      "COMPONENT ID": "RL-SN-S057",
+      "COMPONENT NAME": "TTL SERIAL JPEG CAMERA WITH NTSC VIDEO",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "227": {
+      "SL.NO": "227",
+      "COMPONENT ID": "RL-SN-S058",
+      "COMPONENT NAME": "TRIPLE AXIS BYRO BREAKOUT BOARD",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "228": {
+      "SL.NO": "228",
+      "COMPONENT ID": "RL-SN-S059",
+      "COMPONENT NAME": "AN METER WIND SPEED SENSOR W/ANA.O/P",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "229": {
+      "SL.NO": "229",
+      "COMPONENT ID": "RL-SN-S060",
+      "COMPONENT NAME": "PULSE SENSOR AMPED",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "230": {
+      "SL.NO": "230",
+      "COMPONENT ID": "RL-SN-S061",
+      "COMPONENT NAME": "3X4 PHONE-STYLE MATRIX KEYPAD",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "231": {
+      "SL.NO": "231",
+      "COMPONENT ID": "RL-SN-S062",
+      "COMPONENT NAME": "SOIL TEMPERATURE/MOISTURE SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "232": {
+      "SL.NO": "232",
+      "COMPONENT ID": "RL-SN-S063",
+      "COMPONENT NAME": "PSP 2-AXIS ANALOG TUMB JOYSTICK",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "233": {
+      "SL.NO": "233",
+      "COMPONENT ID": "RL-SN-S064",
+      "COMPONENT NAME": "FOOT SWITCH",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "234": {
+      "SL.NO": "234",
+      "COMPONENT ID": "RL-SN-S065",
+      "COMPONENT NAME": "LINEAR SOFTPOT(RIBBON SENSOR) 100MM",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "235": {
+      "SL.NO": "235",
+      "COMPONENT ID": "RL-SN-S066",
+      "COMPONENT NAME": "MAXBOTIX ULTRASONICRANGEFINDER",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "236": {
+      "SL.NO": "236",
+      "COMPONENT ID": "RL-SN-S067",
+      "COMPONENT NAME": "BARCODE READER/SCANNER MOKULE-CCD CAMER-USB INTERFACE",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "237": {
+      "SL.NO": "237",
+      "COMPONENT ID": "RL-SN-S068",
+      "COMPONENT NAME": "BRASS LIQUID SOLINOID VAVE-12-1/2 NPS",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "238": {
+      "SL.NO": "238",
+      "COMPONENT ID": "RL-SN-S069",
+      "COMPONENT NAME": "CIRCULAR SOFT POT(RIBBON SENSOR)",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "239": {
+      "SL.NO": "239",
+      "COMPONENT ID": "RL-SN-S070",
+      "COMPONENT NAME": "SENSOR PACK 900",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "240": {
+      "SL.NO": "240",
+      "COMPONENT ID": "RL-SN-S071",
+      "COMPONENT NAME": "MINI ANALOG JOYUSTIC-10K POTENTIOMETERS",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "241": {
+      "SL.NO": "241",
+      "COMPONENT ID": "RL-SN-S072",
+      "COMPONENT NAME": "SCRUBBER KNOB FOR ROTARY ENCODER-35MM",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "242": {
+      "SL.NO": "242",
+      "COMPONENT ID": "RL-SN-S073",
+      "COMPONENT NAME": "EXTRA-LONG FORCE-SENSITIVE RESITOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "243": {
+      "SL.NO": "243",
+      "COMPONENT ID": "RL-SN-S074",
+      "COMPONENT NAME": "MEMBRANE LED KEYPAD",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "244": {
+      "SL.NO": "244",
+      "COMPONENT ID": "RL-SN-S075",
+      "COMPONENT NAME": "FINGERPRINT SENSOR",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "245": {
+      "SL.NO": "245",
+      "COMPONENT ID": "RL-SN-S076",
+      "COMPONENT NAME": "FOOD GRADE HEAT SHRINK-3/8\" DIA 12\"LONG",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "246": {
+      "SL.NO": "246",
+      "COMPONENT ID": "RL-SN-S077",
+      "COMPONENT NAME": "PANEL TEMPERATURE METER/-30 TO+70 C",
+      "GROUP": "SENSORS",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "247": {
+      "SL.NO": "247",
+      "COMPONENT ID": "RL-AR-K001",
+      "COMPONENT NAME": "ARDUINO STARTER KIT",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "248": {
+      "SL.NO": "248",
+      "COMPONENT ID": "RL-AR-K002",
+      "COMPONENT NAME": "ARDUINO STARTER KIT",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "249": {
+      "SL.NO": "249",
+      "COMPONENT ID": "RL-AR-K003",
+      "COMPONENT NAME": "ARDUINO STARTER KIT",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "250": {
+      "SL.NO": "250",
+      "COMPONENT ID": "RL-AR-K004",
+      "COMPONENT NAME": "ARDUINO STARTER KIT",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "251": {
+      "SL.NO": "251",
+      "COMPONENT ID": "RL-AR-K005",
+      "COMPONENT NAME": "ARDUINO STARTER KIT",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "252": {
+      "SL.NO": "252",
+      "COMPONENT ID": "RL-AR-B001",
+      "COMPONENT NAME": "ARDUINO/GENUINO/GENUI0101",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "253": {
+      "SL.NO": "253",
+      "COMPONENT ID": "RL-AR-B002",
+      "COMPONENT NAME": "ARDUINO/GENUINO YUN",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "254": {
+      "SL.NO": "254",
+      "COMPONENT ID": "RL-AR-B003",
+      "COMPONENT NAME": "ARDUINO/GENUINO ETHERNET",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "255": {
+      "SL.NO": "255",
+      "COMPONENT ID": "RL-AR-B004",
+      "COMPONENT NAME": "ARDUINO/GENUINOMKR 1000",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "256": {
+      "SL.NO": "256",
+      "COMPONENT ID": "RL-AR-B005",
+      "COMPONENT NAME": "ARDUINO/GENUINO WIFISHIELD",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "257": {
+      "SL.NO": "257",
+      "COMPONENT ID": "RL-AR-B006",
+      "COMPONENT NAME": "ARDUINO/GENUINO GSM/GRPS SHIELD V2",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "258": {
+      "SL.NO": "258",
+      "COMPONENT ID": "RL-AR-B007",
+      "COMPONENT NAME": "ARDUINO/GEENUINOGEMMA",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "259": {
+      "SL.NO": "259",
+      "COMPONENT ID": "RL-AR-B008",
+      "COMPONENT NAME": "LILYPAD ARDUINO/GENUINO MAIN BOARD",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "260": {
+      "SL.NO": "260",
+      "COMPONENT ID": "RL-SK-G001",
+      "COMPONENT NAME": "SK 15A PORT ACTIVE ENCLOSURE",
+      "GROUP": "HANSA PICTURES",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "261": {
+      "SL.NO": "261",
+      "COMPONENT ID": "RL-SK-G002",
+      "COMPONENT NAME": "SK 15A PORT ACTIVE ENCLOSURE",
+      "GROUP": "HANSA PICTURES",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "262": {
+      "SL.NO": "262",
+      "COMPONENT ID": "RL-GR-K001",
+      "COMPONENT NAME": "GROVER STARTER KIT FOR IOT BASED ON RASBERRI PI",
+      "GROUP": "GROVER",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "263": {
+      "SL.NO": "263",
+      "COMPONENT ID": "RL-GR-K002",
+      "COMPONENT NAME": "GROVER STARTER KIT FOR IOT BASED ON RASBERRI PI",
+      "GROUP": "GROVER",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "264": {
+      "SL.NO": "264",
+      "COMPONENT ID": "RL-GR-K003",
+      "COMPONENT NAME": "GROVER STARTER KIT FOR IOT BASED ON RASBERRI PI",
+      "GROUP": "GROVER",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "265": {
+      "SL.NO": "265",
+      "COMPONENT ID": "RL-AR-B009",
+      "COMPONENT NAME": "ARDUINO/GENUINO MEGA 2560",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "266": {
+      "SL.NO": "266",
+      "COMPONENT ID": "RL-AR-B010",
+      "COMPONENT NAME": "ARDUINO/GENUINO MEGA ADK",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "267": {
+      "SL.NO": "267",
+      "COMPONENT ID": "RL-AR-B011",
+      "COMPONENT NAME": "ARDUINO/GENUINO MO PRO",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "268": {
+      "SL.NO": "268",
+      "COMPONENT ID": "RL-AR-B012",
+      "COMPONENT NAME": "ARDUINO/GENUINO MOTOR SHIELD",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "269": {
+      "SL.NO": "269",
+      "COMPONENT ID": "RL-AR-B013",
+      "COMPONENT NAME": "ARDUINO/GENUINO USB HOST SHIELD",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "270": {
+      "SL.NO": "270",
+      "COMPONENT ID": "RL-AR-B014",
+      "COMPONENT NAME": "ARDUINO/GENUINO LUCKY SHIELD",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "271": {
+      "SL.NO": "271",
+      "COMPONENT ID": "RL-AR-B015",
+      "COMPONENT NAME": "ARDUINO/GENUINO ISP",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "272": {
+      "SL.NO": "272",
+      "COMPONENT ID": "RL-AR-B016",
+      "COMPONENT NAME": "ARDUINO/GENUINO INDUSTRIAL 101",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "273": {
+      "SL.NO": "273",
+      "COMPONENT ID": "RL-AR-B017",
+      "COMPONENT NAME": "ARDUINO/GENUINO TIAN",
+      "GROUP": "ARDUINO",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "NO"
+    },
+    "274": {
+      "SL.NO": "274",
+      "COMPONENT ID": "RL-GR-K004",
+      "COMPONENT NAME": "GROVER STARTER KIT PLUS",
+      "GROUP": "GROVER",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "275": {
+      "SL.NO": "275",
+      "COMPONENT ID": "RL-GR-K005",
+      "COMPONENT NAME": "GROVER STARTER KIT PLUS",
+      "GROUP": "GROVER",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "276": {
+      "SL.NO": "276",
+      "COMPONENT ID": "RL-GR-K006",
+      "COMPONENT NAME": "GROVER STARTER KIT PLUS",
+      "GROUP": "GROVER",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "277": {
+      "SL.NO": "277",
+      "COMPONENT ID": "RL-GR-K007",
+      "COMPONENT NAME": "GROVER STARTER KIT PLUS",
+      "GROUP": "GROVER",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "278": {
+      "SL.NO": "278",
+      "COMPONENT ID": "RL-GR-K008",
+      "COMPONENT NAME": "GROVER STARTER KIT PLUS",
+      "GROUP": "GROVER",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "279": {
+      "SL.NO": "279",
+      "COMPONENT ID": "RL-IN-K001",
+      "COMPONENT NAME": "INTEL EDISION DEVELOPMENT KIT",
+      "GROUP": "INTEL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "280": {
+      "SL.NO": "280",
+      "COMPONENT ID": "RL-IN-K002",
+      "COMPONENT NAME": "INTEL EDISION DEVELOPMENT KIT",
+      "GROUP": "INTEL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "281": {
+      "SL.NO": "281",
+      "COMPONENT ID": "RL-IN-K003",
+      "COMPONENT NAME": "INTEL EDISION DEVELOPMENT KIT",
+      "GROUP": "INTEL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "282": {
+      "SL.NO": "282",
+      "COMPONENT ID": "RL-IN-K004",
+      "COMPONENT NAME": "INTEL EDISION DEVELOPMENT KIT",
+      "GROUP": "INTEL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "283": {
+      "SL.NO": "283",
+      "COMPONENT ID": "RL-IN-K005",
+      "COMPONENT NAME": "INTEL EDISION DEVELOPMENT KIT",
+      "GROUP": "INTEL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "284": {
+      "SL.NO": "284",
+      "COMPONENT ID": "RL-IN-K006",
+      "COMPONENT NAME": "INTEL GALILEO DEVELOPMENT KIT",
+      "GROUP": "INTEL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "285": {
+      "SL.NO": "285",
+      "COMPONENT ID": "RL-IN-K007",
+      "COMPONENT NAME": "INTEL GALILEO DEVELOPMENT KIT",
+      "GROUP": "INTEL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "286": {
+      "SL.NO": "286",
+      "COMPONENT ID": "RL-IN-K008",
+      "COMPONENT NAME": "INTEL GALILEO DEVELOPMENT KIT",
+      "GROUP": "INTEL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "287": {
+      "SL.NO": "287",
+      "COMPONENT ID": "RL-IN-K009",
+      "COMPONENT NAME": "INTEL GALILEO DEVELOPMENT KIT",
+      "GROUP": "INTEL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "288": {
+      "SL.NO": "288",
+      "COMPONENT ID": "RL-IN-K010",
+      "COMPONENT NAME": "INTEL GALILEO DEVELOPMENT KIT",
+      "GROUP": "INTEL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "289": {
+      "SL.NO": "289",
+      "COMPONENT ID": "RL-IN-K011",
+      "COMPONENT NAME": "INTEL JOULE 570xDEVELOPEMENT KIT",
+      "GROUP": "INTEL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "290": {
+      "SL.NO": "290",
+      "COMPONENT ID": "RL-IN-K012",
+      "COMPONENT NAME": "INTEL JOULE 570xDEVELOPEMENT KIT",
+      "GROUP": "INTEL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "291": {
+      "SL.NO": "291",
+      "COMPONENT ID": "RL-IN-K013",
+      "COMPONENT NAME": "INTEL JOULE 570xDEVELOPEMENT KIT",
+      "GROUP": "INTEL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "292": {
+      "SL.NO": "292",
+      "COMPONENT ID": "RL-IN-K014",
+      "COMPONENT NAME": "INTEL JOULE 570xDEVELOPEMENT KIT",
+      "GROUP": "INTEL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    },
+    "293": {
+      "SL.NO": "293",
+      "COMPONENT ID": "RL-IN-K015",
+      "COMPONENT NAME": "INTEL JOULE 570xDEVELOPEMENT KIT",
+      "GROUP": "INTEL",
+      "COLOR CODE": "",
+      "STATUS": "ADMIN",
+      "IF KIT": "YES"
+    }
+  }
+}

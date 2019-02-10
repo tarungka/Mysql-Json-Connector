@@ -1,0 +1,87 @@
+jsonIn	=	{
+				"table_name": "1",
+				"request_type"	: "logout",
+				"data"	:{
+							"rail_id"	:	"RSK17CS024",
+				//			"student_name"	: "Prathik",
+				//			"gender"	:	"M",
+				//			"date_of_birth"	:	"1999-03-14",
+				//			"date_of_account_creation"	:	"2018-10-10",
+				//			"phone_number"	:	"0123456789",
+				//			"email"	:	"prathik@gmail.com",
+				//			"password"	:	"testpass_1",
+				//			"usn"	:	"1SK17CS024",
+				//			"branch"	:	"CSE",
+				//			"year_of_joining_rail"	:	"2018",
+				//			"associated_team"	:	"A,B,C",
+				//			"login_status"	:	"NO",
+				//			"component_status"	:	"NO"
+				}
+			}
+
+
+//jsonIn	=	{
+//				"table_name" : "1",
+//				"request_type"	: "login",
+//				"data"	:	{
+//								"student_name"	:	"tarun"
+//							}
+//			}
+
+//INSERT
+//data = {
+//		"rail_id"	:	"RSK17CS024",
+//		"student_name"	: "Prathik",
+//		"gender"	:	"M",
+//		"date_of_birth"	:	"1999-03-14",
+//		"date_of_account_creation"	:	"2018-10-10",
+//		"phone_number"	:	"0123456789",
+//		"email"	:	"prathik@gmail.com",
+//		"password"	:	"testpass_1",
+//		"usn"	:	"1SK17CS024",
+//		"branch"	:	"CSE",
+//		"year_of_joining_rail"	:	"2018",
+//		"associated_team"	:	"A,B,C",
+//		"login_status"	:	"NO",
+//		"component_status"	:	"NO"
+//}
+//DELETE
+//data = {
+//		"rail_id" : "RSK17CS036"
+//}
+//READ -> NO "data" FIELD
+//READEACH
+//data = {		
+//		"rail_id" : "RSK17CS024"
+//}
+
+
+
+
+
+
+jsonIn={"table_name":"1","request_type":"logout","data":{"rail_id":"RSK17CS024"}}
+
+
+{
+	"table_name":"5",
+	"request_type":"insert",
+	"data":{
+		"project_name"			: "test_proj",
+		"associated_team"		: "A,B",
+		"project_description"	: "just_testing_this_code",
+		"number_of_members"		: "4",
+		"mentor"				: "test_person",
+		"team_lead"				: "test_leader",
+		"guide"					: "test_guide",
+		"idea_by"				: "test_idea_name",
+		"type_of_project"		: "software",
+		"expected_duration"		: "5months",
+		"start_date"			: "2018-10-10 01:01:01",
+		"end_date"				: "2019-02-10 01:01:01",
+		"status"				: "test_status",
+		"priority"				: "test_prio",
+		"technology_stack"		: "test_stack"
+	}
+}
+

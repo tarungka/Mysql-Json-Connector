@@ -1,0 +1,333 @@
+{
+	"database_1"	: {
+		"database_name" 		: 	"students",
+		"table_1" 				: 	{
+			"table_name"	: "current_students",
+			"table_constrains"		: 	{
+				"slno"					:	"INT NOT NULL AUTO_INCREMENT",
+				"rail_id"				:	"CHAR(10) NOT NULL",
+				"student_name"			:	"VARCHAR(50) NOT NULL",
+				"gender"				:	"CHAR(1)",
+				"date_of_birth"			:	"DATE",
+				"time_of_joining_rail"	:	"DATETIME DEFAULT NOW()",
+				"phone_number"			:	"VARCHAR(10) NOT NULL",
+				"email"					:	"VARCHAR(40) NOT NULL",
+				"associated_team"		:	"VARCHAR(20)",
+				"projects_done"			:	"INT DEFAULT 0",
+				"branch"				:	"VARCHAR(5) NOT NULL",
+				"login_status"			:	"VARCHAR(3) DEFAULT 'NO'",
+				"component_status"		:	"VARCHAR(3) DEFAULT 'NO'",
+				"usn"					:	"CHAR(10) NOT NULL",
+				"time_in_rail"			:	"TIME",
+				"current_highest_role"	:	"TEXT"
+			},
+			"read_list"				: 	[
+				"slno",
+				"rail_id",
+				"student_name",
+				"gender",
+				"date_of_birth",
+				"time_of_joining_rail",
+				"phone_number",
+				"email",
+				"associated_team",
+				"projects_done",
+				"branch",
+				"login_status",
+				"component_status",
+				"usn",
+				"time_in_rail",
+				"current_highest_role"
+			],
+			"index_constrains"		: 	[
+				"slno",
+				"rail_id",
+				"phone_number",
+				"email",
+				"usn"
+			]
+		},
+		"table_2"			: {
+			"table_name"	:	"all_students",
+			"table_constrains"		: 	{
+						"slno"					:	"INT NOT NULL AUTO_INCREMENT",
+						"rail_id"				:	"CHAR(10) NOT NULL",
+						"student_name"			:	"VARCHAR(50) NOT NULL",
+						"gender"				:	"CHAR(1)",
+						"date_of_birth"			:	"DATE",
+						"time_of_joining_rail"	:	"DATETIME DEFAULT NOW()",
+						"phone_number"			:	"VARCHAR(10) NOT NULL",
+						"email"					:	"VARCHAR(40) NOT NULL",
+						"associated_team"		:	"VARCHAR(20)",
+						"projects_done"			:	"INT DEFAULT 0",
+						"branch"				:	"VARCHAR(5) NOT NULL",
+						"login_status"			:	"VARCHAR(3) DEFAULT 'NO'",
+						"component_status"		:	"VARCHAR(3) DEFAULT 'NO'",
+						"usn"					:	"CHAR(10) NOT NULL",
+						"time_in_rail"			:	"TIME",
+						"current_highest_role"	:	"TEXT"
+					},
+					"read_list"				: 	[
+						"slno",
+						"rail_id",
+						"student_name",
+						"gender",
+						"date_of_birth",
+						"time_of_joining_rail",
+						"phone_number",
+						"email",
+						"associated_team",
+						"projects_done",
+						"branch",
+						"login_status",
+						"component_status",
+						"usn",
+						"time_in_rail",
+						"current_highest_role"
+					],
+					"index_constrains"		: 	[
+						"slno",
+						"rail_id",
+						"phone_number",
+						"email",
+						"usn"
+					]
+		}
+	},
+
+
+
+
+
+
+
+	"database_2"	: {
+		"database_name" 		: 	"students_attendence",
+		"table_1" 				: 	{
+			"table_name"	: "current_attendence",
+			"table_constrains"		: 	{
+				"rail_id"     	:	"VARCHAR(11) NOT NULL",
+				"student_name"	:	"VARCHAR(50) NOT NULL",
+				"current_team"	:	"CHAR(1) NOT NULL",
+				"time_in"     	:	"DATETIME DEFAULT NOW()",
+				"time_out"    	:	"DATETIME DEFAULT null",
+				"purpose"     	:	"TEXT NOT NULL"
+			},
+			"read_list"				: 	[
+				"rail_id",
+				"student_name",
+				"current_team",
+				"time_in",
+				"time_out",
+				"purpose"
+			]
+		}
+	},
+
+
+
+
+
+
+
+
+
+
+	"database_3"	: {
+		"database_name" 		: 	"projects",
+		"table_1" 				: 	{
+			"table_name"	: "current_projects",
+			"table_constrains"		: 	{
+				"slno"					:	"INT NOT NULL AUTO_INCREMENT",
+				"project_name"			:	"TEXT NOT NULL",
+				"associated_team"		:	"CHAR(1) NOT NULL",
+				"project_description"	:	"TEXT NOT NULL",
+				"number_of_members"		:	"TINYINT NOT NULL",
+				"mentor"				:	"VARCHAR(50)",
+				"team_lead"				:	"VARCHAR(50) NOT NULL",
+				"guide"					:	"VARCHAR(50)",
+				"idea_by"					:	"TEXT NOT NULL",
+				"type_of_project"		:	"TEXT NOT NULL",
+				"expected_duration"		:	"TEXT NOT NULL",
+				"date_start"			:	"DATETIME NOT NULL",
+				"date_end"				:	"DATETIME",
+				"status"				:	"TEXT NOT NULL",
+				"priority"				:	"TEXT NOT NULL",
+				"technology_stack"		:	"TEXT NOT NULL"
+			},
+			"read_list"				: 	[
+				"slno",
+				"project_name",
+				"associated_team",
+				"project_description",
+				"number_of_members",
+				"mentor",
+				"team_lead",
+				"guide",
+				"idea_by",
+				"type_of_project",
+				"expected_duration",
+				"date_start",
+				"date_end",
+				"status",
+				"priority",
+				"technology_stack"
+			],
+			"index_constrains"		: 	[
+				"slno",
+				"project_description"
+			]
+		},
+		"table_2"			: {
+			"table_name"	:	"all_projects",
+			"table_constrains"		: 	{
+						"slno"					:	"INT NOT NULL AUTO_INCREMENT",
+						"rail_id"				:	"CHAR(10) NOT NULL",
+						"student_name"			:	"VARCHAR(50) NOT NULL",
+						"gender"				:	"CHAR(1)",
+						"date_of_birth"			:	"DATE",
+						"time_of_joining_rail"	:	"DATETIME DEFAULT NOW()",
+						"phone_number"			:	"VARCHAR(10) NOT NULL",
+						"email"					:	"VARCHAR(40) NOT NULL",
+						"associated_team"		:	"VARCHAR(20)",
+						"projects_done"			:	"INT DEFAULT 0",
+						"branch"				:	"VARCHAR(5) NOT NULL",
+						"login_status"			:	"VARCHAR(3) DEFAULT 'NO'",
+						"component_status"		:	"VARCHAR(3) DEFAULT 'NO'",
+						"usn"					:	"CHAR(10) NOT NULL",
+						"time_in_rail"			:	"TIME",
+						"current_highest_role"	:	"TEXT"
+					},
+					"read_list"				: 	[
+						"slno",
+						"rail_id",
+						"student_name",
+						"gender",
+						"date_of_birth",
+						"time_of_joining_rail",
+						"phone_number",
+						"email",
+						"associated_team",
+						"projects_done",
+						"branch",
+						"login_status",
+						"component_status",
+						"usn",
+						"time_in_rail",
+						"current_highest_role"
+					],
+					"index_constrains"		: 	[
+						"slno",
+						"rail_id",
+						"phone_number",
+						"email",
+						"usn"
+					]
+		}
+	},
+
+
+
+
+
+
+
+
+
+
+	"database_4"	: {
+		"database_name" 		: 	"students",
+		"table_1" 				: 	{
+			"table_name"	: "current_students",
+			"table_constrains"		: 	{
+				"slno"					:	"INT NOT NULL AUTO_INCREMENT",
+				"rail_id"				:	"CHAR(10) NOT NULL",
+				"student_name"			:	"VARCHAR(50) NOT NULL",
+				"gender"				:	"CHAR(1)",
+				"date_of_birth"			:	"DATE",
+				"time_of_joining_rail"	:	"DATETIME DEFAULT NOW()",
+				"phone_number"			:	"VARCHAR(10) NOT NULL",
+				"email"					:	"VARCHAR(40) NOT NULL",
+				"associated_team"		:	"VARCHAR(20)",
+				"projects_done"			:	"INT DEFAULT 0",
+				"branch"				:	"VARCHAR(5) NOT NULL",
+				"login_status"			:	"VARCHAR(3) DEFAULT 'NO'",
+				"component_status"		:	"VARCHAR(3) DEFAULT 'NO'",
+				"usn"					:	"CHAR(10) NOT NULL",
+				"time_in_rail"			:	"TIME",
+				"current_highest_role"	:	"TEXT"
+			},
+			"read_list"				: 	[
+				"slno",
+				"rail_id",
+				"student_name",
+				"gender",
+				"date_of_birth",
+				"time_of_joining_rail",
+				"phone_number",
+				"email",
+				"associated_team",
+				"projects_done",
+				"branch",
+				"login_status",
+				"component_status",
+				"usn",
+				"time_in_rail",
+				"current_highest_role"
+			],
+			"index_constrains"		: 	[
+				"slno",
+				"rail_id",
+				"phone_number",
+				"email",
+				"usn"
+			]
+		},
+		"table_2"			: {
+			"table_name"	:	"all_students",
+			"table_constrains"		: 	{
+						"slno"					:	"INT NOT NULL AUTO_INCREMENT",
+						"rail_id"				:	"CHAR(10) NOT NULL",
+						"student_name"			:	"VARCHAR(50) NOT NULL",
+						"gender"				:	"CHAR(1)",
+						"date_of_birth"			:	"DATE",
+						"time_of_joining_rail"	:	"DATETIME DEFAULT NOW()",
+						"phone_number"			:	"VARCHAR(10) NOT NULL",
+						"email"					:	"VARCHAR(40) NOT NULL",
+						"associated_team"		:	"VARCHAR(20)",
+						"projects_done"			:	"INT DEFAULT 0",
+						"branch"				:	"VARCHAR(5) NOT NULL",
+						"login_status"			:	"VARCHAR(3) DEFAULT 'NO'",
+						"component_status"		:	"VARCHAR(3) DEFAULT 'NO'",
+						"usn"					:	"CHAR(10) NOT NULL",
+						"time_in_rail"			:	"TIME",
+						"current_highest_role"	:	"TEXT"
+					},
+					"read_list"				: 	[
+						"slno",
+						"rail_id",
+						"student_name",
+						"gender",
+						"date_of_birth",
+						"time_of_joining_rail",
+						"phone_number",
+						"email",
+						"associated_team",
+						"projects_done",
+						"branch",
+						"login_status",
+						"component_status",
+						"usn",
+						"time_in_rail",
+						"current_highest_role"
+					],
+					"index_constrains"		: 	[
+						"slno",
+						"rail_id",
+						"phone_number",
+						"email",
+						"usn"
+					]
+		}
+	}
+}

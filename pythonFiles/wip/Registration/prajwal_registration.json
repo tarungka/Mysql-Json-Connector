@@ -1,0 +1,22 @@
+{
+	"table_name"	:	"1",
+	"request_type"	:	"insert",
+	"data"	:	{
+					"rail_id"				:	"RSK17CS023",
+					"student_name"			:	"PRAJWAL H D",
+					"gender"				:	"M",
+					"date_of_birth"			:	"1999-05-03",
+					"time_of_joining_rail"	:	"2018-10-18 14:34:23",
+					"phone_number"			:	"8951041906",
+					"email"					:	"hdprajwalgowda@gmail.com",
+					"associated_team"		:	"B",
+					"projects_done"			:	"0",
+					"branch"				:	"CS",
+					"login_status"			:	"NO",
+					"component_status"		:	"NO",
+					"password"				:	"password", 
+					"usn"					:	"1SK17CS023",
+					"time_in_rail"			:	"09:06:54",
+					"current_highest_role"	:	"member"	
+	}
+}
