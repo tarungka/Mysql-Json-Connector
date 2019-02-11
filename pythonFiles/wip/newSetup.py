@@ -3,6 +3,7 @@ from mysql.connector import errorcode
 import query
 import json
 import import_logger
+import hashlib
 import jsonMysqlParser as parser
 from Crypto.Cipher import AES
 from Crypto import Random
@@ -52,25 +53,23 @@ def main(jsonCnf):
 	parse = parser.jsonConfiguration("json/config_mysql.json")
 	allDatabases = parse.getDatabases()
 	allTables = parse.getTables()
-	#aesEncryptedTables = []
-	#md5EncryptedTables = []
 	jsonEncryption = {}
-	print(sys.getsizeof(get_random_bytes(16)))
-	encrypt = AES.new('b7061433023f48ecf254849b4df59745',AES.MODE_CBC,get_random_bytes(16))
-	#dictionary = {}
+	print(get_random_bytes(16))
+	encrypt = AES.new(get_random_bytes(16),AES.MODE_CBC,get_random_bytes(16))
 	for table in allTables:
 		print("Entering tables")
 		print(table)
 		print(encrypt.encrypt(table.ljust(16)))
-		jsonEncryption.update({str(encrypt.encrypt(table.ljust(16))) : table})
+		ans = encrypt.encrypt(table.ljust(16))
+		jsonEncryption.update({str(ans) : table})
+		print("---",encrypt.decrypt(ans))
 		print(jsonEncryption)
 		print("----------------------------")
-		#print(encrypt.encrypt(get_random_bytes(16)))
 		try: 
-			print(encrypt.encrypt(table))
+			ans = encrypt.encrypt(table)
+			print(ans)
 		except:
 			print("Cannot print")
-		#print(table.ljust(16))
 	print(json.dumps(jsonEncryption))
 	parse.saveAs("json/newSetupJson.json",json.dumps(jsonEncryption,indent=4))
 	

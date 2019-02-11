@@ -1,143 +1,137 @@
 import mysql.connector
 from mysql.connector import errorcode
 import sys
-import encrypt
-import import_student as student
-import import_attendence as attendence
-import import_projects as projects
-import import_teams as teams
 import json
-#import import_component as component
+import query
 import import_logger
-import jsonMysqlParser as parser
-from Crypto.Cipher import AES
 
 logger =  import_logger.logIt(__file__)
 
-def main(jsonIn,jsonCnf):
-	parse = parser.jsonConfiguration("json/config_mysql.json")
-	databases = list(parse.getDatabases())
-	newtables = list(parse.getRelation().values())
-	tables = []
-	for tableSet in newtables:
-		for atable in tableSet:
-			tables.append(atable)
-	print(tables)
-	#tableDictionary = parse.getTables()
-	#print(tableDictionary)
-	print(databases,newtables)
-	return
-	try:
-		connection = mysql.connector.connect(
-            host		=	jsonCnf["host"],
-            user		=	jsonCnf["user"],
-            passwd		=	encrypt.validate(jsonCnf["password"],True),
-            database	=	encrypt.validate(jsonIn["database_name"],True)
+class main:
+	def __init__(self,jsonData):
+		#print("Init called.")
+		self.jsonString = json.loads(jsonData)
+		logger.log(self.jsonString)
+		self.header = self.jsonString["HEADER"]
+		self.requestType = self.header["REQUEST_TYPE"]
+		self.data = self.jsonString["DATA"]
+		self.fields = self.data["FIELDS"]
+		self.where_clause = self.data["WHERE"]
+		self.database = self.header["DATABASE"]
+		self.table = self.header["TABLE_NAME"]
+		self.footer = self.jsonString["FOOTER"]
+		#self.setConnection()
+	def showData(self):
+		print("jsonString",self.jsonString)
+		print("header",self.header)
+		print("data",self.data)
+		print("footer",self.footer)
+		print("calss",self.__class__)
+		print("database",self.database)
+		print("table",self.table)
+	def getDatabase(self):
+		return self.database
+	def getTable(self):
+		return self.table
+	def setConnection(self):
+		self.mysqlConnection = mysql.connector.connect(
+			host		=	"localhost",	#CREATE A CONFIG FILE FOR THIS AND GET DATA FROM IT.
+			user		=	"testuser", 	#CREATE A CONFIG FILE FOR THIS AND GET DATA FROM IT.
+			passwd		=	"testpassword", 	#CREATE A CONFIG FILE FOR THIS AND GET DATA FROM IT.
+			database	=	self.getDatabase()
 		)
-		print(connection)
-		cursor = connection.cursor()
-		logger.log("Table number:" + jsonIn["table_name"] + ",Request type:" + jsonIn["request_type"])
+		self.cursor = self.mysqlConnection.cursor()
+		return self.cursor
+		#WRITE EXPECTIONS FOR THIS
 
-		listoflists = [ "b7061433023f48ecf254849b4df59745",	#current_students
-						"8ac138dae6e4225937abc7f1e4e5152a",	#attendence
-						"6e1cfca1f004a8bf904c728964391bc7",	#current_projects
-						"d76bee45b99624bdb1970892a2289698",	#current_teams
-						"15037778644c977173e8d25e58081e55",	#current_admin
-						"098f6bcd4621d373cade4e832627b4f6"]	#temp_data
-		
+	def insertData(self,insDict):
+		logger.log("Generating CREATE query(%s) ..." % (self.getTable()))
+		finalQuery = ("INSERT INTO %s(" % (self.getTable()))
+		key = list(insDict.keys())
+		value = list(insDict.values())
+		length = len(key)
+		finalQuery = finalQuery + key[0]
+		for index in range(length - 1):
+			finalQuery = finalQuery + "," + key[index + 1]
+		finalQuery = finalQuery + ") VALUES("
+		finalQuery = finalQuery + "'" + value[0] + "'"
+		for index in range(length - 1):
+			if(value[index + 1] == "null"): #THE BLOCK BELOW GENEREATES ",null"
+				finalQuery = finalQuery + "," + value[index + 1]
+				continue
+			finalQuery = finalQuery + "," + "'" + value[index + 1] + "'" #THE BLOCK BELOW GENEREATES ",'val'"
+		finalQuery = finalQuery + ");"
+		logger.log(finalQuery,True)
+		self.cursor.execute(finalQuery)
+		#return finalQuery
 
-		if(jsonIn["table_name"] == "b7061433023f48ecf254849b4df59745"):
-			if(jsonIn["request_type"] == "insert"):
-				data = jsonIn["data"]
-				student.insert(data,cursor=cursor)
-			elif(jsonIn["request_type"] == "delete"):
-				data = jsonIn["data"]
-				student.delete(data,cursor=cursor)
-			elif(jsonIn["request_type"] == "read"):
-				logger.log(student.read(cursor=cursor),True)					#REMOVE THIS PRINT STATEMENT
-			elif(jsonIn["request_type"] == "readeach"):
-				data = jsonIn["data"]
-				logger.log(student.readEach(data,cursor=cursor),True)			#REMOVE THIS PRINT STATEMENT
-			else:
-				logger.log("ERROR: REQUEST IS NOT INSERT OR DELETE",True)
-		elif(jsonIn["table_name"] == "8ac138dae6e4225937abc7f1e4e5152a"):
-			logger.log("table_2,wev",True)
-			if(jsonIn["request_type"] == "login"):
-				#print("request_type is login")
-				data = jsonIn["data"]
-				attendence.insert(data,cursor=cursor)
-			elif(jsonIn["request_type"] == "logout"):
-				#print("request_type is logout")
-				data = jsonIn["data"]
-				attendence.updateLogout(data,cursor=cursor)
-			elif(jsonIn["request_type"] == "read"):
-				logger.log(attendence.read(cursor=cursor),True)
-			else:
-				logger.log("ERROR: REQUEST IS NOT LOGIN,LOGOUT OR READ",True)
-				return
-		elif(jsonIn["table_name"] == "3"): #COMPONENETS TABLE
-			logger.log("Table selected is:",True)
-		elif(jsonIn["table_name"] == "15037778644c977173e8d25e58081e55"): #ADMIN DETAILS TABLE
-			logger.log("Table selected is:",True)
-		elif(jsonIn["table_name"] == "6e1cfca1f004a8bf904c728964391bc7"): #PROJECTS TABLE
-			if(jsonIn["request_type"] == "insert"):
-				data = jsonIn["data"]
-				projects.insert(data,cursor=cursor)
-			elif(jsonIn["request_type"] == "read"):
-				#data = jsonIn["data"]
-				projects.read(cursor=cursor)
-			elif(jsonIn["request_type"] == "readeach"):
-				data = jsonIn["data"]
-				projects.readEach(data,cursor=cursor)
-			elif(jsonIn["request_type"] == "delete"):
-				data = jsonIn["data"]
-				projects.delete(data,cursor=cursor)
-			elif(jsonIn["request_type"] == "update"):
-				data = jsonIn["data"]
-				projects.updateProjectDetails(data,cursor=cursor)
-			else:
-				logger.log("request_type is not supported(%s)" % jsonIn["request_type"],True)
-		elif(jsonIn["table_name"] == "d76bee45b99624bdb1970892a2289698"): #TEAMS TABLE
-			if(jsonIn["request_type"] == "insert"):
-				data = jsonIn["data"]
-				teams.insert(data,cursor)
-			elif(jsonIn["request_type"] == "read"):
-				teams.read(cursor)
-			elif(jsonIn["request_type"] == "readeach"):
-				data = jsonIn["data"]
-				teams.readEach(data,cursor)
-			elif(jsonIn["request_type"] == "update"):
-				data = jsonIn["data"]
-				teams.updateTeams(data,cursor)
-			elif(jsonIn["request_type"] == "delete"):
-				data = jsonIn["data"]
-				teams.delete(data,cursor)
-			else:
-				logger.log("request_type is not supported(%s)" % jsonIn["request_type"],True)
-		else:
-			logger.log("Table does not exist.",True)
-		cursor.close()
-		connection.commit()
-	except mysql.connector.Error as err:
-		logger.log(("An error occured. ERROR NO: %d" % (err.errno)),True)
-		if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-			logger.log("Access was denied.",True)
-		elif err.errno == errorcode.ER_BAD_DB_ERROR:
-			logger.log("Database does not exist",True)
-		elif err.errno == errorcode.ER_BAD_FIELD_ERROR:
-			logger.log(("Invalid field : %s in table '%s'" % (err.msg,jsonIn["table_name"])),True)
-		elif err.errno == errorcode.ER_BAD_TABLE_ERROR:
-			logger.log("Table does not exist",True)
-		else:
-			logger.log(str(err),True)
-	else:
-		cursor.close()
-		connection.close()
+	def deleteData(self,delDict,whereDict):
+		return
+
+	def updateData(self,setDict,whereDict):
+		return
+
+	def selectData(self,dataList,whereDict = None):
+		return
+
+	def alterTable(self):
+		return
+
+	def processRequest(self):
+		if(self.requestType == "insert"):
+			self.insertData(self.fields)
+		elif(self.requestType == "delete"):
+			self.deleteData(self.fields,self.where_clause)
+		elif(self.requestType == "update"):
+			self.updateData(self.fields,self.where_clause)
+		elif(self.requestType == "select"):
+			self.selectData(self.fields,self.where_clause)
+		elif(self.requestType == "alter"):
+			self.alterTable()
+		self.mysqlConnection.commit()
+
+
 
 if __name__ == '__main__':
-	#result = json.loads(sys.argv[1])
-	#jsonCnf = json.load(configFile)
-	#main(result,jsonCnf)
-	main("new","one")
+	process = main(sys.argv[1])
+	process.showData()
+	process.setConnection()
+	process.processRequest()
 else:
 	print("This code does not support being imported as a module")
+
+
+"""
+{
+    "HEADER" : {
+        "DATABASE" : "students",
+        "TABLE_NAME" : "current_students",
+        "REQUEST_TYPE" : "insert"
+    },
+    "DATA" : {
+		"FIELDS" : {
+			"rail_id"				:	"RSK17CS036",
+			"student_name"			:	"TARUN GOPALKRISHNA A",
+			"gender"				:	"M",
+			"date_of_birth"			:	"1999-05-01",
+			"time_of_joining_rail"	:	"2018-10-18 14:34:23",
+			"phone_number"			:	"8296177426",
+			"email"					:	"tarungopalkrishna@gmail.com",
+			"associated_team"		:	"B",
+			"projects_done"			:	"0",
+			"branch"				:	"CS",
+			"login_status"			:	"NO",
+			"component_status"		:	"NO",
+			"password"				:	"password",
+			"usn"					:	"1SK17CS036",
+			"time_in_rail"			:	"09:06:54",
+			"current_highest_role"	:	"member"
+		},
+		"WHERE" : null
+    },
+    "FOOTER" : {
+        "DATA ABOUT THE REQUEST" : "just a test",
+        "COMMENT" : "THIS IS A TEST"
+    }
+}
+"""

@@ -1,0 +1,19 @@
+{
+    "HEADER" : {
+        "DATABASE" : "SHA256()",
+        "TABLE_NAME" : "SHA256()",
+        "REQUEST_TYPE" : "TYPE OF REQUEST(INSERT/DELETE/UPDATE/SELECT)"
+    },
+    "DATA" : {
+        "FIELDS" : {
+            "BALH" : "BALH"
+        },
+        "WHERE" : {
+            "BALH" : "BALH"
+        }
+    },
+    "FOOTER" : {
+        "DATA ABOUT THE REQUEST" : "LIKE TIME OF REQUEST,IF IT EXPECTS A RESPONSE",
+        "COMMENT" : "COMMENT ABOUT THE DATA"
+    }
+}
