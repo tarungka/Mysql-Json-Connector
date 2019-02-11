@@ -26,7 +26,6 @@ class main:
 		print("header",self.header)
 		print("data",self.data)
 		print("footer",self.footer)
-		print("calss",self.__class__)
 		print("database",self.database)
 		print("table",self.table)
 	def getDatabase(self):
@@ -66,13 +65,61 @@ class main:
 		#return finalQuery
 
 	def deleteData(self,delDict,whereDict):
-		return
+		logger.log("Generating DELETE query(%s) ..." % (self.getTable()))
+		finalQuery = ("DELETE FROM " + self.getTable() + " WHERE ")
+		key = list(whereDict.keys())
+		value = list(whereDict.values())
+		length = len(key)
+		finalQuery = finalQuery + key[0] + "=" + "'" + value[0] + "'"
+		for index in range(length - 1):
+			finalQuery = finalQuery + " AND " + key[index + 1] + "=" + "'" + value[index + 1] + "'"
+		finalQuery = finalQuery + ";"
+		logger.log(finalQuery)
+		self.cursor.execute(finalQuery)
+
 
 	def updateData(self,setDict,whereDict):
-		return
+		logger.log("Generating UPDATE query(%s) ..." % (self.getTable()))
+		finalQuery = ("UPADTE %s SET " % (self.getTable()))
+		key = list(setDict.keys())
+		value = list(setDict.values())
+		length = len(key)
+		finalQuery = finalQuery + key[0] + "=" + "'" + value[0] + "'"
+		for index in range(length - 1):
+			finalQuery = finalQuery + "," + key[index + 1] + "=" + "'" + value[index + 1] + "'"
+		finalQuery = finalQuery + " WHERE "
+		key = list(whereDict.keys())
+		value = list(whereDict.values())
+		length = len(key)
+		finalQuery = finalQuery + key[0] + "=" + "'" + value[0] + "'"
+		for index in range(length - 1):
+			finalQuery = finalQuery + "," + key[index + 1] + "=" + "'" + value[index + 1] + "'"
+		finalQuery = finalQuery + ";"
+		logger.log(finalQuery)
+		self.cursor.execute(finalQuery)
 
 	def selectData(self,dataList,whereDict = None):
-		return
+		logger.log("Generating SELECT query(%s)" % (self.getTable))
+		finalQuery = ("SELECT " + dataList[0])
+		length = len(dataList)
+		for index in range(length - 1):
+			finalQuery = finalQuery + "," + dataList[index + 1]
+		finalQuery = finalQuery + " FROM " + self.getTable
+		if(whereDict != None):
+			finalQuery = finalQuery + " WHERE "
+			key = list(whereDict.keys())
+			length = len(key)
+			print(length,key)
+			finalQuery = finalQuery + key[0] + "=" + "'" + whereDict[key[0]] + "'"
+			print(finalQuery)
+			for index in range((length - 1)):
+				print(index + 1)
+				print(key[0],whereDict[key[index +1]])
+				print(key[1],key[index +1])
+				finalQuery = finalQuery + " AND " + key[index + 1] + "=" + "'" + whereDict[key[index + 1]] + "'"
+			finalQuery = finalQuery + ";"
+		logger.log(finalQuery)
+		self.cursor.execute(finalQuery)
 
 	def alterTable(self):
 		return
