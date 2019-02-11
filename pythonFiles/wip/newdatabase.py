@@ -127,6 +127,8 @@ class main:
 	def processRequest(self):
 		if(self.requestType == "insert"):
 			self.insertData(self.fields)
+			if(self.getTable == "attendence"):
+				print("Need to update the current_students table")
 		elif(self.requestType == "delete"):
 			self.deleteData(self.fields,self.where_clause)
 		elif(self.requestType == "update"):
@@ -178,7 +180,29 @@ else:
     },
     "FOOTER" : {
         "DATA ABOUT THE REQUEST" : "just a test",
-        "COMMENT" : "THIS IS A TEST"
+        "COMMENT" : "THIS IS A TEST",
+		"UPDATE" : [
+            {
+                "HEADER" : {
+                    "DATABASE" : "students",
+                    "TABLE_NAME" : "current_students",
+                    "REQUEST_TYPE" : "update"
+                },
+                "DATA" : {
+                    "FIELDS" : null,
+                    "SET" : {
+                        "login_status" : "YES"
+                    },
+                    "WHERE" : {
+                        "rail_id" :	"RSK17CS036"
+                    }
+                },
+                "FOOTER" : {
+                    "DATA ABOUT THE REQUEST" : "just a test",
+                    "COMMENT" : "THIS IS A TEST"
+                }
+            }
+        ]
     }
 }
 """

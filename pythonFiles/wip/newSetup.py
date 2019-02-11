@@ -48,7 +48,9 @@ def main(jsonCnf):
 		allTables = tableObject["tables"].keys()
 		for table in allTables:
 			dictionary = tableObject["tables"][table]["table_constrains"]
+			print("Creating table %s ..." % (table),end='')
 			cursor.execute(query.createQuery("table",table,dictionary))
+			print("(success)")
 	logger.log("All databases and tables are created",True)
 	#parse = parser.jsonConfiguration("json/config_mysql.json")
 	#allDatabases = parse.getDatabases()
@@ -78,7 +80,7 @@ def main(jsonCnf):
 
 if __name__ == '__main__':
 	logger.log("Loading configuration File ...")
-	with open('json/config_mysql.json') as configFile:
+	with open('json/new_config_mysql.json') as configFile:
 		jsonCnf = json.load(configFile)
 		main(jsonCnf)
 else:

@@ -3,7 +3,7 @@
     "user"  	:   "testuser",
     "password"  :   "testpassword",
 	"databases" :	{
-    	"students"  :   {
+    	"railDB"  :   {
     	    "tables"    :   {
     	    	"all_students"  :   {
     	    	    "table_constrains"  :   {
@@ -48,7 +48,7 @@
     	    	        "phone_number",
     	    	        "email",
     	    	        "usn"
-    	    	    ]
+                    ]
     	    	},
     	    	"current_students"  :   {
     	    	    "table_constrains"  :   {
@@ -94,12 +94,8 @@
     	    	        "email",
     	    	        "usn"
     	    	    ]
-				}
-			}
-    	},
-    	"students_attendence"  :   {
-    	    "tables"    :	{
-    	    	"attendence"  :   {
+				},
+			   	"attendence"  :   {
     	    	    "table_constrains"  :   {
     	    	        "rail_id"     	:	"VARCHAR(11) NOT NULL",
 						"student_name"	:	"VARCHAR(50) NOT NULL",
@@ -115,12 +111,8 @@
 						"time_in",
 						"time_out",
 						"purpose"
-    	    	    ]
-    	    	}
-			}
-    	},
-    	"projects"  :   {
-    	    "tables"    :   {
+                    ]
+    	    	},
     	    	"all_projects"  :   {
     	    	    "table_constrains"  :   {
     	    	        "slno"					:	"INT NOT NULL AUTO_INCREMENT PRIMARY KEY",
@@ -204,11 +196,7 @@
     	    	        "slno",
 						"project_description"
     	    	    ]
-				}
-			}
-    	},
-    	"teams"  :   {
-    	    "tables"    :   {
+				},
     	    	"all_teams"  :   {
     	    	    "table_constrains"  :   {
     	    	        "slno"      			: "INT NOT NULL AUTO_INCREMENT PRIMARY KEY",
@@ -255,11 +243,7 @@
 						"associated_projects",
 						"team_members"
     	    	    ]
-    	    	}
-			}
-    	},
-    	"admin_details"  :   {
-    	    "tables"    :   {
+    	    	},
     	    	"all_admin"  :   {
     	    	    "table_constrains"  :   {
     	    	        "slno"						: "INT NOT NULL AUTO_INCREMENT PRIMARY KEY",
@@ -314,11 +298,7 @@
 						"phone_number",
 						"email"
     	    	    ]
-    	    	}
-			}
-    	},
-    	"temp_data"  :   {
-    	    "tables"    :   {
+    	    	},
     	    	"test"  :   {
     	    	    "table_constrains"  :   {
     	    	        "slno"					:	"INT NOT NULL AUTO_INCREMENT PRIMARY KEY",
