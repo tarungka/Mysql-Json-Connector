@@ -77,3 +77,31 @@ INSERT INTO studentsAttendence (student_name,rail_id,time_in,time_out,associated
 CREATE TABLE testtable(
 	slno INT NOT NULL AUTO_INCREMENT,
 	testInformation TEXT,PRIMARY KEY (slno));
+
+
+INSERT INTO current_students(
+	rail_id,
+	student_name,
+	gender,
+	date_of_birth,
+	time_of_joining_rail,
+	phone_number,
+	email,
+	associated_team,
+	branch,
+	usn,
+	current_highest_role
+) 
+VALUES(
+	'RSK17CS036',
+	'TGK',
+	'M',
+	'1999-05-01',
+	'1999-05-01 12:00:00',
+	'8956233145',
+	'TGK@TGK.COM',
+	'1',
+	'CS',
+	'1SK17CS036',
+	'member'
+)

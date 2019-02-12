@@ -9,9 +9,16 @@ logger =  import_logger.logIt(__file__)
 
 class main:
 	def __init__(self,jsonData):
-		#print("Init called.")
-		self.jsonString = json.loads(jsonData)
-		logger.log(self.jsonString)
+		try:
+			print("Trying to convert json data(of string datatype) to dictionary format ...",end='')
+			self.jsonString = json.loads(str(jsonData))
+			print("(success)")
+		except:
+			print("(failed)")
+			print("Trying to assign data(of dict datatype) to dictionary format ...",end='')
+			self.jsonString = jsonData			
+			print("(success)")
+		logger.log(str(self.jsonString))
 		self.header = self.jsonString["HEADER"]
 		self.requestType = self.header["REQUEST_TYPE"]
 		self.data = self.jsonString["DATA"]
@@ -20,18 +27,27 @@ class main:
 		self.database = self.header["DATABASE"]
 		self.table = self.header["TABLE_NAME"]
 		self.footer = self.jsonString["FOOTER"]
+		#print(self.footer)
+		self.updateList = self.footer["UPDATE"]
+		self.conditionList = self.footer["DEP"]
 		#self.setConnection()
 	def showData(self):
 		print("jsonString",self.jsonString)
+		print("request_type",self.requestType)
 		print("header",self.header)
 		print("data",self.data)
 		print("footer",self.footer)
 		print("database",self.database)
 		print("table",self.table)
+		print("update",self.updateList)
+		print("condition",self.conditionList)
+
 	def getDatabase(self):
 		return self.database
+	
 	def getTable(self):
 		return self.table
+	
 	def setConnection(self):
 		self.mysqlConnection = mysql.connector.connect(
 			host		=	"localhost",	#CREATE A CONFIG FILE FOR THIS AND GET DATA FROM IT.
@@ -104,7 +120,7 @@ class main:
 		length = len(dataList)
 		for index in range(length - 1):
 			finalQuery = finalQuery + "," + dataList[index + 1]
-		finalQuery = finalQuery + " FROM " + self.getTable
+		finalQuery = finalQuery + " FROM " + self.getTable()
 		if(whereDict != None):
 			finalQuery = finalQuery + " WHERE "
 			key = list(whereDict.keys())
@@ -119,90 +135,61 @@ class main:
 				finalQuery = finalQuery + " AND " + key[index + 1] + "=" + "'" + whereDict[key[index + 1]] + "'"
 			finalQuery = finalQuery + ";"
 		logger.log(finalQuery)
+		#self.cursor.execute
 		self.cursor.execute(finalQuery)
+		response = self.cursor.fetchall()
+		return response
 
 	def alterTable(self):
 		return
 
 	def processRequest(self):
-		if(self.requestType == "insert"):
-			self.insertData(self.fields)
-			if(self.getTable == "attendence"):
-				print("Need to update the current_students table")
-		elif(self.requestType == "delete"):
-			self.deleteData(self.fields,self.where_clause)
-		elif(self.requestType == "update"):
-			self.updateData(self.fields,self.where_clause)
-		elif(self.requestType == "select"):
-			self.selectData(self.fields,self.where_clause)
-		elif(self.requestType == "alter"):
-			self.alterTable()
-		self.mysqlConnection.commit()
+		print("START OF A PROCESS REQUEST ---------xxxxxxxxxx--------xxxxxxxxx--------xxxxxxxx--------")
+		flag  = False
+		print("-----------------XXXXXXXXXXXXXXXXXXX--------------------")
+		print("Are there any condition lists? ...",end='')
+		if(self.conditionList != None):
+			print("(YES)")
+			for element in self.conditionList:
+				print(element)
+				print("-->INITIATING NEW OBJECT xxxxxxxxxxxxxxxxxxxxxxxx")
+				process = main(element)
+				process.setConnection()
+				#process.showData()
+				if process.processRequest():
+					flag = True
+				print("-->DEATH NEW OBJECT xxxxxxxxxxxxxxxxxxxxxxxx")
+			print("-----------------XXXXXXXXXXXXXXXXXXX--------------------",self.conditionList,flag)
+		if(self.conditionList == None or flag == True):
+			print("(NO)")
+			print("I'm inside")
+			if(self.requestType == "insert"):
+				self.insertData(self.fields)
+				if(self.getTable == "attendence"):
+					print("Need to update the current_students table")
+			elif(self.requestType == "delete"):
+				self.deleteData(self.fields,self.where_clause)
+			elif(self.requestType == "update"):
+				self.updateData(self.fields,self.where_clause)
+			elif(self.requestType == "select"):
+				print("END OF A PROCESS REQUEST FROM SELECT---------xxxxxxxxxx--------xxxxxxxxx--------xxxxxxxx--------")
+				return self.selectData(self.fields,self.where_clause)
+			elif(self.requestType == "alter"):
+				self.alterTable()
+			print("-----------------XXXXXXXXXXXXXXXXXXX--------------------")
+			for anObject in self.updateList:
+				print(anObject)
+				process = main(anObject)
+				#process.showData()
+			self.mysqlConnection.commit()
+		print("END OF A PROCESS REQUEST ---------xxxxxxxxxx--------xxxxxxxxx--------xxxxxxxx--------")
 
 
 
 if __name__ == '__main__':
 	process = main(sys.argv[1])
-	process.showData()
+	#process.showData()
 	process.setConnection()
 	process.processRequest()
 else:
 	print("This code does not support being imported as a module")
-
-
-"""
-{
-    "HEADER" : {
-        "DATABASE" : "students",
-        "TABLE_NAME" : "current_students",
-        "REQUEST_TYPE" : "insert"
-    },
-    "DATA" : {
-		"FIELDS" : {
-			"rail_id"				:	"RSK17CS036",
-			"student_name"			:	"TARUN GOPALKRISHNA A",
-			"gender"				:	"M",
-			"date_of_birth"			:	"1999-05-01",
-			"time_of_joining_rail"	:	"2018-10-18 14:34:23",
-			"phone_number"			:	"8296177426",
-			"email"					:	"tarungopalkrishna@gmail.com",
-			"associated_team"		:	"B",
-			"projects_done"			:	"0",
-			"branch"				:	"CS",
-			"login_status"			:	"NO",
-			"component_status"		:	"NO",
-			"password"				:	"password",
-			"usn"					:	"1SK17CS036",
-			"time_in_rail"			:	"09:06:54",
-			"current_highest_role"	:	"member"
-		},
-		"WHERE" : null
-    },
-    "FOOTER" : {
-        "DATA ABOUT THE REQUEST" : "just a test",
-        "COMMENT" : "THIS IS A TEST",
-		"UPDATE" : [
-            {
-                "HEADER" : {
-                    "DATABASE" : "students",
-                    "TABLE_NAME" : "current_students",
-                    "REQUEST_TYPE" : "update"
-                },
-                "DATA" : {
-                    "FIELDS" : null,
-                    "SET" : {
-                        "login_status" : "YES"
-                    },
-                    "WHERE" : {
-                        "rail_id" :	"RSK17CS036"
-                    }
-                },
-                "FOOTER" : {
-                    "DATA ABOUT THE REQUEST" : "just a test",
-                    "COMMENT" : "THIS IS A TEST"
-                }
-            }
-        ]
-    }
-}
-"""
