@@ -317,7 +317,7 @@
 					"table_constrains"	:	{
 						"slno"				:	"INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
 						"rail_id"			:	"CHAR(10) NOT NULL",
-						"time_of_event" 	:	"DATE TIME NOT NULL",
+						"time_of_event" 	:	"DATETIME NOT NULL",
 						"type"				:	"VARCHAR(30) NOT NULL",
 						"topic"				:	"VARCHAR(70) NOT NULL",
 						"description"		:	"VARCHAR(200) NOT NULL",
