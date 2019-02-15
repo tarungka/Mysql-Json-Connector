@@ -161,6 +161,10 @@ class main:
 				print("-->DEATH NEW OBJECT xxxxxxxxxxxxxxxxxxxxxxxx")
 			print("-----------------XXXXXXXXXXXXXXXXXXX--------------------",self.conditionList,flag)
 		if(self.conditionList == None or flag == True):
+			'''
+			KIMS THAT WHEN A SELECT IS USED IT RETURNS DATA AND CANNOT BE USED TO UPDATE ANOTHER TABLE.
+			I NEED TO RESTRUCTURE IT TO BE ABLE TO RETURN AS WELL AS RUN AN UPDATE.
+			'''
 			print("(NO)")
 			print("I'm inside")
 			if(self.requestType == "insert"):
