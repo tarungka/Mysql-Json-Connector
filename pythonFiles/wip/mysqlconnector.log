@@ -4186,3 +4186,16 @@ newSetup.py:2019-02-15 10:09:25.726285:railDB was dropped.
 /home/tarun/github/rail/pythonFiles/wip/query.py:2019-02-15 10:09:29.491010:Generating CREATE query for table(events) ...
 /home/tarun/github/rail/pythonFiles/wip/query.py:2019-02-15 10:09:29.491136:CREATE TABLE events(slno INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,rail_id CHAR(10) NOT NULL);
 newSetup.py:2019-02-15 10:09:29.904186:All databases and tables are created
+newSetup.py:2019-02-16 06:16:15.370429:Loading configuration File ...
+/home/tarun/github/rail/pythonFiles/wip/query.py:2019-02-16 06:16:15.639766:Generating USE query(railDB) ...
+/home/tarun/github/rail/pythonFiles/wip/query.py:2019-02-16 06:16:15.640093:USE railDB;
+newSetup.py:2019-02-16 06:16:18.948216:Please change the name of the database in the config file and try again.
+newSetup.py:2019-02-16 06:16:18.948703:Exitting
+newSetup.py:2019-02-16 06:16:18.949109:railDB does not exist,no need to drop
+/home/tarun/github/rail/pythonFiles/wip/query.py:2019-02-16 06:16:18.949475:Generating CREATE query(railDB) ...
+/home/tarun/github/rail/pythonFiles/wip/query.py:2019-02-16 06:16:18.949739:Generating CREATE query for database(railDB) ...
+/home/tarun/github/rail/pythonFiles/wip/query.py:2019-02-16 06:16:18.949972:CREATE DATABASE railDB;
+loadUncorruptedData.py:2019-02-16 06:51:10.617269:OLD DATA:[('RSK17CS036', 'Tarun', '1', datetime.datetime(2019, 2, 15, 7, 0, 23), datetime.datetime(2019, 2, 15, 17, 30, 39), None, 'testing')]
+loadUncorruptedData.py:2019-02-16 06:51:10.656986:NEW DATA:[('RSK17CS036', 'Tarun', '1', datetime.datetime(2019, 2, 15, 8, 0), datetime.datetime(2019, 2, 15, 17, 30, 39), None, 'testing')]
+loadUncorruptedData.py:2019-02-16 06:51:10.657476:OLD DATA:[('RSK17CS023', 'Prajwal', '1', datetime.datetime(2019, 2, 15, 6, 30, 53), datetime.datetime(2019, 2, 15, 14, 50, 29), None, 'tester')]
+loadUncorruptedData.py:2019-02-16 06:51:10.658968:NEW DATA:[('RSK17CS023', 'Prajwal', '1', datetime.datetime(2019, 2, 15, 8, 0), datetime.datetime(2019, 2, 15, 14, 50, 29), None, 'tester')]
