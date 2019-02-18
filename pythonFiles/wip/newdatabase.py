@@ -181,10 +181,10 @@ class main:
 			elif(self.requestType == "alter"):
 				self.alterTable()
 			print("-----------------XXXXXXXXXXXXXXXXXXX--------------------")
-			for anObject in self.updateList:
-				print(anObject)
-				process = main(anObject)
-				#process.showData()
+			#for anObject in self.updateList:
+			#	print(anObject)
+			#	process = main(anObject)
+			#	#process.showData()
 			self.mysqlConnection.commit()
 		print("END OF A PROCESS REQUEST ---------xxxxxxxxxx--------xxxxxxxxx--------xxxxxxxx--------")
 

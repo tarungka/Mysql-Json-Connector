@@ -4,7 +4,7 @@ import constants as const
 constClass = const.constData()
 constDict = constClass._DICT_STUDENTS
 
-fileIn = open("../allData.json","r")
+fileIn = open("json/allData.json","r")
 fileOut = open("./allData.sh","w")
 data = fileIn.read()
 dictionary = json.loads(data)
@@ -20,10 +20,6 @@ for akey in key:
     wrapperJson = {}
     newestDictionary = {}
     blah = newDictionary[akey]
-    #print("newestDictionary[" + akey + "]['RAIL ID']")
-    #print(blah["RAIL ID"])
-    wrapperJson.update({"table_name" : "1"})
-    wrapperJson.update({"request_type" : "insert"})
     newestDictionary.update({constDict["RAIL_ID_HEADER"]        : blah["RAIL ID"]})
     newestDictionary.update({constDict["NAME_HEADER"]           : blah["STUDENT NAME"]})
     newestDictionary.update({constDict["GENDER_HEADER"]         : "M"})
@@ -35,9 +31,11 @@ for akey in key:
     newestDictionary.update({constDict["TIME_OF_JOINING_RAIL"]  : "2018-10-18 12:00:00"})
     newestDictionary.update({constDict["EMAIL_HEADER"]          : blah["EMAIL ADDRESS"]})
     newestDictionary.update({constDict["PHONE_NUMBER_HEADER"]   : blah["CONTACT NUMBER"]})
-    wrapperJson.update({"data" : newestDictionary})
-    shellCommand = ("python3 database.py ")
-    shellCommand = shellCommand + "'" + str(json.dumps(wrapperJson)) + "'"
+    #newestDictionary.update({"SET" : None})
+    #newestDictionary.update({"WHERE" : None})
+    #wrapperJson.update({"data" : newestDictionary})
+    shellCommand = ("""python3 newdatabase.py '{"HEADER":{"DATABASE":"railDB","TABLE_NAME":"current_students","REQUEST_TYPE":"insert"},"DATA":{"FIELDS": """)
+    shellCommand = shellCommand + str(json.dumps(newestDictionary)) + ""","SET":null,"WHERE":null},"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}}'"""
     #print(shellCommand)
     #print(wrapperJson)
     #print(len(blah["EMAIL ADDRESS"]))

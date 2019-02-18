@@ -20,7 +20,8 @@
 				    	"branch"				:	"VARCHAR(5) NOT NULL",
 				    	"login_status"			:	"VARCHAR(3) DEFAULT 'NO'",
 				    	"component_status"		:	"VARCHAR(3) DEFAULT 'NO'",
-				    	"usn"					:	"CHAR(10) NOT NULL",
+						"usn"					:	"CHAR(10) NOT NULL",
+						"most_recent_login"		:	"DATETIME",
 				    	"time_in_rail"			:	"TIME",
 				    	"current_highest_role"	:	"VARCHAR(20)"
     	    	    },
@@ -103,6 +104,7 @@
 						"time_in"     			:	"DATETIME NOT NULL DEFAULT NOW()",
 						"time_out"    			:	"DATETIME DEFAULT null",
 						"time_since_last_login"	:	"TIME DEFAULT null",
+						"time_spent"			:	"TIME DEFAULT null",
 						"purpose"     			:	"VARCHAR(50) NOT NULL"
     	    	    },
     	    	    "read_list"  :   [

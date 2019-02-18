@@ -105,3 +105,9 @@ VALUES(
 	'1SK17CS036',
 	'member'
 )
+
+
+
+
+delete from current_students where CHAR_LENGTH(rail_id) = 9;
+delete from current_students where email = 'NULL';
