@@ -9,14 +9,14 @@ class analytics:
         self.connection = mysql.connector.connect(
             host = "localhost",
             user = "testuser",
-            passwd = "testpassword",
-            database = "railDB"
+            passwd = "testuser",
+            database = "tdb"
         )
         self.cursor = self.connection.cursor()
         print("Constructor")
     def updatedAttendece(self):
         print('updatedAttendece')
-        self.cursor.execute("SELECT * FROM  attendence")
+        self.cursor.execute("SELECT * FROM  students_attendence")
         fetchedData = self.cursor.fetchall()
         print(fetchedData[1][3])
         print(fetchedData[1][4])
