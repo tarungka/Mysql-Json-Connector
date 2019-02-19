@@ -125,13 +125,13 @@ class main:
 			finalQuery = finalQuery + " WHERE "
 			key = list(whereDict.keys())
 			length = len(key)
-			print(length,key)
+			#print(length,key)
 			finalQuery = finalQuery + key[0] + "=" + "'" + whereDict[key[0]] + "'"
-			print(finalQuery)
+			#print(finalQuery)
 			for index in range((length - 1)):
-				print(index + 1)
-				print(key[0],whereDict[key[index +1]])
-				print(key[1],key[index +1])
+				#print(index + 1)
+				#print(key[0],whereDict[key[index +1]])
+				#print(key[1],key[index +1])
 				finalQuery = finalQuery + " AND " + key[index + 1] + "=" + "'" + whereDict[key[index + 1]] + "'"
 			finalQuery = finalQuery + ";"
 		logger.log(finalQuery)
@@ -144,29 +144,29 @@ class main:
 		return
 
 	def processRequest(self):
-		print("START OF A PROCESS REQUEST ---------xxxxxxxxxx--------xxxxxxxxx--------xxxxxxxx--------")
+		#print("START OF A PROCESS REQUEST ---------xxxxxxxxxx--------xxxxxxxxx--------xxxxxxxx--------")
 		flag  = False
-		print("-----------------XXXXXXXXXXXXXXXXXXX--------------------")
-		print("Are there any condition lists? ...",end='')
+		#print("-----------------XXXXXXXXXXXXXXXXXXX--------------------")
+		#print("Are there any condition lists? ...",end='')
 		if(self.conditionList != None):
-			print("(YES)")
+			#print("(YES)")
 			for element in self.conditionList:
-				print(element)
-				print("-->INITIATING NEW OBJECT xxxxxxxxxxxxxxxxxxxxxxxx")
+				#print(element)
+				#print("-->INITIATING NEW OBJECT xxxxxxxxxxxxxxxxxxxxxxxx")
 				process = main(element)
 				process.setConnection()
 				#process.showData()
 				if process.processRequest():
 					flag = True
-				print("-->DEATH NEW OBJECT xxxxxxxxxxxxxxxxxxxxxxxx")
-			print("-----------------XXXXXXXXXXXXXXXXXXX--------------------",self.conditionList,flag)
+				#print("-->DEATH NEW OBJECT xxxxxxxxxxxxxxxxxxxxxxxx")
+			#print("-----------------XXXXXXXXXXXXXXXXXXX--------------------",self.conditionList,flag)
 		if(self.conditionList == None or flag == True):
 			'''
 			KIMS THAT WHEN A SELECT IS USED IT RETURNS DATA AND CANNOT BE USED TO UPDATE ANOTHER TABLE.
 			I NEED TO RESTRUCTURE IT TO BE ABLE TO RETURN AS WELL AS RUN AN UPDATE.
 			'''
-			print("(NO)")
-			print("I'm inside")
+			#print("(NO)")
+			#print("I'm inside")
 			if(self.requestType == "insert"):
 				self.insertData(self.fields)
 				if(self.getTable == "attendence"):
@@ -176,18 +176,30 @@ class main:
 			elif(self.requestType == "update"):
 				self.updateData(self.fields,self.where_clause)
 			elif(self.requestType == "select"):
-				print("END OF A PROCESS REQUEST FROM SELECT---------xxxxxxxxxx--------xxxxxxxxx--------xxxxxxxx--------")
+				#print("END OF A PROCESS REQUEST FROM SELECT---------xxxxxxxxxx--------xxxxxxxxx--------xxxxxxxx--------")
 				return self.selectData(self.fields,self.where_clause)
 			elif(self.requestType == "alter"):
 				self.alterTable()
-			print("-----------------XXXXXXXXXXXXXXXXXXX--------------------")
-			for anObject in self.updateList:
-				print(anObject)
-				process = main(anObject)
-				#process.showData()
+			#print("-----------------XXXXXXXXXXXXXXXXXXX--------------------")
+			try:
+				for anObject in self.updateList:
+					print(anObject)
+					process = main(anObject)
+					#process.showData()
+			except:
+				logger.log("No data to update")
 			self.mysqlConnection.commit()
-		print("END OF A PROCESS REQUEST ---------xxxxxxxxxx--------xxxxxxxxx--------xxxxxxxx--------")
+		#print("END OF A PROCESS REQUEST ---------xxxxxxxxxx--------xxxxxxxxx--------xxxxxxxx--------")
 
+
+class analytics:
+	def __init__(self):
+		#Write code here to load the data
+		print("Constructor")
+	def updatedAttendece(self):
+		print('updatedAttendece')
+	def updatedStudents(self):
+		print("updatedStudents")
 
 
 if __name__ == '__main__':
