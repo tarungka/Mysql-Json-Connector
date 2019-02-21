@@ -21,7 +21,6 @@
 				    	"login_status"			:	"VARCHAR(3) DEFAULT 'NO'",
 				    	"component_status"		:	"VARCHAR(3) DEFAULT 'NO'",
 						"usn"					:	"CHAR(10) NOT NULL",
-						"most_recent_login"		:	"DATETIME",
 				    	"time_in_rail"			:	"TIME",
 				    	"current_highest_role"	:	"VARCHAR(20)"
     	    	    },
@@ -37,7 +36,7 @@
 				    	"associated_team",
 				    	"projects_done",
 				    	"branch",
-				    	"login_status",
+						"login_status",
 				    	"component_status",
 				    	"usn",
 				    	"time_in_rail",
@@ -66,8 +65,9 @@
 				    	"branch"				:	"VARCHAR(5) NOT NULL",
 				    	"login_status"			:	"VARCHAR(3) DEFAULT 'NO'",
 				    	"component_status"		:	"VARCHAR(3) DEFAULT 'NO'",
+						"most_recent_login"		:	"DATETIME",
 				    	"usn"					:	"CHAR(10) NOT NULL",
-				    	"time_in_rail"			:	"TIME",
+				    	"time_in_rail"			:	"VARCHAR(20)",
 				    	"current_highest_role"	:	"VARCHAR(20)"
     	    	    },
     	    	    "read_list"  :   [
@@ -83,6 +83,7 @@
 				    	"projects_done",
 				    	"branch",
 				    	"login_status",
+						"most_recent_login",
 				    	"component_status",
 				    	"usn",
 				    	"time_in_rail",

@@ -1,0 +1,25 @@
+{
+    "railDB"    :     {
+        "attendence"            :   {
+            "a"  :   "b"
+        },
+        "current_students"      :   {
+            "a"  :   "b"
+        },
+        "all_students"          :   {
+            "a"  :   "b"
+        },
+        "current_teams"         :   {
+            "a"  :   "b"
+        },
+        "all_teams"             :   {
+            "a"  :   "b"
+        },
+        "current_projects"      :   {
+            "a"  :   "b"
+        },
+        "all_projects"          :   {
+            "a"  :   "b"
+        }
+    }
+}

@@ -190,7 +190,8 @@ class main:
 				logger.log("No data to update")
 			self.mysqlConnection.commit()
 		#print("END OF A PROCESS REQUEST ---------xxxxxxxxxx--------xxxxxxxxx--------xxxxxxxx--------")
-
+	def analytics(self):
+		print("a")
 
 class analytics:
 	def __init__(self):
@@ -209,3 +210,132 @@ if __name__ == '__main__':
 	process.processRequest()
 else:
 	print("This code does not support being imported as a module")
+
+
+"""
+python3 newdatabase.py '
+{
+	"HEADER":{
+		"DATABASE":"railDB",
+		"TABLE_NAME":"current_students",
+		"REQUEST_TYPE":"insert"
+	},
+	"DATA":{
+		"FIELDS": 
+		{
+			"rail_id": "RSK15EC053", 
+			"student_name": "TARAKESHAVA C R ", 
+			"gender": "M",
+			"date_of_birth" : "1999-08-21",
+			"associated_team" : "A",
+			"usn": "1SK17CS002", 
+			"branch": "CS", 
+			"time_of_joining_rail": "2019-02-20 06:20:42", 
+			"email": "ananth@gmail.com", 
+			"phone_number": "9880233073"
+		},
+		"SET":null,
+		"WHERE":null
+	},
+	"FOOTER" : {
+		"DATA ABOUT THE REQUEST" : "just a test",
+		"COMMENT" : "THIS IS A TEST",
+		"DEP" : null,
+		"UPDATE" : null
+	}
+}
+'
+python3 newdatabase.py '
+{
+	"HEADER":{
+		"DATABASE":"railDB",
+		"TABLE_NAME":"attendence",
+		"REQUEST_TYPE":"insert"
+	},
+	"DATA":{
+		"FIELDS": 
+		{
+			"rail_id": "RSK15EC053", 
+			"purpose" : "TESTING",
+			"time_in" : "2019-02-20 9:00:20",
+			"current_team": "A"
+		},
+		"SET":null,
+		"WHERE":null
+	},
+	"FOOTER" : {
+		"DATA ABOUT THE REQUEST" : "just a test",
+		"COMMENT" : "THIS IS A TEST",
+		"DEP" : [
+			{
+				"HEADER":{
+					"DATABASE":"railDB",
+					"TABLE_NAME":"current_student",
+					"REQUEST_TYPE":"select"
+				},
+				"DATA":{
+					"FIELDS":{
+						"rail_id": "RSK17CS002"
+					},
+					"SET":null,
+					"WHERE":null
+				},
+				"FOOTER" : {
+					"DATA ABOUT THE REQUEST" : "just a test",
+					"COMMENT" : "THIS IS A TEST",
+					"DEP" : null,
+					"UPDATE" : null
+				}
+			}
+		],
+		"UPDATE" : [
+			{
+				"HEADER":{
+					"DATABASE":"railDB",
+					"TABLE_NAME":"attendence",
+					"REQUEST_TYPE":"select"
+				},
+				"DATA":{
+					"FIELDS": null,
+					"SET":{
+						"time_since_last_login" : "railDB.current_students.most_recent_login - railDB.attendence.time_in"
+					},
+					"WHERE":{
+						"rail_id": "RSK17CS002"
+					}
+				},
+				"FOOTER" : {
+					"DATA ABOUT THE REQUEST" : "just a test",
+					"COMMENT" : "THIS IS A TEST",
+					"DEP" : null,
+					"UPDATE" : null
+				}
+			},
+			{
+				"HEADER":{
+					"DATABASE":"railDB",
+					"TABLE_NAME":"current_student",
+					"REQUEST_TYPE":"select"
+				},
+				"DATA":{
+					"FIELDS": null,
+					"SET":{
+						"most_recent_login" : "2019-02-20 9:00:20"
+					},
+					"WHERE":{
+						"rail_id": "RSK17CS002"
+					}
+				},
+				"FOOTER" : {
+					"DATA ABOUT THE REQUEST" : "just a test",
+					"COMMENT" : "THIS IS A TEST",
+					"DEP" : null,
+					"UPDATE" : null
+				}
+			}
+		]
+	}
+}
+'
+
+"""
