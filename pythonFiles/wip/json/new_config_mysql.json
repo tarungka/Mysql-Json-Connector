@@ -1,11 +1,11 @@
 {
     "host"  	:   "localhost",
     "user"  	:   "testuser",
-    "password"  :   "testuser",
+    "password"  :   "testpassword",
 	"databases" :	{
-    	"railDB"  :   {
+    	"rail_db"  :   {
     	    "tables"    :   {
-    	    	"all_students"  :   {
+    	    	"all_studs"  :   {
     	    	    "table_constrains"  :   {
     	    	        "slno"					:	"INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
 				    	"rail_id"				:	"CHAR(10) NOT NULL",
@@ -50,7 +50,7 @@
     	    	        "usn"
                     ]
     	    	},
-    	    	"current_students"  :   {
+    	    	"cur_studs"  :   {
     	    	    "table_constrains"  :   {
     	    	        "slno"					:	"INT(3) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
 				    	"rail_id"				:	"CHAR(10) NOT NULL",
@@ -117,21 +117,21 @@
 						"purpose"
                     ]
     	    	},
-    	    	"all_projects"  :   {
+    	    	"all_projs"  :   {
     	    	    "table_constrains"  :   {
     	    	        "slno"					:	"INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
 						"project_name"			:	"VARCHAR(100) NOT NULL",
 						"associated_team"		:	"CHAR(1) NOT NULL",
 						"project_description"	:	"VARCHAR(200) NOT NULL",
 						"number_of_members"		:	"TINYINT UNSIGNED NOT NULL",
-						"mentor"				:	"VARCHAR(50)",
+						"mentor"				:	"VARCHAR(50) DEFAULT null",
 						"team_lead"				:	"VARCHAR(50) NOT NULL",
-						"guide"					:	"VARCHAR(50)",
+						"guide"					:	"VARCHAR(50) DEFAULT null",
 						"idea_by"				:	"VARCHAR(50) NOT NULL",
 						"type_of_project"		:	"VARCHAR(30) NOT NULL",
 						"expected_duration"		:	"VARCHAR(20) NOT NULL",
-						"date_start"			:	"DATETIME NOT NULL",
-						"date_end"				:	"DATETIME",
+						"date_start"			:	"DATETIME NOT NULL DEFAULT NOW()",
+						"date_end"				:	"DATETIME DEFAULT null",
 						"status"				:	"VARCHAR(20) NOT NULL",
 						"priority"				:	"VARCHAR(20) NOT NULL",
 						"technology_stack"		:	"VARCHAR(50) NOT NULL"
@@ -159,7 +159,7 @@
 						"project_description"
     	    	    ]
     	    	},
-    	    	"current_projects"  :   {
+    	    	"cur_projs"  :   {
     	    	    "table_constrains"  :   {
     	    	        "slno"					:	"INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
 						"project_name"			:	"VARCHAR(100) NOT NULL",
@@ -224,7 +224,7 @@
 						"team_members"
     	    	    ]
     	    	},
-    	    	"current_teams"  :   {
+    	    	"cur_teams"  :   {
     	    	    "table_constrains"  :   {
     	    	        "slno"      			: "INT(3) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
     	    	        "team_name"            	: "CHAR(2) NOT NULL",
@@ -275,7 +275,7 @@
 						"email"
     	    	    ]
     	    	},
-    	    	"current_admin"  :   {
+    	    	"cur_admin"  :   {
     	    	    "table_constrains"  :   {
     	    	        "slno"						: "INT(3) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
 						"admin_name"				: "VARCHAR(50) NOT NULL",
@@ -301,19 +301,6 @@
 						"admin_id",
 						"phone_number",
 						"email"
-    	    	    ]
-    	    	},
-    	    	"test"  :   {
-    	    	    "table_constrains"  :   {
-    	    	        "slno"	:	"INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
-				    	"data"	:	"VARCHAR(20)"
-    	    	    },
-    	    	    "read_list"  :   [
-						"slno",
-						"data"
-    	    	    ],
-    	    	    "index_constrains"		: 	[
-    	    	        "slno"
     	    	    ]
     	    	},
 				"events"	:{

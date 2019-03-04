@@ -1,14 +1,10 @@
+#!/usr/bin/python3
 import mysql.connector
 from mysql.connector import errorcode
 import query
 import json
 import import_logger
-#import hashlib
-#import jsonMysqlParser as parser
-#from Crypto.Cipher import AES
-#from Crypto import Random
-#from Crypto.Random import get_random_bytes
-#import sys
+
 logger =  import_logger.logIt(__file__)
 
 def main(jsonCnf):
@@ -52,30 +48,8 @@ def main(jsonCnf):
 			cursor.execute(query.createQuery("table",table,dictionary))
 			print("(success)")
 	logger.log("All databases and tables are created",True)
-	#parse = parser.jsonConfiguration("json/config_mysql.json")
-	#allDatabases = parse.getDatabases()
-	#allTables = parse.getTables()
-	#jsonEncryption = {}
-	#print(get_random_bytes(16))
-	#encrypt = AES.new(get_random_bytes(16),AES.MODE_CBC,get_random_bytes(16))
-	#for table in allTables:
-	#	print("Entering tables")
-	#	print(table)
-	#	print(encrypt.encrypt(table.ljust(16)))
-	#	ans = encrypt.encrypt(table.ljust(16))
-	#	jsonEncryption.update({str(ans) : table})
-	#	print("---",encrypt.decrypt(ans))
-	#	print(jsonEncryption)
-	#	print("----------------------------")
-	#	try: 
-	#		ans = encrypt.encrypt(table)
-	#		print(ans)
-	#	except:
-	#		print("Cannot print")
-	#print(json.dumps(jsonEncryption))
-	#parse.saveAs("json/newSetupJson.json",json.dumps(jsonEncryption,indent=4))
-	
-	
+	logger.log("Setting index values.",True)
+
 
 
 if __name__ == '__main__':

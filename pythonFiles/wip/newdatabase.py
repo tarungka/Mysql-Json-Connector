@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import mysql.connector
 from mysql.connector import errorcode
 import sys
@@ -194,9 +195,19 @@ class main:
 		print("a")
 
 class analytics:
-	def __init__(self):
+	def __init__(self,connection,cursor):
 		#Write code here to load the data
+		self.connection = connection
+		self.cursor = cursor
 		print("Constructor")
+	def run(self,tableName):
+		self.tableName = tableName
+		if(tableName == ""):
+			print("break")
+		elif(tableName == ""):
+			print("break")
+		else:
+			print("break")
 	def updatedAttendece(self):
 		print('updatedAttendece')
 	def updatedStudents(self):
