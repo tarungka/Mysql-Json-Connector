@@ -3,9 +3,9 @@ import mysql.connector
 from mysql.connector import errorcode
 import query
 import json
-import import_logger
+import logger
 
-logger =  import_logger.logIt(__file__)
+logger =  logger.logIt(__file__)
 
 def main(jsonCnf):
 	try:
@@ -54,7 +54,7 @@ def main(jsonCnf):
 
 if __name__ == '__main__':
 	logger.log("Loading configuration File ...")
-	with open('json/new_config_mysql.json') as configFile:
+	with open('.config/database.json') as configFile:
 		jsonCnf = json.load(configFile)
 		main(jsonCnf)
 else:

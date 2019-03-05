@@ -4,9 +4,9 @@ from mysql.connector import errorcode
 import sys
 import json
 import query
-import import_logger
+import logger
 
-logger =  import_logger.logIt(__file__)
+logger =  logger.logIt(__file__)
 
 class main:
 	def __init__(self,jsonData):
@@ -50,15 +50,20 @@ class main:
 		return self.table
 	
 	def setConnection(self):
-		self.mysqlConnection = mysql.connector.connect(
-			host		=	"localhost",	#CREATE A CONFIG FILE FOR THIS AND GET DATA FROM IT.
-			user		=	"testuser", 	#CREATE A CONFIG FILE FOR THIS AND GET DATA FROM IT.
-			passwd		=	"testpassword", 	#CREATE A CONFIG FILE FOR THIS AND GET DATA FROM IT.
-			database	=	self.getDatabase()
-		)
-		self.cursor = self.mysqlConnection.cursor()
-		return self.cursor
-		#WRITE EXPECTIONS FOR THIS
+		with open(".config/database.json","r") as cnfFile:
+			data 	 = json.loads(cnfFile)
+			host 	 = data["host"]
+			user 	 = data["user"]
+			password = data["password"]
+			self.mysqlConnection = mysql.connector.connect(
+				host		=	host,	#CREATE A CONFIG FILE FOR THIS AND GET DATA FROM IT.
+				user		=	user, 	#CREATE A CONFIG FILE FOR THIS AND GET DATA FROM IT.
+				passwd		=	password, 	#CREATE A CONFIG FILE FOR THIS AND GET DATA FROM IT.
+				database	=	self.getDatabase()
+			)
+			self.cursor = self.mysqlConnection.cursor()
+			return self.cursor
+			#WRITE EXPECTIONS FOR THIS
 
 	def insertData(self,insDict):
 		logger.log("Generating CREATE query(%s) ..." % (self.getTable()))

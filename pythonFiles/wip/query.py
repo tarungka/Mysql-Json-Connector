@@ -1,8 +1,6 @@
-import constants
-import import_logger
+import logger
 
-logger =  import_logger.logIt(__file__)
-dictQuery = constants.constData()
+logger =  logger.logIt(__file__)
 
 def insertQuery(tableName,dictionary):
 	logger.log("Generating CREATE query(%s) ..." % (tableName))
