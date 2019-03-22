@@ -69,19 +69,19 @@ def createQuery(what,nameOfWhat,dictionary = None):
 		key = list(dictionary.keys())
 		value = list(dictionary.values())
 		length = len(key)
-		finalQuery = (finalQuery + key[0] + " " + value[0])
+		finalQuery = (finalQuery + "`" + key[0] + "` " + value[0])
 		for index in range(length - 1):
 			#print(key[index + 1].upper())
 			if(key[index + 1].upper() == "PRIMARY KEY"):
-				finalQuery = (finalQuery + "," + key[index + 1] +  " (" + value[index + 1] + ")")
+				finalQuery = (finalQuery + ",`" + key[index + 1] +  "` (" + value[index + 1] + ")")
 				continue
-			finalQuery = (finalQuery + "," + key[index + 1] +  " " + value[index + 1])
+			finalQuery = (finalQuery + ",`" + key[index + 1] +  "` " + value[index + 1])
 		finalQuery = finalQuery + ");"
-		logger.log(finalQuery)
+		logger.log(finalQuery,True)
 		return finalQuery
 	elif(whatUpper == "DATABASE"):
 		logger.log("Generating CREATE query for database(%s) ..." % (nameOfWhat))
-		finalQuery = ("CREATE " + whatUpper + " " + nameOfWhat + ";")
+		finalQuery = ("CREATE " + whatUpper + " `" + nameOfWhat + "`;")
 		logger.log(finalQuery)
 		return finalQuery
 	else:
@@ -119,5 +119,25 @@ def selectQuery(selectList,tableName,whereList = None):
 			print(key[1],key[index +1])
 			finalQuery = finalQuery + " AND " + key[index + 1] + "=" + "'" + whereList[key[index + 1]] + "'"
 		finalQuery = finalQuery + ";"
+	logger.log(finalQuery)
+	return finalQuery
+
+def alterQuery(tableName):
+	logger.log("Generating ALTER query(%s) -- FAILED AS THE FUNCTION IS NOT YET WRITTEN" % (tableName))
+	print("The alter command is not supported yet, will be supported in the future versions.")
+	return None
+
+def indexQuery(tableName,indexName,indexList,ifUnique = True):
+	#logger.log("Creating INDEX query(%s)" % (tableName))
+	finalQuery = "CREATE "
+	if(ifUnique == True):
+		finalQuery = finalQuery + "UNIQUE "
+	finalQuery = finalQuery + "INDEX "
+	finalQuery = finalQuery + indexName
+	finalQuery = finalQuery + " ON "
+	finalQuery = finalQuery + tableName
+	finalQuery = finalQuery + "("+indexList+");"
+	#finalQuery = finalQuery + "("+str(indexList)[1:-1]+");"
+	logger.log("THIS FUNCTION IS BUGGY,NEED TO BE UPDATED IN THE NEWER RELASE")
 	logger.log(finalQuery)
 	return finalQuery

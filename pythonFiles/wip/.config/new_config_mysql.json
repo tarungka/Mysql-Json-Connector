@@ -313,8 +313,10 @@
 						"description"		:	"VARCHAR(200) NOT NULL",
 						"domain"			:	"VARCHAR(20) NOT NULL",
 						"member_type"		:	"VARCHAR(30) NOT NULL",
-						"duraiton"			:	"TIME NOT NULL",
-						"by_who"			:	"VARCHAR(30)",
+						"duration"			:	"TIME NOT NULL",
+						"by_who"			:	"VARCHAR(30) NOT NULL",
+						"phone_number"		:	"CHAR(10)",
+						"email"				:	"VARCHAR(50)",
 						"number_of_attendes":	"INT(3) NOT NULL"
 					}
 				}

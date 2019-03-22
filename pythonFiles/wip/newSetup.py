@@ -47,8 +47,27 @@ def main(jsonCnf):
 			print("Creating table %s ..." % (table),end='')
 			cursor.execute(query.createQuery("table",table,dictionary))
 			print("(success)")
+			#	THE FOLLOWING CODE IS A BIT BUGGY, WILL NEED TO FIX IT.
+			#	REMOVED AS OF NOW, WILL ADD IT BACK AFTER REMOVING THE BUGS
+			#	DATED 22 MAR 2019 21:17:23
+			'''
+			print("Setting index values for table %s ..." % table)
+			allIndexes = tableObject["tables"][table]["index_constrains"]
+			print(allIndexes)
+			try:
+				for index in allIndexes:
+					print(index)
+					print(query.indexQuery(table,index,index))
+					cursor.execute(query.indexQuery(table,index,list(index)))
+			except TypeError as error:
+				print()
+				print("TypeError:This table does not have any index value(s). ->",error)
+			except IndexError:
+				print(error)
+				print("IndexError:This table does not have any index value(s). ->",error)
+			'''
 	logger.log("All databases and tables are created",True)
-	logger.log("Setting index values.",True)
+	#logger.log("Setting index values.",True)
 
 
 

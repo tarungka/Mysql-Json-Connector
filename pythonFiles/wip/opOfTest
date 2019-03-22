@@ -1,0 +1,69 @@
+Database rail_db is present, are you sure you want to drop it(Y/N)?rail_db was dropped.
+Creating database rail_db ...(success)
+Creating table all_studs ...(success)
+Setting index values for table all_studs ...
+['slno', 'rail_id', 'phone_number', 'email', 'usn']
+slno
+CREATE UNIQUE INDEX slno ON all_studs(slno);
+
+TypeError:This table does not have any index value(s). -> must be str, not list
+Creating table cur_studs ...(success)
+Setting index values for table cur_studs ...
+['slno', 'rail_id', 'phone_number', 'email', 'usn']
+slno
+CREATE UNIQUE INDEX slno ON cur_studs(slno);
+
+TypeError:This table does not have any index value(s). -> must be str, not list
+Creating table attendence ...(success)
+Setting index values for table attendence ...
+None
+
+TypeError:This table does not have any index value(s). -> 'NoneType' object is not iterable
+Creating table all_projs ...(success)
+Setting index values for table all_projs ...
+['slno', 'project_description']
+slno
+CREATE UNIQUE INDEX slno ON all_projs(slno);
+
+TypeError:This table does not have any index value(s). -> must be str, not list
+Creating table cur_projs ...(success)
+Setting index values for table cur_projs ...
+['slno', 'project_description']
+slno
+CREATE UNIQUE INDEX slno ON cur_projs(slno);
+
+TypeError:This table does not have any index value(s). -> must be str, not list
+Creating table all_teams ...(success)
+Setting index values for table all_teams ...
+['slno', 'associated_projects', 'team_members']
+slno
+CREATE UNIQUE INDEX slno ON all_teams(slno);
+
+TypeError:This table does not have any index value(s). -> must be str, not list
+Creating table cur_teams ...(success)
+Setting index values for table cur_teams ...
+['slno', 'team_name', 'associated_projects', 'team_members']
+slno
+CREATE UNIQUE INDEX slno ON cur_teams(slno);
+
+TypeError:This table does not have any index value(s). -> must be str, not list
+Creating table all_admin ...(success)
+Setting index values for table all_admin ...
+['slno', 'admin_id', 'email']
+slno
+CREATE UNIQUE INDEX slno ON all_admin(slno);
+
+TypeError:This table does not have any index value(s). -> must be str, not list
+Creating table cur_admin ...(success)
+Setting index values for table cur_admin ...
+['slno', 'admin_id', 'phone_number', 'email']
+slno
+CREATE UNIQUE INDEX slno ON cur_admin(slno);
+
+TypeError:This table does not have any index value(s). -> must be str, not list
+Creating table events ...(success)
+Setting index values for table events ...
+None
+
+TypeError:This table does not have any index value(s). -> 'NoneType' object is not iterable
+All databases and tables are created

@@ -21,7 +21,8 @@
 				    	"login_status"			:	"VARCHAR(3) DEFAULT 'NO'",
 				    	"component_status"		:	"VARCHAR(3) DEFAULT 'NO'",
 						"usn"					:	"CHAR(10) NOT NULL",
-				    	"time_in_rail"			:	"TIME",
+						"time_in_rail"			:	"TIME",
+						"most_recent_login"		:	"DATETIME DEFAULT null",
 				    	"current_highest_role"	:	"VARCHAR(20)"
     	    	    },
     	    	    "read_list"  :   [
@@ -115,7 +116,8 @@
 						"time_in",
 						"time_out",
 						"purpose"
-                    ]
+					],
+					"index_constrains"	: null
     	    	},
     	    	"all_projs"  :   {
     	    	    "table_constrains"  :   {
@@ -314,9 +316,74 @@
 						"domain"			:	"VARCHAR(20) NOT NULL",
 						"member_type"		:	"VARCHAR(30) NOT NULL",
 						"duraiton"			:	"TIME NOT NULL",
-						"by_who"			:	"VARCHAR(30)",
+						"by_who"			:	"VARCHAR(30) NOT NULL",
+						"phone_number"		:	"CHAR(10)",
+						"email"				:	"VARCHAR(50)",
 						"number_of_attendes":	"INT(3) NOT NULL"
-					}
+					},
+					"index_constrains"		: null
+				},
+    	    	"components"  :   {
+    	    	    "table_constrains"  :   {
+    	    	        "slno"					:	"INT(3) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
+				    	"component_id"			:	"CHAR(10) NOT NULL",
+				    	"component_name"		:	"VARCHAR(50) NOT NULL",
+				    	"date_of_procurement"	:	"DATE",
+				    	"if_kit"				:	"VARCHAR(3) DEFAULT 'NO'",
+				    	"associated_colour"		:	"VARCHAR(20) NOT NULL",
+				    	"number_of_times_issued":	"INT UNSIGNED DEFAULT '0'",
+				    	"group"					:	"VARCHAR(10) NOT NULL",
+				    	"component_status"		:	"VARCHAR(3) DEFAULT 'YES'",
+						"most_recent_issue"		:	"DATETIME",
+				    	"total_time_of_use"		:	"VARCHAR(20)"
+    	    	    },
+    	    	    "read_list"  :   [
+    	    	        "slno",
+				    	"component_id",
+				    	"component_name"
+    	    	    ],
+    	    	    "index_constrains"		: 	[
+    	    	        "slno",
+    	    	        "component_id"
+    	    	    ]
+				},
+    	    	"kits"  :   {
+    	    	    "table_constrains"  :   {
+    	    	        "slno"						:	"INT(3) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
+				    	"kit_id"					:	"CHAR(10) NOT NULL",
+				    	"number_of_sub_compoenents"	:	"INT(3) UNSIGNED NOT NULL",
+				    	"sub_compoenents"			:	"BLOB NOT NULL"
+    	    	    },
+    	    	    "read_list"  :   [
+    	    	        "slno",
+				    	"kit_id",
+				    	"sub_compoenents"
+    	    	    ],
+    	    	    "index_constrains"		: 	[
+    	    	        "slno",
+    	    	        "kit_id"
+    	    	    ]
+				},
+    	    	"iss_compnts"  :   {
+    	    	    "table_constrains"  :   {
+    	    	        "slno"					:	"INT(3) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
+				    	"component_id"			:	"CHAR(10) NOT NULL",
+				    	"request/return"		:	"VARCHAR(7) NOT NULL",
+				    	"issued_to"				:	"VARCHAR(20) NOT NULL",
+				    	"associated_team"		:	"VARCHAR(20) NOT NULL",
+				    	"time_of_issue"			:	"DATETIME DEFAULT NOW()",
+				    	"time_of_return"		:	"DATETIME DEFAULT NOW()",
+				    	"time_of_use"			:	"VARCHAR(20)",
+				    	"purpose"				:	"VARCHAR(50) NOT NULL"
+    	    	    },
+    	    	    "read_list"  :   [
+    	    	        "slno",
+				    	"component_id",
+				    	"issued_to"
+    	    	    ],
+    	    	    "index_constrains"		: 	[
+    	    	        "slno"
+    	    	    ]
 				}
 			}
 		}
