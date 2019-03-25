@@ -101,7 +101,6 @@
 			   	"attendence"  :   {
     	    	    "table_constrains"  :   {
     	    	        "rail_id"     			:	"VARCHAR(11) NOT NULL",
-						"student_name"			:	"VARCHAR(50) NOT NULL",
 						"current_team"			:	"CHAR(1) NOT NULL",
 						"time_in"     			:	"DATETIME NOT NULL DEFAULT NOW()",
 						"time_out"    			:	"DATETIME DEFAULT null",

@@ -3,45 +3,62 @@ import mysql.connector
 from mysql.connector import errorcode
 import sys
 import json
-import query
 import logger
 
 logger =  logger.logIt(__file__)
 
 class main:
-	def __init__(self,jsonData):
-		try:
+	'''
+	1)GET A BETTER NAME FOR THE CLASS
+	2)WRITE BETTER DOCUMENTATION AS YOU GO
+	3)PLAN BEFORE YOU WRITE THE ACTUAL CODE
+	'''
+	def __init__(self,jsonData):		#Constructor which decodes the incoming json data
+		print("The json data before convertion is:",type(jsonData))
+		print("The json data is:",jsonData)
+		try:	#Checking if the input data is of string type
 			print("Trying to convert json data(of string datatype) to dictionary format ...",end='')
 			self.jsonString = json.loads(str(jsonData))
 			print("(success)")
-		except:
+		except:	#Checking of the input data is of dict type
 			print("(failed)")
 			print("Trying to assign data(of dict datatype) to dictionary format ...",end='')
-			self.jsonString = jsonData			
+			self.jsonString = jsonData
 			print("(success)")
 		logger.log(str(self.jsonString))
-		self.header = self.jsonString["HEADER"]
-		self.requestType = self.header["REQUEST_TYPE"]
-		self.data = self.jsonString["DATA"]
-		self.fields = self.data["FIELDS"]
-		self.where_clause = self.data["WHERE"]
-		self.database = self.header["DATABASE"]
-		self.table = self.header["TABLE_NAME"]
-		self.footer = self.jsonString["FOOTER"]
-		#print(self.footer)
-		self.updateList = self.footer["UPDATE"]
-		self.conditionList = self.footer["DEP"]
-		#self.setConnection()
+		print("The json data after convertion is",type(self.jsonString))
+		
+		self.header = self.jsonString["HEADER"]			#Gets the header 
+		self.database = self.header["DATABASE"]			#database name within header
+		self.table = self.header["TABLE_NAME"]			#table name name within header
+		self.requestType = self.header["REQUEST_TYPE"]	#request type name within header
+		
+		self.data = self.jsonString["DATA"]				#Gets the data
+		self.fields = self.data["FIELDS"]				#fields name within header
+		self.setClause = self.data["SET"]				#setClause name within header
+		self.whereClause = self.data["WHERE"]			#whereClause name within header
+		
+		self.footer = self.jsonString["FOOTER"]			#Gets the footer
+		self.updateList = self.footer["UPDATE"]			#update name within header
+		self.conditionList = self.footer["DEP"]			#dep name within header
+		'''
+		WRITE THE CODE HERE TO GET DATA ABOUT THE REQUEST AND THE COMMENT FROM THE FOOTER SECTION
+		'''
+
+
 	def showData(self):
 		print("jsonString",self.jsonString)
-		print("request_type",self.requestType)
-		print("header",self.header)
-		print("data",self.data)
-		print("footer",self.footer)
-		print("database",self.database)
-		print("table",self.table)
-		print("update",self.updateList)
-		print("condition",self.conditionList)
+		print("header			:",self.header)
+		print("---database			:",self.database)
+		print("---table name		:",self.table)
+		print("---request type		:",self.requestType)
+		print("data				:",self.data)
+		print("---fields			:",self.fields)
+		print("---set				:",self.setClause)
+		print("---where				:",self.whereClause)
+		print("footer			:",self.footer)
+		print("---update			:",self.updateData)
+		print("---dependency		:",self.conditionList)
 
 	def getDatabase(self):
 		return self.database
@@ -49,16 +66,16 @@ class main:
 	def getTable(self):
 		return self.table
 	
-	def setConnection(self):
-		with open(".config/database.json","r") as cnfFile:
-			data 	 = json.loads(cnfFile)
+	def setConnection(self):	#Establishes a connection between the script and the mysql database
+		with open(".config/database.json") as cnfFile:
+			data 	 = json.load(cnfFile)
 			host 	 = data["host"]
 			user 	 = data["user"]
 			password = data["password"]
 			self.mysqlConnection = mysql.connector.connect(
-				host		=	host,	#CREATE A CONFIG FILE FOR THIS AND GET DATA FROM IT.
-				user		=	user, 	#CREATE A CONFIG FILE FOR THIS AND GET DATA FROM IT.
-				passwd		=	password, 	#CREATE A CONFIG FILE FOR THIS AND GET DATA FROM IT.
+				host		=	host,		#CREATE A SEPERATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
+				user		=	user, 		#CREATE A SEPERATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
+				passwd		=	password, 	#CREATE A SEPERATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
 				database	=	self.getDatabase()
 			)
 			self.cursor = self.mysqlConnection.cursor()
@@ -102,7 +119,7 @@ class main:
 
 	def updateData(self,setDict,whereDict):
 		logger.log("Generating UPDATE query(%s) ..." % (self.getTable()))
-		finalQuery = ("UPADTE %s SET " % (self.getTable()))
+		finalQuery = ("UPDATE %s SET " % (self.getTable()))
 		key = list(setDict.keys())
 		value = list(setDict.values())
 		length = len(key)
@@ -150,52 +167,48 @@ class main:
 		return
 
 	def processRequest(self):
-		#print("START OF A PROCESS REQUEST ---------xxxxxxxxxx--------xxxxxxxxx--------xxxxxxxx--------")
 		flag  = False
-		#print("-----------------XXXXXXXXXXXXXXXXXXX--------------------")
-		#print("Are there any condition lists? ...",end='')
+		print("flag is intially set to false")
 		if(self.conditionList != None):
-			#print("(YES)")
+			print("Condition list:",self.conditionList)
 			for element in self.conditionList:
-				#print(element)
-				#print("-->INITIATING NEW OBJECT xxxxxxxxxxxxxxxxxxxxxxxx")
-				process = main(element)
-				process.setConnection()
-				#process.showData()
-				if process.processRequest():
+				print("Creating a new parameter with the parameter:",element)
+				subProcess = main(element)
+				subProcess.setConnection()
+				if subProcess.processRequest():
 					flag = True
-				#print("-->DEATH NEW OBJECT xxxxxxxxxxxxxxxxxxxxxxxx")
-			#print("-----------------XXXXXXXXXXXXXXXXXXX--------------------",self.conditionList,flag)
+					print("Setting flag to true")
 		if(self.conditionList == None or flag == True):
 			'''
 			KIMS THAT WHEN A SELECT IS USED IT RETURNS DATA AND CANNOT BE USED TO UPDATE ANOTHER TABLE.
 			I NEED TO RESTRUCTURE IT TO BE ABLE TO RETURN AS WELL AS RUN AN UPDATE.
 			'''
-			#print("(NO)")
-			#print("I'm inside")
 			if(self.requestType == "insert"):
 				self.insertData(self.fields)
 				if(self.getTable == "attendence"):
 					print("Need to update the current_students table")
 			elif(self.requestType == "delete"):
-				self.deleteData(self.fields,self.where_clause)
+				self.deleteData(self.fields,self.whereClause)
 			elif(self.requestType == "update"):
-				self.updateData(self.fields,self.where_clause)
+				self.updateData(self.setClause,self.whereClause)
 			elif(self.requestType == "select"):
-				#print("END OF A PROCESS REQUEST FROM SELECT---------xxxxxxxxxx--------xxxxxxxxx--------xxxxxxxx--------")
-				return self.selectData(self.fields,self.where_clause)
+				print(type(self.fields))
+				return self.selectData(self.fields,self.whereClause)
 			elif(self.requestType == "alter"):
 				self.alterTable()
-			#print("-----------------XXXXXXXXXXXXXXXXXXX--------------------")
-			try:
-				for anObject in self.updateList:
-					print(anObject)
-					process = main(anObject)
-					#process.showData()
-			except:
-				logger.log("No data to update")
+			#try:
+			for anObject in self.updateList:
+				print(anObject)
+				subProcess = main(anObject)
+				subProcess.setConnection()
+				subProcess.showData()
+				subProcess.processRequest()
+			#except Exception as e:
+			#	logger.log("No data to update")
+			#	logger.log("Exception Raised:",str(e))
 			self.mysqlConnection.commit()
-		#print("END OF A PROCESS REQUEST ---------xxxxxxxxxx--------xxxxxxxxx--------xxxxxxxx--------")
+
+
 	def analytics(self):
 		print("a")
 

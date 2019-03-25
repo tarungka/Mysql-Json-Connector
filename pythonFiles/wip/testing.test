@@ -1,0 +1,20 @@
+{"HEADER" : {"DATABASE" : "rail_db","TABLE_NAME" : "attendence","REQUEST_TYPE" : "insert"},"DATA":{"FIELDS":{"rail_id": "RSK17CS036", "current_team": "A", "time_in": "2019-03-25 08:53:19", "purpose": "askldfa"},"SET" : null,"WHERE" : null},"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" :[{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"cur_studs","REQUEST_TYPE":"select"},"DATA":{"FIELDS": ["rail_id"],"SET":null,"WHERE":null},"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}}],"UPDATE" : [{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"cur_studs","REQUEST_TYPE":"update"},"DATA":{"FIELDS": null,"SET":{"login_status":"YES"},"WHERE":{"rail_id":"RSK17CS036"}},"FOOTER":{"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}}]}}
+The json data before convertion is: <class 'str'>
+The json data is: {"HEADER" : {"DATABASE" : "rail_db","TABLE_NAME" : "attendence","REQUEST_TYPE" : "insert"},"DATA":{"FIELDS":{"rail_id": "RSK17CS036", "current_team": "A", "time_in": "2019-03-25 08:53:19", "purpose": "askldfa"},"SET" : null,"WHERE" : null},"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" :[{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"cur_studs","REQUEST_TYPE":"select"},"DATA":{"FIELDS": ["rail_id"],"SET":null,"WHERE":null},"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}}],"UPDATE" : [{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"cur_studs","REQUEST_TYPE":"update"},"DATA":{"FIELDS": null,"SET":{"login_status":"YES"},"WHERE":{"rail_id":"RSK17CS036"}},"FOOTER":{"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}}]}}
+Trying to convert json data(of string datatype) to dictionary format ...(success)
+The json data after convertion is <class 'dict'>
+Condition list: [{'HEADER': {'DATABASE': 'rail_db', 'TABLE_NAME': 'cur_studs', 'REQUEST_TYPE': 'select'}, 'DATA': {'FIELDS': ['rail_id'], 'SET': None, 'WHERE': None}, 'FOOTER': {'DATA ABOUT THE REQUEST': 'just a test', 'COMMENT': 'THIS IS A TEST', 'DEP': None, 'UPDATE': None}}]
+Creating a new parameter with the parameter: {'HEADER': {'DATABASE': 'rail_db', 'TABLE_NAME': 'cur_studs', 'REQUEST_TYPE': 'select'}, 'DATA': {'FIELDS': ['rail_id'], 'SET': None, 'WHERE': None}, 'FOOTER': {'DATA ABOUT THE REQUEST': 'just a test', 'COMMENT': 'THIS IS A TEST', 'DEP': None, 'UPDATE': None}}
+The json data before convertion is: <class 'dict'>
+The json data is: {'HEADER': {'DATABASE': 'rail_db', 'TABLE_NAME': 'cur_studs', 'REQUEST_TYPE': 'select'}, 'DATA': {'FIELDS': ['rail_id'], 'SET': None, 'WHERE': None}, 'FOOTER': {'DATA ABOUT THE REQUEST': 'just a test', 'COMMENT': 'THIS IS A TEST', 'DEP': None, 'UPDATE': None}}
+Trying to convert json data(of string datatype) to dictionary format ...(failed)
+Trying to assign data(of dict datatype) to dictionary format ...(success)
+The json data after convertion is <class 'dict'>
+<class 'list'>
+INSERT INTO attendence(rail_id,current_team,time_in,purpose) VALUES('RSK17CS036','A','2019-03-25 08:53:19','askldfa');
+{'HEADER': {'DATABASE': 'rail_db', 'TABLE_NAME': 'cur_studs', 'REQUEST_TYPE': 'update'}, 'DATA': {'FIELDS': None, 'SET': {'login_status': 'YES'}, 'WHERE': {'rail_id': 'RSK17CS036'}}, 'FOOTER': {'DATA ABOUT THE REQUEST': 'just a test', 'COMMENT': 'THIS IS A TEST', 'DEP': None, 'UPDATE': None}}
+The json data before convertion is: <class 'dict'>
+The json data is: {'HEADER': {'DATABASE': 'rail_db', 'TABLE_NAME': 'cur_studs', 'REQUEST_TYPE': 'update'}, 'DATA': {'FIELDS': None, 'SET': {'login_status': 'YES'}, 'WHERE': {'rail_id': 'RSK17CS036'}}, 'FOOTER': {'DATA ABOUT THE REQUEST': 'just a test', 'COMMENT': 'THIS IS A TEST', 'DEP': None, 'UPDATE': None}}
+Trying to convert json data(of string datatype) to dictionary format ...(failed)
+Trying to assign data(of dict datatype) to dictionary format ...(success)
+The json data after convertion is <class 'dict'>
