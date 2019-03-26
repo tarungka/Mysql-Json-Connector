@@ -143,8 +143,9 @@ class attendence:
         print("\t\t\tATTENDENCE")
         self.railId =               input("Enter RAIL ID                                :")
         self.action =               input("Login or Logout?                             :")
-        self.team =                 input("Enter team name(given by sir/admin)          :")
-        self.reason =               input("Reason for attending rail                    :")
+        if(self.action == 'login'):
+            self.team =                 input("Enter team name(given by sir/admin)          :")
+            self.reason =               input("Reason for attending rail                    :")
         self.convertToData()
 
     def getCurrentTime(self):
@@ -154,8 +155,11 @@ class attendence:
         self.data = {}
         self.data.update({"rail_id"         : self.railId})
         self.data.update({"current_team"    : self.team})
-        self.data.update({"time_in"         : self.getCurrentTime()})
-        self.data.update({"purpose"         : self.reason})
+        if(self.action == "login"):
+            self.data.update({"time_in"         : self.getCurrentTime()})
+            self.data.update({"purpose"         : self.reason})
+        elif(self.action == "logout"):
+            self.data.update({"time_out"        : self.getCurrentTime()})
 
     def generateArgumentForAttendence(self,inputDict):
         if(self.action == "login"):
@@ -164,11 +168,17 @@ class attendence:
             secondHalf = json.dumps(inputDict)
             thirdHalf = ',"SET" : null,"WHERE" : null},'
             footer_1 = '"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" :'
-            dep = '[{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"cur_studs","REQUEST_TYPE":"select"},"DATA":{"FIELDS": ["rail_id"],"SET":null,"WHERE":null},"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}'
+            dep = '[{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"cur_studs","REQUEST_TYPE":"select"},"DATA":{"FIELDS": ["rail_id"],"SET":null,"WHERE":{"rail_id" : "' + self.railId + '"}},"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}'
             footer_3 = '}],"UPDATE" : [{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"cur_studs","REQUEST_TYPE":"update"},"DATA":{"FIELDS": null,"SET":{"login_status":"YES"},"WHERE":{"rail_id":"' + self.railId +'"}},"FOOTER":{"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}}]}}'
             return (header + firstHalf + secondHalf + thirdHalf + footer_1 + dep + footer_3)
         elif(self.action == "logout"):
-            pass
+            header = '{"HEADER" : {"DATABASE" : "rail_db","TABLE_NAME" : "attendence","REQUEST_TYPE" : "update"},'
+            firstHalf = '"DATA":{"FIELDS":null'
+            thirdHalf = ',"SET" : {"time_out": "' + self.getCurrentTime() + '"},"WHERE" : {"rail_id" : "' + self.railId + ',"time_out":"NULL"}},'
+            footer_1 = '"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" :'
+            dep = '[{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"cur_studs","REQUEST_TYPE":"select"},"DATA":{"FIELDS": ["rail_id","login_status"],"SET":null,"WHERE":{"rail_id" : "' + self.railId + ',"login_status":"YES"}},"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}'
+            footer_3 = '}],"UPDATE" : [{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"cur_studs","REQUEST_TYPE":"update"},"DATA":{"FIELDS": null,"SET":{"login_status":"YES"},"WHERE":{"rail_id":"' + self.railId +'"}},"FOOTER":{"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}}]}}'
+            return (header + firstHalf + secondHalf + thirdHalf + footer_1 + dep + footer_3)
         else:
             print("Something went wrong")
 

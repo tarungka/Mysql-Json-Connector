@@ -14,8 +14,8 @@ class main:
 	3)PLAN BEFORE YOU WRITE THE ACTUAL CODE
 	'''
 	def __init__(self,jsonData):		#Constructor which decodes the incoming json data
-		print("The json data before convertion is:",type(jsonData))
-		print("The json data is:",jsonData)
+		#print("The json data before convertion is:",type(jsonData))
+		#print("The json data is:",jsonData)
 		try:	#Checking if the input data is of string type
 			print("Trying to convert json data(of string datatype) to dictionary format ...",end='')
 			self.jsonString = json.loads(str(jsonData))
@@ -26,7 +26,7 @@ class main:
 			self.jsonString = jsonData
 			print("(success)")
 		logger.log(str(self.jsonString))
-		print("The json data after convertion is",type(self.jsonString))
+		#print("The json data after convertion is",type(self.jsonString))
 		
 		self.header = self.jsonString["HEADER"]			#Gets the header 
 		self.database = self.header["DATABASE"]			#database name within header
@@ -101,7 +101,6 @@ class main:
 		finalQuery = finalQuery + ");"
 		logger.log(finalQuery,True)
 		self.cursor.execute(finalQuery)
-		#return finalQuery
 
 	def deleteData(self,delDict,whereDict):
 		logger.log("Generating DELETE query(%s) ..." % (self.getTable()))
@@ -132,10 +131,15 @@ class main:
 		length = len(key)
 		finalQuery = finalQuery + key[0] + "=" + "'" + value[0] + "'"
 		for index in range(length - 1):
+			if(value[index + 1].upper()	 == "NULL"):
+				finalQuery = finalQuery + " AND " + key[index + 1] + " IS NULL"
+				continue
 			finalQuery = finalQuery + "," + key[index + 1] + "=" + "'" + value[index + 1] + "'"
 		finalQuery = finalQuery + ";"
 		logger.log(finalQuery)
+		print("Query ready")
 		self.cursor.execute(finalQuery)
+		print("Query excuted")
 
 	def selectData(self,dataList,whereDict = None):
 		logger.log("Generating SELECT query(%s)" % (self.getTable))
@@ -148,36 +152,27 @@ class main:
 			finalQuery = finalQuery + " WHERE "
 			key = list(whereDict.keys())
 			length = len(key)
-			#print(length,key)
 			finalQuery = finalQuery + key[0] + "=" + "'" + whereDict[key[0]] + "'"
-			#print(finalQuery)
 			for index in range((length - 1)):
-				#print(index + 1)
-				#print(key[0],whereDict[key[index +1]])
-				#print(key[1],key[index +1])
 				finalQuery = finalQuery + " AND " + key[index + 1] + "=" + "'" + whereDict[key[index + 1]] + "'"
 			finalQuery = finalQuery + ";"
 		logger.log(finalQuery)
-		#self.cursor.execute
 		self.cursor.execute(finalQuery)
 		response = self.cursor.fetchall()
 		return response
 
 	def alterTable(self):
+		print(" Alter table does not work")
 		return
 
 	def processRequest(self):
 		flag  = False
-		print("flag is intially set to false")
 		if(self.conditionList != None):
-			print("Condition list:",self.conditionList)
 			for element in self.conditionList:
-				print("Creating a new parameter with the parameter:",element)
 				subProcess = main(element)
 				subProcess.setConnection()
 				if subProcess.processRequest():
 					flag = True
-					print("Setting flag to true")
 		if(self.conditionList == None or flag == True):
 			'''
 			KIMS THAT WHEN A SELECT IS USED IT RETURNS DATA AND CANNOT BE USED TO UPDATE ANOTHER TABLE.
@@ -185,8 +180,8 @@ class main:
 			'''
 			if(self.requestType == "insert"):
 				self.insertData(self.fields)
-				if(self.getTable == "attendence"):
-					print("Need to update the current_students table")
+				#if(self.getTable == "attendence"):
+				#	print("Need to update the current_students table")
 			elif(self.requestType == "delete"):
 				self.deleteData(self.fields,self.whereClause)
 			elif(self.requestType == "update"):
@@ -196,16 +191,20 @@ class main:
 				return self.selectData(self.fields,self.whereClause)
 			elif(self.requestType == "alter"):
 				self.alterTable()
-			#try:
-			for anObject in self.updateList:
-				print(anObject)
-				subProcess = main(anObject)
-				subProcess.setConnection()
-				subProcess.showData()
-				subProcess.processRequest()
-			#except Exception as e:
-			#	logger.log("No data to update")
-			#	logger.log("Exception Raised:",str(e))
+			try:
+				for anObject in self.updateList:
+					print("Start of a sub process.")
+					print(anObject)
+					subProcess = main(anObject)
+					subProcess.setConnection()
+					subProcess.showData()
+					subProcess.processRequest()
+					print("End of the sub process.")
+			except TypeError:
+				pass
+			except BaseException as e:
+				logger.log("Exception Raised:"+str(e),True)
+				exit(0)
 			self.mysqlConnection.commit()
 
 
