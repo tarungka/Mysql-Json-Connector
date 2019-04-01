@@ -2,6 +2,7 @@
 import mysql.connector
 from mysql.connector import errorcode
 import sys
+import datetime
 import json
 import logger
 
@@ -17,14 +18,14 @@ class main:
 		#print("The json data before convertion is:",type(jsonData))
 		#print("The json data is:",jsonData)
 		try:	#Checking if the input data is of string type
-			print("Trying to convert json data(of string datatype) to dictionary format ...",end='')
+			#print("Trying to convert json data(of string datatype) to dictionary format ...",end='')
 			self.jsonString = json.loads(str(jsonData))
-			print("(success)")
+			#print("(success)")
 		except:	#Checking of the input data is of dict type
-			print("(failed)")
-			print("Trying to assign data(of dict datatype) to dictionary format ...",end='')
+			#print("(failed)")
+			#print("Trying to assign data(of dict datatype) to dictionary format ...",end='')
 			self.jsonString = jsonData
-			print("(success)")
+			#print("(success)")
 		logger.log(str(self.jsonString))
 		#print("The json data after convertion is",type(self.jsonString))
 		
@@ -78,7 +79,7 @@ class main:
 				passwd		=	password, 	#CREATE A SEPERATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
 				database	=	self.getDatabase()
 			)
-			self.cursor = self.mysqlConnection.cursor()
+			self.cursor = self.mysqlConnection.cursor(dictionary=True)
 			return self.cursor
 			#WRITE EXPECTIONS FOR THIS
 
@@ -99,7 +100,7 @@ class main:
 				continue
 			finalQuery = finalQuery + "," + "'" + value[index + 1] + "'" #THE BLOCK BELOW GENEREATES ",'val'"
 		finalQuery = finalQuery + ");"
-		logger.log(finalQuery,True)
+		logger.log(finalQuery)
 		self.cursor.execute(finalQuery)
 
 	def deleteData(self,delDict,whereDict):
@@ -137,9 +138,9 @@ class main:
 			finalQuery = finalQuery + "," + key[index + 1] + "=" + "'" + value[index + 1] + "'"
 		finalQuery = finalQuery + ";"
 		logger.log(finalQuery)
-		print("Query ready")
+		#print("Query ready")
 		self.cursor.execute(finalQuery)
-		print("Query excuted")
+		#print("Query excuted")
 
 	def selectData(self,dataList,whereDict = None):
 		logger.log("Generating SELECT query(%s)" % (self.getTable))
@@ -165,6 +166,79 @@ class main:
 		print(" Alter table does not work")
 		return
 
+
+	def validateData(self):
+		logger.log("Validating the incoming data")
+		flag = False
+		keys = None
+		curObj = None
+		for index in range(0,3):
+			if(index == 0):
+				if(self.fields == None):
+					logger.log("Fields:No data to validate")
+					continue
+				keys = self.fields.keys()
+				curObj = self.fields
+			elif(index == 1):
+				if(self.setClause == None):
+					logger.log("Set:No data to validate")
+					continue
+				keys = self.setClause.keys()			
+				curObj = self.setClause
+			elif(index == 2):
+				if(self.whereClause == None):
+					logger.log("Where:No data to validate")
+					return
+				keys = self.whereClause.keys()			
+				curObj = self.whereClause
+			for aKey in keys:
+				if(aKey == 'rail_id'):
+					if(not(curObj[aKey].startswith("RSK"))):
+						logger.log("The rail id in invalid!")
+						flag = True
+				elif(aKey == 'gender'):
+					if(curObj[aKey] != 'M' or curObj[aKey] != 'F'):
+						logger.log("The gender is invalid")
+						flag = True
+				elif(aKey == 'date_of_birth'):
+					splitData = curObj[aKey].rsplit('-')
+					if(len(splitData[0]) != 4 and not(splitData[0].isdigit())):
+						logger.log("The year is enterd incorrectly")
+						flag = True
+					if(len(splitData[1]) != 2 and not(splitData[1].isdigit()) and (int(splitData[1])>0 and int(splitData[1])<=12)):
+						logger.log("The month is enterd incorrectly")
+						flag = True
+					if(len(splitData[2]) != 2 and not(splitData[2].isdigit()) and (int(splitData[1])>0 and int(splitData[1])<=31)):
+						logger.log("The date is enterd incorrectly")
+						flag = True
+				elif(aKey == 'phone_number'):
+					if(len(curObj[aKey]) != 10):
+						logger.log("Phone number error")
+						flag = True
+				elif(aKey == 'branch'):
+					if(not(curObj[aKey] in ['CS','EC','TX','CV'])):
+						logger.log("Branch invalid")
+						flag = True
+				elif(aKey == 'login_status'):
+					if(not(curObj[aKey] in ['YES','NO'])):
+						logger.log("login_status invalid")
+						flag = True
+				elif(aKey == 'component_status'):
+					if(not(curObj[aKey] in ['YES','NO'])):
+						logger.log("component_status invalid")
+						flag = True
+				elif(aKey == 'usn'):
+					if(not(curObj[aKey].startswith('1SK'))):
+						logger.log("USN is invalid")
+						flag = True
+				elif(aKey == 'current_highest_role'):
+					if(not(curObj[aKey].tolower() in ['member','team_lead'])):
+						logger.log("role if student is not supported")
+						flag = True
+				if(flag == True):
+					print("FailedOperation : Error in data entered, check the logs!")
+					exit(0)
+
 	def processRequest(self):
 		flag  = False
 		if(self.conditionList != None):
@@ -187,19 +261,19 @@ class main:
 			elif(self.requestType == "update"):
 				self.updateData(self.setClause,self.whereClause)
 			elif(self.requestType == "select"):
-				print(type(self.fields))
+				#print(type(self.fields))
 				return self.selectData(self.fields,self.whereClause)
 			elif(self.requestType == "alter"):
 				self.alterTable()
 			try:
 				for anObject in self.updateList:
-					print("Start of a sub process.")
-					print(anObject)
+					#print("Start of a sub process.")
+					#print(anObject)
 					subProcess = main(anObject)
 					subProcess.setConnection()
-					subProcess.showData()
+					#subProcess.showData()
 					subProcess.processRequest()
-					print("End of the sub process.")
+					#print("End of the sub process.")
 			except TypeError:
 				pass
 			except BaseException as e:
@@ -207,10 +281,40 @@ class main:
 				exit(0)
 			self.mysqlConnection.commit()
 
+	def findValueOfKey(self,toBeSearched):
+		if(self.fields != None):
+			if(toBeSearched in self.fields.keys()):
+				return self.fields[toBeSearched]
+		elif(self.whereClause != None):
+			if(toBeSearched in self.whereClause.keys()):
+				return self.whereClause[toBeSearched]
+		else:
+			logger.log("findValueOfKey:Error could not find the string.")
+
+
+	def generateAnalytics(self):
+		sign = self.footer["DATA ABOUT THE REQUEST"]
+		if(sign == 'logout'):
+			rail_id = self.findValueOfKey('rail_id')
+			query = "SELECT time_in from attendence where rail_id='"+ rail_id +"' AND time_out is null;"
+			#print(query)
+			self.cursor.execute("SELECT time_in from attendence where rail_id='"+ rail_id +"' AND time_out is null;")
+			mysqlData =  self.cursor.fetchall()
+			loginTime = mysqlData[0]['time_in']
+			logoutTime = datetime.datetime.now()
+			#print(loginTime)
+			#print(logoutTime)
+			timeSpent = logoutTime - loginTime
+			self.cursor.execute("UPDATE attendence SET time_spent='"+ timeSpent +"' where time_out='';")
+			#print(str(timeSpent).split(".")[0])
+			#rint("Write code to generate useful data about this guys logout")
+		else:
+			print("SIGN:",sign)
+
 
 
 class analytics:
-	def __init__(self,connection,cursor):
+	def __init__(self,connection,cursor,):
 		#Write code here to load the data
 		self.connection = connection
 		self.cursor = cursor
@@ -248,7 +352,9 @@ class analytics:
 if __name__ == '__main__':
 	process = main(sys.argv[1])
 	#process.showData()
+	process.validateData()
 	process.setConnection()
+	process.generateAnalytics()
 	process.processRequest()
 else:
 	print("This code does not support being imported as a module")
