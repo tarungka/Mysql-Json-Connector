@@ -3,7 +3,7 @@
     "user"  	:   "testuser",
     "password"  :   "testpassword",
 	"databases" :	{
-    	"rail_db"  :   {
+    	"rail_db_test"  :   {
     	    "tables"    :   {
     	    	"all_studs"  :   {
     	    	    "table_constrains"  :   {
@@ -379,6 +379,42 @@
     	    	        "slno",
 				    	"component_id",
 				    	"issued_to"
+    	    	    ],
+    	    	    "index_constrains"		: 	[
+    	    	        "slno"
+    	    	    ]
+				},
+    	    	"rail_donors"  :   {
+    	    	    "table_constrains"  :   {
+    	    	        "slno"					:	"INT(3) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
+				    	"rail_id"				:	"CHAR(10) NOT NULL",
+				    	"amount"				:	"INT NOT NULL",
+						"time"					:	"DATETIME DEFAULT NOW()",
+						"reason"				:	"VARCHAR(20) NOT NULL"
+    	    	    },
+    	    	    "read_list"  :   [
+    	    	        "slno",
+				    	"rail_id",
+						"amount",
+						"reason"
+    	    	    ],
+    	    	    "index_constrains"		: 	[
+    	    	        "slno"
+    	    	    ]
+				},
+				"rail_expenses"	:	{
+					"table_constrains"	:	{
+    	    	        "slno"					:	"INT(3) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
+						"item_purchased"		:	"VARCHAR(25) NOT NULL",
+						"date_of_purchase"		:	"DATE NOT NULL",
+						"component_id"			:	"CHAR(10) NOT NULL",
+						"company"				:	"VARCHAR(20)",
+						"cost"					:	"INT NOT NULL"
+					},
+    	    	    "read_list"  :   [
+    	    	        "slno",
+				    	"rail_id",
+						"cost"
     	    	    ],
     	    	    "index_constrains"		: 	[
     	    	        "slno"
