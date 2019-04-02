@@ -296,18 +296,27 @@ class main:
 		sign = self.footer["DATA ABOUT THE REQUEST"]
 		if(sign == 'logout'):
 			rail_id = self.findValueOfKey('rail_id')
-			query = "SELECT time_in from attendence where rail_id='"+ rail_id +"' AND time_out is null;"
+			#query = "SELECT time_in from attendence where rail_id='"+ rail_id +"' AND time_out is null;"
 			#print(query)
-			self.cursor.execute("SELECT time_in from attendence where rail_id='"+ rail_id +"' AND time_out is null;")
+			self.cursor.execute("SELECT time_in,time_out from attendence where rail_id='"+ rail_id +"' AND time_out is null;")
 			mysqlData =  self.cursor.fetchall()
 			loginTime = mysqlData[0]['time_in']
-			logoutTime = datetime.datetime.now()
+			logoutTime = mysqlData[0]['time_out']
 			#print(loginTime)
 			#print(logoutTime)
 			timeSpent = logoutTime - loginTime
 			self.cursor.execute("UPDATE attendence SET time_spent='"+ timeSpent +"' where time_out='';")
+			self.cursor.execute("SELECT time_in_rail FROM cur_studs WHERE rail_id='"+ rail_id+"';")
+			mysqlData = self.cursor.fetchall()
+			totalTime = mysqlData[0]['time_in_rail']
+			if(totalTime != None):
+				totalTime = totalTime + timeSpent
+				self.cursor.execute("UPDATE cur_studs SET time_in_rail='"+totalTime+"' WHERE rail_id='"+rail_id+"';")
+			else:
+				self.cursor.execute("UPDATE cur_studs SET time_in_rail='"+timeSpent+"' WHERE rail_id='"+rail_id+"';")
+			self.mysqlConnection.commit()
 			#print(str(timeSpent).split(".")[0])
-			#rint("Write code to generate useful data about this guys logout")
+			#print("Write code to generate useful data about this guys logout")
 		else:
 			print("SIGN:",sign)
 
@@ -354,8 +363,8 @@ if __name__ == '__main__':
 	#process.showData()
 	process.validateData()
 	process.setConnection()
-	process.generateAnalytics()
 	process.processRequest()
+	process.generateAnalytics()
 else:
 	print("This code does not support being imported as a module")
 
