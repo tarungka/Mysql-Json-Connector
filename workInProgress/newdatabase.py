@@ -83,6 +83,12 @@ class main:
 			return self.cursor
 			#WRITE EXPECTIONS FOR THIS
 
+	
+	'''
+	FOR ALL THE QUERIES WRITE EXCEPTION TO HANDLES MYSQL EXCEPTIONS.
+	'''
+	
+	
 	def insertData(self,insDict):
 		logger.log("Generating CREATE query(%s) ..." % (self.getTable()))
 		finalQuery = ("INSERT INTO %s(" % (self.getTable()))
@@ -298,22 +304,32 @@ class main:
 			rail_id = self.findValueOfKey('rail_id')
 			#query = "SELECT time_in from attendence where rail_id='"+ rail_id +"' AND time_out is null;"
 			#print(query)
-			self.cursor.execute("SELECT time_in,time_out from attendence where rail_id='"+ rail_id +"' AND time_out is null;")
+			self.cursor.execute("SELECT time_in,time_out from attendence where rail_id='"+ rail_id +"' ORDER BY time_out DESC;")
 			mysqlData =  self.cursor.fetchall()
 			loginTime = mysqlData[0]['time_in']
 			logoutTime = mysqlData[0]['time_out']
-			#print(loginTime)
-			#print(logoutTime)
+			print("loginTime:",loginTime)
+			print("logoutTime:",logoutTime)
 			timeSpent = logoutTime - loginTime
-			self.cursor.execute("UPDATE attendence SET time_spent='"+ timeSpent +"' where time_out='';")
-			self.cursor.execute("SELECT time_in_rail FROM cur_studs WHERE rail_id='"+ rail_id+"';")
+			self.cursor.execute("UPDATE attendence SET time_spent='"+ str(timeSpent) +"' where time_in='"+ loginTime.strftime("%Y-%m-%d %H:%M:%S") +"';")
+			self.cursor.execute("SELECT time_in_rail FROM cur_studs WHERE rail_id='"+ rail_id +"';")
 			mysqlData = self.cursor.fetchall()
 			totalTime = mysqlData[0]['time_in_rail']
 			if(totalTime != None):
-				totalTime = totalTime + timeSpent
-				self.cursor.execute("UPDATE cur_studs SET time_in_rail='"+totalTime+"' WHERE rail_id='"+rail_id+"';")
+				#print("totalTime",totalTime)
+				timeInStringFormat = totalTime.split(":")
+				#print("timeInStringFormat",timeInStringFormat)
+				timeInTimeFormat = datetime.time(int(timeInStringFormat[0]),int(timeInStringFormat[1]),int(timeInStringFormat[2]))
+				print("timeInTimeFormat",timeInTimeFormat,type(timeInTimeFormat))
+				print("timeSpent",timeSpent,type(timeSpent))
+				timeInTimeFormat = (datetime.datetime.combine(datetime.date.today(),timeInTimeFormat) + timeSpent).time()
+				print("timeInTimeFormat",timeInTimeFormat,type(timeInTimeFormat))
+				#localDict = 
+				self.cursor.execute("UPDATE cur_studs SET time_in_rail='"+ str(timeInTimeFormat) +"' WHERE rail_id='"+rail_id+"';")
+				#self.updateData()
 			else:
-				self.cursor.execute("UPDATE cur_studs SET time_in_rail='"+timeSpent+"' WHERE rail_id='"+rail_id+"';")
+				#stringTime = str(timeSpent)
+				self.cursor.execute("UPDATE cur_studs SET time_in_rail='"+ str(timeSpent) +"' WHERE rail_id='"+rail_id+"';")
 			self.mysqlConnection.commit()
 			#print(str(timeSpent).split(".")[0])
 			#print("Write code to generate useful data about this guys logout")
