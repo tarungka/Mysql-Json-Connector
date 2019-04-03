@@ -99,12 +99,12 @@ class main:
 		for index in range(length - 1):
 			finalQuery = finalQuery + "," + key[index + 1]
 		finalQuery = finalQuery + ") VALUES("
-		finalQuery = finalQuery + "'" + value[0] + "'"
+		finalQuery = finalQuery + "'" + str(value[0]) + "'"
 		for index in range(length - 1):
 			if(value[index + 1] == "null"): #THE BLOCK BELOW GENEREATES ",null"
-				finalQuery = finalQuery + "," + value[index + 1]
+				finalQuery = finalQuery + "," + str(value[index + 1])
 				continue
-			finalQuery = finalQuery + "," + "'" + value[index + 1] + "'" #THE BLOCK BELOW GENEREATES ",'val'"
+			finalQuery = finalQuery + "," + "'" + str(value[index + 1]) + "'" #THE BLOCK BELOW GENEREATES ",'val'"
 		finalQuery = finalQuery + ");"
 		logger.log(finalQuery)
 		self.cursor.execute(finalQuery)
@@ -299,8 +299,7 @@ class main:
 
 
 	def generateAnalytics(self):
-		sign = self.footer["DATA ABOUT THE REQUEST"]
-		if(sign == 'logout'):
+		if(self.requestType.tolower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].tolower() == 'logout'):	#This is for attendence
 			rail_id = self.findValueOfKey('rail_id')
 			#query = "SELECT time_in from attendence where rail_id='"+ rail_id +"' AND time_out is null;"
 			#print(query)
@@ -308,8 +307,8 @@ class main:
 			mysqlData =  self.cursor.fetchall()
 			loginTime = mysqlData[0]['time_in']
 			logoutTime = mysqlData[0]['time_out']
-			print("loginTime:",loginTime)
-			print("logoutTime:",logoutTime)
+			#print("loginTime:",loginTime)
+			#print("logoutTime:",logoutTime)
 			timeSpent = logoutTime - loginTime
 			self.cursor.execute("UPDATE attendence SET time_spent='"+ str(timeSpent) +"' where time_in='"+ loginTime.strftime("%Y-%m-%d %H:%M:%S") +"';")
 			self.cursor.execute("SELECT time_in_rail FROM cur_studs WHERE rail_id='"+ rail_id +"';")
@@ -320,10 +319,10 @@ class main:
 				timeInStringFormat = totalTime.split(":")
 				#print("timeInStringFormat",timeInStringFormat)
 				timeInTimeFormat = datetime.time(int(timeInStringFormat[0]),int(timeInStringFormat[1]),int(timeInStringFormat[2]))
-				print("timeInTimeFormat",timeInTimeFormat,type(timeInTimeFormat))
-				print("timeSpent",timeSpent,type(timeSpent))
+				#print("timeInTimeFormat",timeInTimeFormat,type(timeInTimeFormat))
+				#print("timeSpent",timeSpent,type(timeSpent))
 				timeInTimeFormat = (datetime.datetime.combine(datetime.date.today(),timeInTimeFormat) + timeSpent).time()
-				print("timeInTimeFormat",timeInTimeFormat,type(timeInTimeFormat))
+				#print("timeInTimeFormat",timeInTimeFormat,type(timeInTimeFormat))
 				#localDict = 
 				self.cursor.execute("UPDATE cur_studs SET time_in_rail='"+ str(timeInTimeFormat) +"' WHERE rail_id='"+rail_id+"';")
 				#self.updateData()
@@ -333,8 +332,10 @@ class main:
 			self.mysqlConnection.commit()
 			#print(str(timeSpent).split(".")[0])
 			#print("Write code to generate useful data about this guys logout")
+		elif(self.requestType.tolower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].tolower() == 'logout'):	#This is for attendence
+			pass
 		else:
-			print("SIGN:",sign)
+			pass
 
 
 
@@ -376,7 +377,6 @@ class analytics:
 
 if __name__ == '__main__':
 	process = main(sys.argv[1])
-	#process.showData()
 	process.validateData()
 	process.setConnection()
 	process.processRequest()

@@ -77,14 +77,14 @@ def createQuery(what,nameOfWhat,dictionary = None):
 				continue
 			finalQuery = (finalQuery + ",`" + key[index + 1] +  "` " + value[index + 1])
 		finalQuery = finalQuery + ");"
-		logger.log(finalQuery,True)
+		logger.log(finalQuery)
 		return finalQuery
 	elif(whatUpper == "DATABASE"):
 		logger.log("Generating CREATE query for database(%s) ..." % (nameOfWhat))
 		finalQuery = ("CREATE " + whatUpper + " `" + nameOfWhat + "`;")
 		logger.log(finalQuery)
 		return finalQuery
-	else:
+	else:	
 		logger.log("THIS FUNCITON CAN ONLY CREATE ONLY 'TALBE' AND 'DATABASE'",True)
 
 def useQuery(databaseName):
@@ -110,13 +110,13 @@ def selectQuery(selectList,tableName,whereList = None):
 		finalQuery = finalQuery + " WHERE "
 		key = list(whereList.keys())
 		length = len(key)
-		print(length,key)
+		#print(length,key)
 		finalQuery = finalQuery + key[0] + "=" + "'" + whereList[key[0]] + "'"
-		print(finalQuery)
+		#print(finalQuery)
 		for index in range((length - 1)):
-			print(index + 1)
-			print(key[0],whereList[key[index +1]])
-			print(key[1],key[index +1])
+			#print(index + 1)
+			#print(key[0],whereList[key[index +1]])
+			#print(key[1],key[index +1])
 			finalQuery = finalQuery + " AND " + key[index + 1] + "=" + "'" + whereList[key[index + 1]] + "'"
 		finalQuery = finalQuery + ";"
 	logger.log(finalQuery)

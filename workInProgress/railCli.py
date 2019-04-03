@@ -17,9 +17,32 @@ class register:
         self.teamName =                  input("Enter team name(given by sir/admin)          :")
         self.projectName =               input("Name of the project                          :")
 
+    def validateUSN(self,usn):
+        no    = usn[0]
+        #clg   = usn[1:3]
+        year  = usn[3:5]
+        #branch= usn[5:7]
+        id    = usn[7:10]
+        if(no.isdigit()):
+            if(year.isdigit()):
+                if(id.isdigit()):
+                    pass
+                else:
+                    return False
+            else:
+                return False
+        else:
+            return False
+        return True
+
     def generateRailId(self,usn):
-        rail_id = 'R' + usn[-9:]
-        return str(rail_id)
+        try:
+            assert (self.validateUSN(usn)),"INVALID USN!"
+            rail_id = 'R' + usn[-9:]
+            return str(rail_id)
+        except AssertionError as e:
+            print("Error:",str(e))
+            changeMode()
 
     def getStudentInformation(self,currentUsn):
         print("Enter the details of",currentUsn)
