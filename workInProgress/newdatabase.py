@@ -115,9 +115,9 @@ class main:
 		key = list(whereDict.keys())
 		value = list(whereDict.values())
 		length = len(key)
-		finalQuery = finalQuery + key[0] + "=" + "'" + value[0] + "'"
+		finalQuery = finalQuery + key[0] + "=" + "'" + str(value[0]) + "'"
 		for index in range(length - 1):
-			finalQuery = finalQuery + " AND " + key[index + 1] + "=" + "'" + value[index + 1] + "'"
+			finalQuery = finalQuery + " AND " + key[index + 1] + "=" + "'" + str(value[index + 1]) + "'"
 		finalQuery = finalQuery + ";"
 		logger.log(finalQuery)
 		self.cursor.execute(finalQuery)
@@ -238,7 +238,7 @@ class main:
 						logger.log("USN is invalid")
 						flag = True
 				elif(aKey == 'current_highest_role'):
-					if(not(curObj[aKey].tolower() in ['member','team_lead'])):
+					if(not(curObj[aKey].lower() in ['member','team_lead'])):
 						logger.log("role if student is not supported")
 						flag = True
 				if(flag == True):
@@ -298,44 +298,38 @@ class main:
 			logger.log("findValueOfKey:Error could not find the string.")
 
 
-	def generateAnalytics(self):
-		if(self.requestType.tolower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].tolower() == 'logout'):	#This is for attendence
+	def generateAnalytics(self):		#Write logger function for this
+		logger.log("To generate analytics:"+str(self.requestType)+str(self.footer["DATA ABOUT THE REQUEST"]))
+		if(self.requestType.lower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'logout'):	#This is for attendence
+			logger.log("Running LOGOUT condition")
 			rail_id = self.findValueOfKey('rail_id')
-			#query = "SELECT time_in from attendence where rail_id='"+ rail_id +"' AND time_out is null;"
-			#print(query)
 			self.cursor.execute("SELECT time_in,time_out from attendence where rail_id='"+ rail_id +"' ORDER BY time_out DESC;")
 			mysqlData =  self.cursor.fetchall()
 			loginTime = mysqlData[0]['time_in']
 			logoutTime = mysqlData[0]['time_out']
-			#print("loginTime:",loginTime)
-			#print("logoutTime:",logoutTime)
 			timeSpent = logoutTime - loginTime
 			self.cursor.execute("UPDATE attendence SET time_spent='"+ str(timeSpent) +"' where time_in='"+ loginTime.strftime("%Y-%m-%d %H:%M:%S") +"';")
 			self.cursor.execute("SELECT time_in_rail FROM cur_studs WHERE rail_id='"+ rail_id +"';")
 			mysqlData = self.cursor.fetchall()
 			totalTime = mysqlData[0]['time_in_rail']
 			if(totalTime != None):
-				#print("totalTime",totalTime)
 				timeInStringFormat = totalTime.split(":")
-				#print("timeInStringFormat",timeInStringFormat)
 				timeInTimeFormat = datetime.time(int(timeInStringFormat[0]),int(timeInStringFormat[1]),int(timeInStringFormat[2]))
-				#print("timeInTimeFormat",timeInTimeFormat,type(timeInTimeFormat))
-				#print("timeSpent",timeSpent,type(timeSpent))
 				timeInTimeFormat = (datetime.datetime.combine(datetime.date.today(),timeInTimeFormat) + timeSpent).time()
-				#print("timeInTimeFormat",timeInTimeFormat,type(timeInTimeFormat))
-				#localDict = 
 				self.cursor.execute("UPDATE cur_studs SET time_in_rail='"+ str(timeInTimeFormat) +"' WHERE rail_id='"+rail_id+"';")
-				#self.updateData()
 			else:
-				#stringTime = str(timeSpent)
 				self.cursor.execute("UPDATE cur_studs SET time_in_rail='"+ str(timeSpent) +"' WHERE rail_id='"+rail_id+"';")
-			self.mysqlConnection.commit()
-			#print(str(timeSpent).split(".")[0])
-			#print("Write code to generate useful data about this guys logout")
-		elif(self.requestType.tolower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].tolower() == 'logout'):	#This is for attendence
-			pass
+		elif(self.requestType.lower() == 'insert' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'login'):	#This is for attendence
+			logger.log("Running LOGIN condition")
+			rail_id = self.findValueOfKey('rail_id')
+			self.cursor.execute("SELECT time_in FROM attendence where rail_id='" + self.findValueOfKey("rail_id") + "' AND time_out is null;")
+			data = self.cursor.fetchall()
+			time_in = data[0]["time_in"]
+			self.cursor.execute("UPDATE cur_studs SET most_recent_login='"+ time_in.strftime("%Y-%m-%d %H:%M:%S") +"' WHERE rail_id = '"+ rail_id +"';")
 		else:
 			pass
+		self.mysqlConnection.commit()
+		
 
 
 

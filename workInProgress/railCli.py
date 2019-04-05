@@ -190,7 +190,7 @@ class attendence:
             firstHalf = '"DATA":{"FIELDS":'
             secondHalf = json.dumps(inputDict)
             thirdHalf = ',"SET" : null,"WHERE" : null},'
-            footer_1 = '"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" :'
+            footer_1 = '"FOOTER" : {"DATA ABOUT THE REQUEST" : "login","COMMENT" : "THIS IS A TEST","DEP" :'
             dep = '[{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"cur_studs","REQUEST_TYPE":"select"},"DATA":{"FIELDS": ["rail_id"],"SET":null,"WHERE":{"rail_id" : "' + self.railId + '","login_status":"NO"}},"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}'
             footer_3 = '}],"UPDATE" : [{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"cur_studs","REQUEST_TYPE":"update"},"DATA":{"FIELDS": null,"SET":{"login_status":"YES"},"WHERE":{"rail_id":"' + self.railId +'"}},"FOOTER":{"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}}]}}'
             return (header + firstHalf + secondHalf + thirdHalf + footer_1 + dep + footer_3)
