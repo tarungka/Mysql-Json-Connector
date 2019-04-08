@@ -3,7 +3,7 @@
     "user"  	:   "testuser",
     "password"  :   "testpassword",
 	"databases" :	{
-    	"rail_db_test"  :   {
+    	"rail_db"  :   {
     	    "tables"    :   {
     	    	"all_studs"  :   {
     	    	    "table_constrains"  :   {
@@ -367,13 +367,11 @@
     	    	    "table_constrains"  :   {
     	    	        "slno"					:	"INT(3) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
 				    	"component_id"			:	"CHAR(10) NOT NULL",
-				    	"request/return"		:	"VARCHAR(7) NOT NULL",
 				    	"issued_to"				:	"VARCHAR(20) NOT NULL",
 				    	"associated_team"		:	"VARCHAR(20) NOT NULL",
 				    	"time_of_issue"			:	"DATETIME DEFAULT NOW()",
-				    	"time_of_return"		:	"DATETIME DEFAULT NOW()",
-				    	"time_of_use"			:	"VARCHAR(20)",
-				    	"purpose"				:	"VARCHAR(50) NOT NULL"
+				    	"time_of_return"		:	"DATETIME",
+				    	"time_of_use"			:	"VARCHAR(20)"
     	    	    },
     	    	    "read_list"  :   [
     	    	        "slno",

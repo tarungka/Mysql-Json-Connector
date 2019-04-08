@@ -95,9 +95,9 @@ class main:
 		key = list(insDict.keys())
 		value = list(insDict.values())
 		length = len(key)
-		finalQuery = finalQuery + key[0]
+		finalQuery = finalQuery + "`" + key[0] + "`"
 		for index in range(length - 1):
-			finalQuery = finalQuery + "," + key[index + 1]
+			finalQuery = finalQuery + "," + "`" + key[index + 1] + "`"
 		finalQuery = finalQuery + ") VALUES("
 		finalQuery = finalQuery + "'" + str(value[0]) + "'"
 		for index in range(length - 1):
