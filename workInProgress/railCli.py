@@ -16,7 +16,7 @@ class register:
         print("\t\t\tTEAM REGISTRATION")
         self.numberOfStudents = int(input("Enter the number of students(either 2 or 4)  :"))
         self.teamName =                  input("Enter team name(given by sir/admin)          :")
-        self.projectName =               input("Name of the project                          :")
+        self.projectName =               input("Name of the project                          :").upper()
         self.current_db = currentDatabase
 
     def validateUSN(self,usn):
@@ -48,18 +48,18 @@ class register:
 
     def getStudentInformation(self,currentUsn):
         print("Enter the details of",currentUsn)
-        name        =   input("Enter the student name   :")
-        usn         =   currentUsn
+        name        =   input("Enter the student name   :").upper()
+        usn         =   currentUsn.upper()
         print("Usn                      :"+usn)
         print("Rail id                  :"+self.generateRailId(usn))
-        gender      =   input("Enter your gender        :")
+        gender      =   input("Enter your gender        :").upper()
         dob         =   input("Enter your date of birth :")
         phNumber    =   input("Enter your phone number  :")
-        email       =   input("Enter your email         :")
+        email       =   input("Enter your email         :").upper()
         team        =   self.team["team_name"]
         print("Team                     :"+team)
-        branch      =   input("Enter your branch        :")
-        role        =   input("Enter your role          :")
+        branch      =   input("Enter your branch        :").upper()
+        role        =   input("Enter your role          :").upper()
         studentDict = {}
         studentDict.update({"student_name"          :name})
         studentDict.update({"usn"                   :usn})
