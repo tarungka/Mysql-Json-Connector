@@ -104,7 +104,6 @@
 						"current_team"			:	"CHAR(1) NOT NULL",
 						"time_in"     			:	"DATETIME NOT NULL DEFAULT NOW()",
 						"time_out"    			:	"DATETIME DEFAULT null",
-						"time_since_last_login"	:	"TIME DEFAULT null",
 						"time_spent"			:	"TIME DEFAULT null",
 						"purpose"     			:	"VARCHAR(50) NOT NULL"
     	    	    },
@@ -326,12 +325,12 @@
     	    	    "table_constrains"  :   {
     	    	        "slno"					:	"INT(3) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
 				    	"component_id"			:	"CHAR(10) NOT NULL",
-				    	"component_name"		:	"VARCHAR(50) NOT NULL",
+				    	"component_name"		:	"VARCHAR(55) NOT NULL",
 				    	"date_of_procurement"	:	"DATE",
 				    	"if_kit"				:	"VARCHAR(3) DEFAULT 'NO'",
 				    	"associated_colour"		:	"VARCHAR(20) NOT NULL",
 				    	"number_of_times_issued":	"INT UNSIGNED DEFAULT '0'",
-				    	"group"					:	"VARCHAR(10) NOT NULL",
+				    	"group"					:	"VARCHAR(15) NOT NULL",
 				    	"component_status"		:	"VARCHAR(3) DEFAULT 'YES'",
 						"most_recent_issue"		:	"DATETIME",
 				    	"total_time_of_use"		:	"VARCHAR(20)"

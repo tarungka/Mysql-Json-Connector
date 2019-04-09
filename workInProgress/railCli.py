@@ -258,7 +258,7 @@ class component:
                 localDict.update({"component_id":aComponent})
                 localDict.update({"issued_to":self.issuedTo})
                 #localDict.update({"associated_team":self.associatedTeam})
-                localDict.update({"time_of_return": None})
+                localDict.update({"time_of_return": "null"})
                 self.data.append(localDict)
 
 
@@ -266,30 +266,37 @@ class component:
         localList = []
         if(self.requestType == "REQUEST"):
             for aData in data:
-                print(aData)
+                #print(aData)
                 header = '{"HEADER" : {"DATABASE" : "' + self.current_db + '","TABLE_NAME" : "iss_compnts","REQUEST_TYPE" : "insert"},'
                 firstHalf = '"DATA":{"FIELDS":'
                 secondHalf = json.dumps(aData)
                 thirdHalf = ',"SET" : null,"WHERE" : null},'
                 footer_1 = '"FOOTER" : {"DATA ABOUT THE REQUEST" : "req_comp","COMMENT" : "THIS IS A TEST","DEP" :'
                 dep = '[{"HEADER":{"DATABASE":"' + self.current_db + '","TABLE_NAME":"cur_studs","REQUEST_TYPE":"select"},"DATA":{"FIELDS": ["rail_id"],"SET":null,"WHERE":{"rail_id" : "' + self.issuedTo + '","login_status":"YES"}},"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}'
-                footer_3 = '}],"UPDATE" : [{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"cur_studs","REQUEST_TYPE":"update"},"DATA":{"FIELDS": null,"SET":{"component_status":"YES"},"WHERE":{"rail_id":"' + self.issuedTo +'"}},"FOOTER":{"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}}]}}'
-                localList.append((header + firstHalf + secondHalf + thirdHalf + footer_1 + dep + footer_3))
+                #print("bf2")
+                dep_2 = '},{"HEADER":{"DATABASE":"' + self.current_db + '","TABLE_NAME":"components","REQUEST_TYPE":"select"},"DATA":{"FIELDS": ["component_id"],"SET":null,"WHERE":{"component_id" : "' + aData["component_id"] + '","component_status":"NO"}},"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}'
+                #print("af2")
+                footer_3 = '}],"UPDATE" : [{"HEADER":{"DATABASE":"' + self.current_db + '","TABLE_NAME":"cur_studs","REQUEST_TYPE":"update"},"DATA":{"FIELDS": null,"SET":{"component_status":"YES"},"WHERE":{"rail_id":"' + self.issuedTo +'"}},"FOOTER":{"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}}'
+                footer_4 = ',{"HEADER":{"DATABASE":"' + self.current_db + '","TABLE_NAME":"components","REQUEST_TYPE":"update"},"DATA":{"FIELDS": null,"SET":{"component_status":"YES"},"WHERE":{"component_id":"' + aData["component_id"] +'"}},"FOOTER":{"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}}]}}'
+                localList.append((header + firstHalf + secondHalf + thirdHalf + footer_1 + dep + dep_2 + footer_3 + footer_4))
         elif(self.requestType == "RETURN"):
             for aData in data:
-                print(aData)
+                #print(aData)
                 header = '{"HEADER" : {"DATABASE" : "' + self.current_db + '","TABLE_NAME" : "iss_compnts","REQUEST_TYPE" : "update"},'
                 firstHalf = '"DATA":{"FIELDS": null'
                 thirdHalf = ',"SET" : {"time_of_return" : "' + self.getCurrentTime() + '"},"WHERE" : ' + json.dumps(aData) + '},'
                 footer_1 = '"FOOTER" : {"DATA ABOUT THE REQUEST" : "ret_comp","COMMENT" : "THIS IS A TEST","DEP" :'
                 dep = '[{"HEADER":{"DATABASE":"' + self.current_db + '","TABLE_NAME":"cur_studs","REQUEST_TYPE":"select"},"DATA":{"FIELDS": ["rail_id"],"SET":null,"WHERE":{"rail_id" : "' + self.issuedTo + '","login_status":"YES"}},"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}'
-                footer_3 = '}],"UPDATE" : [{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"cur_studs","REQUEST_TYPE":"update"},"DATA":{"FIELDS": null,"SET":{"component_status":"YES"},"WHERE":{"rail_id":"' + self.issuedTo +'"}},"FOOTER":{"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}}]}}'
+                footer_3 = '}],"UPDATE" : [{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"components","REQUEST_TYPE":"update"},"DATA":{"FIELDS": null,"SET":{"component_status":"NO"},"WHERE":{"component_id":"' + aData["component_id"] +'"}},"FOOTER":{"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}}]}}'
                 localList.append((header + firstHalf + thirdHalf + footer_1 + dep + footer_3))
         return localList
 
     def updateDatabase(self):
+        print("Inside updateDatabase")
         componentArguments = self.generateArgumentForComponent(self.data)
+        print("Number of components is:",len(componentArguments))
         for aData in componentArguments:
+            print("Calling database.py")
             os.system("./database.py '" + aData + "'")
 
     def showData(self):

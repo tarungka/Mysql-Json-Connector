@@ -141,7 +141,7 @@ class main:
 			if(value[index + 1].upper()	 == "NULL"):
 				finalQuery = finalQuery + " AND " + key[index + 1] + " IS NULL"
 				continue
-			finalQuery = finalQuery + "," + key[index + 1] + "=" + "'" + value[index + 1] + "'"
+			finalQuery = finalQuery + " AND " + key[index + 1] + "=" + "'" + value[index + 1] + "'"
 		finalQuery = finalQuery + ";"
 		logger.log(finalQuery)
 		#print("Query ready")
@@ -246,14 +246,18 @@ class main:
 					exit(0)
 
 	def processRequest(self):
-		flag  = False
+		self.conditionFlag  = False
 		if(self.conditionList != None):
 			for element in self.conditionList:
 				subProcess = main(element)
 				subProcess.setConnection()
 				if subProcess.processRequest():
-					flag = True
-		if(self.conditionList == None or flag == True):
+					self.conditionFlag = True
+				else:
+					logger.log("The condition flag is being set to False")
+					self.conditionFlag = False
+					break
+		if(self.conditionList == None or self.conditionFlag == True):
 			'''
 			KIMS THAT WHEN A SELECT IS USED IT RETURNS DATA AND CANNOT BE USED TO UPDATE ANOTHER TABLE.
 			I NEED TO RESTRUCTURE IT TO BE ABLE TO RETURN AS WELL AS RUN AN UPDATE.
@@ -299,6 +303,8 @@ class main:
 
 
 	def generateAnalytics(self):		#Write logger function for this
+		if(self.conditionFlag == False):
+			return
 		logger.log("To generate analytics:"+str(self.requestType)+str(self.footer["DATA ABOUT THE REQUEST"]))
 		if(self.requestType.lower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'logout'):	#This is for attendence
 			logger.log("Running LOGOUT condition")
@@ -326,6 +332,35 @@ class main:
 			data = self.cursor.fetchall()
 			time_in = data[0]["time_in"]
 			self.cursor.execute("UPDATE cur_studs SET most_recent_login='"+ time_in.strftime("%Y-%m-%d %H:%M:%S") +"' WHERE rail_id = '"+ rail_id +"';")
+		elif(self.requestType.lower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'ret_comp'):	#This is for component
+			logger.log("Running ret_comp condition")
+			rail_id = self.findValueOfKey("issued_to")
+			comp_id = self.findValueOfKey("component_id")
+			self.cursor.execute("SELECT time_of_issue,time_of_return FROM iss_compnts WHERE issued_to='" + rail_id +"' ORDER BY time_of_return DESC;")
+			mysqlData = self.cursor.fetchall()
+			issTime = mysqlData[0]["time_of_issue"]
+			retTime = mysqlData[0]["time_of_return"]
+			timeOfUse = retTime - issTime
+			self.cursor.execute("UPDATE iss_compnts SET time_of_use='"+ str(timeOfUse) +"' where time_of_issue='"+ issTime.strftime("%Y-%m-%d %H:%M:%S") +"';")
+			print("SELECT total_time_of_use FROM components WHERE component_id='" + comp_id + "';")
+			self.cursor.execute("SELECT total_time_of_use FROM components WHERE component_id='" + comp_id + "';")
+			mysqlData = self.cursor.fetchall()
+			print(mysqlData)
+			totalTime = mysqlData[0]["total_time_of_use"]
+			if(totalTime != None):
+				timeInStringFormat = totalTime.split(":")
+				timeInTimeFormat = datetime.time(int(timeInStringFormat[0]),int(timeInStringFormat[1]),int(timeInStringFormat[2]))
+				timeInTimeFormat = (datetime.datetime.combine(datetime.date.today(),timeInTimeFormat) + timeOfUse).time()
+				self.cursor.execute("UPDATE components SET total_time_of_use='"+ str(timeInTimeFormat) +"' WHERE component_id='"+comp_id+"';")
+			else:
+				self.cursor.execute("UPDATE components SET total_time_of_use='"+ str(timeOfUse) +"' WHERE component_id='"+comp_id+"';")
+		elif(self.requestType.lower() == 'insert' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'req_comp'):	#This is for component
+			logger.log("Running req_comp condition")
+			comp_id = self.findValueOfKey('component_id')
+			self.cursor.execute("SELECT time_of_issue FROM iss_compnts where component_id='" + comp_id + "' AND time_of_return is null;")
+			data = self.cursor.fetchall()
+			time_iss = data[0]["time_of_issue"]
+			self.cursor.execute("UPDATE components SET most_recent_issue='"+ time_iss.strftime("%Y-%m-%d %H:%M:%S") +"' WHERE component_id = '"+ comp_id +"';")
 		else:
 			pass
 		self.mysqlConnection.commit()
@@ -370,11 +405,13 @@ class analytics:
 
 
 if __name__ == '__main__':
+	logger.log("Start of database.py")
 	process = main(sys.argv[1])
 	process.validateData()
 	process.setConnection()
 	process.processRequest()
 	process.generateAnalytics()
+	logger.log("End of database.py")
 else:
 	print("This code does not support being imported as a module")
 
