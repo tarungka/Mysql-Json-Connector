@@ -1,0 +1,20 @@
+{
+    "host"      :   "",
+    "user"      :   "",
+    "password"  :   "",
+    "databases" :   {
+        "DATABASE_NAME" :   {
+            "TABLE_NAME"    :   {
+                "table_constrains"  :   {
+                    "FIELD_NAME"    :   "DATA TYPE"
+                },
+                "read_list" :   [
+                    "This is a list of FIELD_NAME's used to create views in the database"
+                ],
+                "index_constrains"  :   [
+                    "This is a list of items used to create the index constrains in the database"
+                ]
+            }
+        }
+    }
+}

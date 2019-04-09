@@ -1,0 +1,97 @@
+//BARE MINIMUN FOR THE JSON FORMAT
+{
+    "HEADER"    :   {
+        "DATABASE"          : "",
+        "TABLE_NAME"        : "",
+        "REQUEST_TYPE"      : ""
+    },
+    "DATA"    :   {
+        "FIELDS"    : {}(OR)[],
+        "SET"       : {},
+        "WHERE"     : {}
+    },
+    "FOOTER"    :   {
+        "DATA ABOUT THE REQUEST"  : "",
+        "COMMENT"   : "",
+        "UPDATE"    : [],
+        "DEP"       : []
+    }
+}
+
+//FOR A SELECT STATEMENT
+{
+    "HEADER"    :   {
+        "DATABASE"          : "",
+        "TABLE_NAME"        : "",
+        "REQUEST_TYPE"      : ""
+    },
+    "DATA"    :   {
+        "FIELDS"    : [],
+        "SET"       : null,
+        "WHERE"     : {}
+    },
+    "FOOTER"    :   {
+        "DATA ABOUT THE REQUEST"  : "",
+        "COMMENT"   : "",
+        "UPDATE"    : [],
+        "DEP"       : []
+    }
+}
+//FOR A INSERT STATEMENT
+{
+    "HEADER"    :   {
+        "DATABASE"          : "",
+        "TABLE_NAME"        : "",
+        "REQUEST_TYPE"      : ""
+    },
+    "DATA"    :   {
+        "FIELDS"    : {},
+        "SET"       : null,
+        "WHERE"     : null
+    },
+    "FOOTER"    :   {
+        "DATA ABOUT THE REQUEST"  : "",
+        "COMMENT"   : "",
+        "UPDATE"    : [],
+        "DEP"       : []
+    }
+}
+//FOR A UPDATE STATEMENT
+{
+    "HEADER"    :   {
+        "DATABASE"          : "",
+        "TABLE_NAME"        : "",
+        "REQUEST_TYPE"      : ""
+    },
+    "DATA"    :   {
+        "FIELDS"    : null,
+        "SET"       : {},
+        "WHERE"     : {}
+    },
+    "FOOTER"    :   {
+        "DATA ABOUT THE REQUEST"  : "",
+        "COMMENT"   : "",
+        "UPDATE"    : [],
+        "DEP"       : []
+    }
+}
+//FOR A DELETE STATEMENT -- HAS NOT BEEN IMPLEMENTD YET, WILL BE IN THE LATER VERSION OF THE THE APP
+{
+    "HEADER"    :   {
+        "DATABASE"          : "",
+        "TABLE_NAME"        : "",
+        "REQUEST_TYPE"      : ""
+    },
+    "DATA"    :   {
+        "FIELDS"    : null,
+        "SET"       : null,
+        "WHERE"     : {}
+    },
+    "FOOTER"    :   {
+        "DATA ABOUT THE REQUEST"  : "",
+        "COMMENT"   : "",
+        "UPDATE"    : [],
+        "DEP"       : []
+    }
+}
+//FOR A ALTER STATEMENT -- HAS NOT BEEN DEFINED YET(PROBABLY WILL NEVER BE DEFINED AS THERE NEVER MIGHT BE A USE FOR IT)
