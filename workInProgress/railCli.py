@@ -4,6 +4,17 @@ import os
 import datetime
 import logging
 
+"""
+I NEED TO ADD VALIDATION HERE AS THE DATABASE.PY ONLY THE DATA INPUT
+ASAP:ADD VALIDATION HERE!!!!
+"""
+
+
+
+
+
+
+
 logging.basicConfig(
         filename='railApplication.log',
         format='%(asctime)s.%(msecs)3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
@@ -143,6 +154,7 @@ class register:
         self.project.update({"status"               : status})
         self.project.update({"priority"             : priority})
         self.project.update({"technology_stack"     : technologyStack})
+        self.project.update({"date_start"           : datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")})
 
     def generateArgumentForStudent(self,inputDict):
         header = '{"HEADER" : {"DATABASE" : "' + self.current_db + '","TABLE_NAME" : "cur_studs","REQUEST_TYPE" : "insert"},'

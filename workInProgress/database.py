@@ -5,6 +5,7 @@ import sys
 import datetime
 import json
 import logger
+import query
 
 logger =  logger.logIt(__file__)
 
@@ -104,7 +105,7 @@ class main:
 			if(value[index + 1] == "null"): #THE BLOCK BELOW GENEREATES ",null"
 				finalQuery = finalQuery + "," + str(value[index + 1])
 				continue
-			finalQuery = finalQuery + "," + "'" + str(value[index + 1]) + "'" #THE BLOCK BELOW GENEREATES ",'val'"
+			finalQuery = finalQuery + "," + "'" + str(value[index + 1]).replace("'",r"\'") + "'" #THE BLOCK BELOW GENEREATES ",'val'"
 		finalQuery = finalQuery + ");"
 		logger.log(finalQuery)
 		self.cursor.execute(finalQuery)
@@ -203,8 +204,8 @@ class main:
 						logger.log("The rail id in invalid!")
 						flag = True
 				elif(aKey == 'gender'):
-					if(curObj[aKey] != 'M' or curObj[aKey] != 'F'):
-						logger.log("The gender is invalid")
+					if((curObj[aKey].upper() not in ['M','F'])):
+						logger.log("The gender is invalid :"+curObj[aKey])
 						flag = True
 				elif(aKey == 'date_of_birth'):
 					splitData = curObj[aKey].rsplit('-')
@@ -222,15 +223,15 @@ class main:
 						logger.log("Phone number error")
 						flag = True
 				elif(aKey == 'branch'):
-					if(not(curObj[aKey] in ['CS','EC','TX','CV'])):
+					if((curObj[aKey] not in ['CS','EC','TX','CV'])):
 						logger.log("Branch invalid")
 						flag = True
 				elif(aKey == 'login_status'):
-					if(not(curObj[aKey] in ['YES','NO'])):
+					if((curObj[aKey] not in ['YES','NO'])):
 						logger.log("login_status invalid")
 						flag = True
 				elif(aKey == 'component_status'):
-					if(not(curObj[aKey] in ['YES','NO'])):
+					if((curObj[aKey] not in ['YES','NO'])):
 						logger.log("component_status invalid")
 						flag = True
 				elif(aKey == 'usn'):
@@ -238,8 +239,8 @@ class main:
 						logger.log("USN is invalid")
 						flag = True
 				elif(aKey == 'current_highest_role'):
-					if(not(curObj[aKey].lower() in ['member','team_lead'])):
-						logger.log("role if student is not supported")
+					if((curObj[aKey].lower() not in ['member','team lead'])):
+						logger.log("Role if student is not supported")
 						flag = True
 				if(flag == True):
 					print("FailedOperation : Error in data entered, check the logs!")

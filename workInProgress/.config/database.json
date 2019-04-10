@@ -1,7 +1,7 @@
 {
     "host"  	:   "localhost",
     "user"  	:   "testuser",
-    "password"  :   "testuser",
+    "password"  :   "testpassword",
 	"databases" :	{
     	"rail_db"  :   {
     	    "tables"    :   {
