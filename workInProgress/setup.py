@@ -4,6 +4,7 @@ from mysql.connector import errorcode
 import query
 import json
 import logger
+import logging
 
 logger =  logger.logIt(__file__)
 
@@ -14,7 +15,9 @@ def main(jsonCnf):
 			user		=	jsonCnf["user"],
 			passwd		=	jsonCnf["password"]
 		)
+		logging.debug("Connection to the database was successful")
 	except mysql.connector.Error as err:
+		logging.critical("Connection failed to database."+str(err))
 		logger.log("Connection failed to database.",True)
 		logger.log(err.msg)
 		exit(1)
@@ -28,12 +31,15 @@ def main(jsonCnf):
 			if(answer == 'y' or answer == 'Y'):
 				cursor.execute(query.dropQuery("database",database))
 				logger.log(database + " was dropped.",True)
+				logging.info("Database '" + database + "' was dropped.")
 			else:
+				logging.info("There already exists a database by the name '" + database + "' please drop it.")
 				logger.log("Please change the name of the database in the config file and try again.",True)
 				logger.log("Exitting",True)
-				exit(0)
+				return
 		except:
 			logger.log(database + " does not exist,no need to drop")
+			logging.info("No database by the name '" + database + "',no need to drop.")
 	allDatabases = databases.keys()
 	for database in allDatabases:
 		print("Creating database %s ..." % (database),end='')
@@ -73,8 +79,11 @@ def main(jsonCnf):
 
 if __name__ == '__main__':
 	logger.log("Loading configuration File ...")
+	logging.info("Start of setup.py")
 	with open('.config/database.json') as configFile:
+		logging.info("Successfully opened the config file.")
 		jsonCnf = json.load(configFile)
 		main(jsonCnf)
+	logging.info("End of setup.py")
 else:
 	print("This code does not support being imported as a module")

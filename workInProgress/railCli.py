@@ -2,6 +2,14 @@
 import json
 import os
 import datetime
+import logging
+
+logging.basicConfig(
+        filename='railApplication.log',
+        format='%(asctime)s.%(msecs)3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+        level=logging.INFO
+    )
 
 mode = "register"
 message = """\t\t\tWELCOME TO RAIL REGISTRAION\nStuents can register as groups of 2 or 4."""
@@ -14,36 +22,42 @@ class register:
         global currentDatabase
         print(message)
         print("\t\t\tTEAM REGISTRATION")
+        logging.info("Getting basic information")
         self.numberOfStudents = int(input("Enter the number of students(either 2 or 4)  :"))
         self.teamName =                  input("Enter team name(given by sir/admin)          :")
         self.projectName =               input("Name of the project                          :").upper()
         self.current_db = currentDatabase
 
     def validateUSN(self,usn):
+        logging.info("Validating the usn")
         no    = usn[0]
-        #clg   = usn[1:3]
         year  = usn[3:5]
-        #branch= usn[5:7]
         id    = usn[7:10]
         if(no.isdigit()):
             if(year.isdigit()):
                 if(id.isdigit()):
-                    pass
+                    logging.debug("Usn in valid")
+                    return True
                 else:
+                    logging.debug("Usn in invalid")
                     return False
             else:
+                logging.debug("Usn in invalid")
                 return False
         else:
+            logging.debug("Usn in invalid")
             return False
-        return True
+        
 
     def generateRailId(self,usn):
+        logging.info("Generating rail id")
         try:
             assert (self.validateUSN(usn)),"INVALID USN!"
             rail_id = 'R' + usn[-9:]
             return str(rail_id)
         except AssertionError as e:
             print("Error:",str(e))
+            logging.debug("Assertion Error raised when validating USN")
             changeMode()
 
     def getStudentInformation(self,currentUsn):
@@ -74,11 +88,14 @@ class register:
         return studentDict
 
     def registerStudents(self):
+        logging.info("Registering student(s)")
         self.students = []
         for student in self.team["team_members"]:
             self.students.append(self.getStudentInformation(student))
+            logging.debug("Done registering a student")
     
     def registerTeams(self):
+        logging.info("Registering a team")
         teamMembers = []
         if(self.numberOfStudents == 2):
             teamMembers.append(input("Enter the first students usn                 :"))
@@ -99,6 +116,7 @@ class register:
 
 
     def registerProjects(self):
+        logging.info("Registering projects")
         print("\t\t\tPROJECT REGISTRATION")
         print("Project name                   :"+self.projectName)
         print("Team name                      :"+self.teamName)
@@ -151,21 +169,26 @@ class register:
         return (header + firstHalf + secondHalf + thirdHalf + footer)
 
     def updateDatabase(self):
-        for student in self.students:
-            print(student)
-        print(self.team)
-        print(self.project)
+        #for student in self.students:
+        #    print(student)
+        #print(self.team)
+        #print(self.project)
+        logging.info("Updating the database")
         for student in self.students:
             studentArgument = self.generateArgumentForStudent(student)
+            logging.debug("arguments to register a student:"+str(studentArgument))
             os.system("./database.py '" + studentArgument + "'")
         teamArgument    = self.generateArgumentForTeam(self.team)
+        logging.debug("arguments to register a team:"+str(teamArgument))
         projectArgument = self.generateArgumentForProject(self.project)
+        logging.debug("arguments to register a project:"+str(projectArgument))
         os.system("./database.py '" + teamArgument + "'")
         os.system("./database.py '" + projectArgument + "'")
 
 class attendence:
     def __init__(self):
         global currentDatabase
+        logging.info("Getting information from user")
         print("\t\t\tATTENDENCE")
         self.railId =               input("Enter RAIL ID                                :")
         self.action =               input("Login or Logout?                             :")
@@ -210,17 +233,19 @@ class attendence:
             print("Something went wrong")
 
     def updateDatabase(self):
+        logging.info("Updating the database")
         attendenceArgument = self.generateArgumentForAttendence(self.data)
-        #print(attendenceArgument)
+        logging.debug("arguments for attendence is:"+str(attendenceArgument))
         os.system("./database.py '" + attendenceArgument + "'")
         
 
 class component:
     def __init__(self):
         global currentDatabase
+        logging.info("Getting basic information for components")
         print("\t\t\tCOMPONENT")
-        self.numberOfComponents= int(input("Number of components                        :"))
-        self.requestType       =     input("Request/Return?                             :").upper()
+        self.numberOfComponents = int(input("Number of components                        :"))
+        self.requestType        =     input("Request/Return?                             :").upper()
         self.issuedTo           =    input("Enter your rail_id                          :")
         self.componentId = []
         for index in range(self.numberOfComponents):
@@ -232,6 +257,7 @@ class component:
         self.current_db = currentDatabase
 
     def checkCompId(self):
+        logging.info("Validating component Id")
         localComp = []
         for aComponent in self.componentId:
             if(not(aComponent.startswith("RL-"))):
@@ -292,11 +318,11 @@ class component:
         return localList
 
     def updateDatabase(self):
-        print("Inside updateDatabase")
+        logging.info("Inside updateDatabase")
         componentArguments = self.generateArgumentForComponent(self.data)
         print("Number of components is:",len(componentArguments))
         for aData in componentArguments:
-            print("Calling database.py")
+            logging.debug("argument to issue component-"+str(aData))
             os.system("./database.py '" + aData + "'")
 
     def showData(self):
@@ -311,19 +337,22 @@ class component:
 
 def changeMode():
     global mode
+    logging.info("Change mode was called.")
     print("The availabe modes are:")
-    print("register")
-    print("attendence")
-    print("component")
-    print("exit")
+    print("1->register")
+    print("2->attendence")
+    print("3->component")
+    print("4->exit")
     mode = input("Enter new mode:")
+    logging.warning("Changing mode to"+str(mode))
 
-
+logging.info("Start of railCli.py")
 if __name__ == "__main__":
+    logging.info("Was not imported as a module")
     process = None
     changeMode()
     while True:
-        if(mode == "register"):
+        if(mode == "register" or mode == "1"):
             try:
                 process = register()
                 process.registerTeams()
@@ -336,21 +365,21 @@ if __name__ == "__main__":
                 print("Keyboard Interrupt!")
                 print("Exitting ...")
                 exit()
-            except:
-                print("Error ...")
+            except BaseException as e:
+                logging.error(str(e))
                 print("Exitting ...")
                 exit()
-        elif(mode == "attendence"):
+        elif(mode == "attendence" or mode == "2"):
             try:
                process = attendence()
                process.updateDatabase()
             except KeyboardInterrupt:
                 changeMode()
-            except:
-                print("Error ...")
+            except BaseException as e:
+                logging.error(str(e))
                 print("Exitting ...")
                 exit()
-        elif(mode == "component"):
+        elif(mode == "component" or mode == "3"):
             try:
                 process = component()
                 process.showData()
@@ -358,12 +387,14 @@ if __name__ == "__main__":
             except KeyboardInterrupt:
                 changeMode()
             except BaseException as e:
-                print("Error ...",str(e))
+                logging.error(str(e))
                 print("Exitting ...")
                 exit()
-        elif(mode == "exit"):
+        elif(mode == "exit" or mode == "4"):
+            logging.info("Exitting the application")
             exit()
         else:
             changeMode()
+        logging.debug("Completed a request")
 else:
     print("Does not support being imported as a module")
