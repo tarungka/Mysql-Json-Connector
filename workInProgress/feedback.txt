@@ -1,4 +1,4 @@
-register not working.
+register not working. -- DONE!!
 
 can logout without returning!!! fix please
 

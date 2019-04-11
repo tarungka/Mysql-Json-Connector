@@ -355,6 +355,13 @@ class main:
 				self.cursor.execute("UPDATE components SET total_time_of_use='"+ str(timeInTimeFormat) +"' WHERE component_id='"+comp_id+"';")
 			else:
 				self.cursor.execute("UPDATE components SET total_time_of_use='"+ str(timeOfUse) +"' WHERE component_id='"+comp_id+"';")
+			#
+			# TO UPDATE THE COMPOENET STATUS TO NO WHEN HE RETURNS ALL THE COMPONENTS
+			#
+			self.cursor.execute("SELECT component_id FROM iss_compnts where issued_to='" + rail_id + "' AND time_of_return is NULL")
+			mysqlData = self.cursor.fetchall()
+			if(not(mysqlData)):
+				self.cursor.execute("UPDATE cur_studs SET component_status = 'NO' where rail_id = '" + rail_id + "';")
 		elif(self.requestType.lower() == 'insert' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'req_comp'):	#This is for component
 			logger.log("Running req_comp condition")
 			comp_id = self.findValueOfKey('component_id')

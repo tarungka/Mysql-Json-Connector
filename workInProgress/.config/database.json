@@ -1,29 +1,29 @@
 {
     "host"  	:   "localhost",
     "user"  	:   "testuser",
-    "password"  :   "testpassword",
+    "password"  :   "testuser",
 	"databases" :	{
     	"rail_db"  :   {
     	    "tables"    :   {
     	    	"all_studs"  :   {
     	    	    "table_constrains"  :   {
-    	    	        "slno"					:	"INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
-				    	"rail_id"				:	"CHAR(10) NOT NULL",
+		    	    	        "slno"				:	"INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
+				    	"rail_id"			:	"CHAR(10) NOT NULL",
 				    	"student_name"			:	"VARCHAR(50) NOT NULL",
-				    	"gender"				:	"CHAR(1)",
+				    	"gender"			:	"CHAR(1)",
 				    	"date_of_birth"			:	"DATE",
-				    	"time_of_joining_rail"	:	"DATETIME DEFAULT NOW()",
+				    	"time_of_joining_rail"		:	"DATETIME DEFAULT NOW()",
 				    	"phone_number"			:	"VARCHAR(10) NOT NULL",
-				    	"email"					:	"VARCHAR(40) NOT NULL",
+				    	"email"				:	"VARCHAR(40) NOT NULL",
 				    	"associated_team"		:	"VARCHAR(20)",
 				    	"projects_done"			:	"INT UNSIGNED DEFAULT 0",
-				    	"branch"				:	"VARCHAR(5) NOT NULL",
+				    	"branch"			:	"VARCHAR(5) NOT NULL",
 				    	"login_status"			:	"VARCHAR(3) DEFAULT 'NO'",
 				    	"component_status"		:	"VARCHAR(3) DEFAULT 'NO'",
-						"usn"					:	"CHAR(10) NOT NULL",
-						"time_in_rail"			:	"TIME",
-						"most_recent_login"		:	"DATETIME DEFAULT null",
-				    	"current_highest_role"	:	"VARCHAR(20)"
+					"usn"				:	"CHAR(10) NOT NULL",
+					"time_in_rail"			:	"TIME",
+					"most_recent_login"		:	"DATETIME DEFAULT null",
+				    	"current_highest_role"		:	"VARCHAR(20)"
     	    	    },
     	    	    "read_list"  :   [
     	    	        "slno",
@@ -120,7 +120,7 @@
     	    	"all_projs"  :   {
     	    	    "table_constrains"  :   {
     	    	        "slno"					:	"INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
-						"project_name"			:	"VARCHAR(100) NOT NULL",
+						"project_name"			:	"VARCHAR(30) NOT NULL",
 						"associated_team"		:	"CHAR(1) NOT NULL",
 						"project_description"	:	"VARCHAR(200) NOT NULL",
 						"number_of_members"		:	"TINYINT UNSIGNED NOT NULL",
@@ -162,7 +162,7 @@
     	    	"cur_projs"  :   {
     	    	    "table_constrains"  :   {
     	    	        "slno"					:	"INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
-						"project_name"			:	"VARCHAR(100) NOT NULL",
+						"project_name"			:	"VARCHAR(30) NOT NULL",
 						"associated_team"		:	"CHAR(1) NOT NULL",
 						"project_description"	:	"VARCHAR(200) NOT NULL",
 						"number_of_members"		:	"TINYINT UNSIGNED NOT NULL",
@@ -207,7 +207,7 @@
     	    	        "team_name"            	: "CHAR(2) NOT NULL",
     	    	        "associated_projects"   : "VARCHAR(100) NOT NULL",
     	    	        "number_of_members"     : "TINYINT UNSIGNED NOT NULL",
-    	    	        "team_members"       	: "VARCHAR(50) NOT NULL",
+    	    	        "team_members"       	: "VARCHAR(55) NOT NULL",
     	    	        "date_of_team_creation" : "DATETIME DEFAULT NOW()"
     	    	    },
     	    	    "read_list"  :   [
@@ -230,7 +230,7 @@
     	    	        "team_name"            	: "CHAR(2) NOT NULL",
     	    	        "associated_projects"   : "VARCHAR(100) NOT NULL",
     	    	        "number_of_members"     : "TINYINT UNSIGNED NOT NULL",
-    	    	        "team_members"       	: "VARCHAR(50) NOT NULL",
+    	    	        "team_members"       	: "VARCHAR(55) NOT NULL",
     	    	        "date_of_team_creation" : "DATETIME DEFAULT NOW()"
     	    	    },
     	    	    "read_list"  :   [
