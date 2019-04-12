@@ -202,11 +202,11 @@ class attendence:
         global currentDatabase
         logging.info("Getting information from user")
         print("\t\t\tATTENDENCE")
-        self.railId =               input("Enter RAIL ID                                :")
-        self.action =               input("Login or Logout?                             :")
-        if(self.action == 'login'):
-            self.team =                 input("Enter team name(given by sir/admin)          :")
-            self.reason =               input("Reason for attending rail                    :")
+        self.railId =               input("Enter RAIL ID                                :").upper()
+        self.action =               input("Login or Logout?                             :").upper()
+        if(self.action == 'login'.upper()):
+            self.team =                 input("Enter team name(given by sir/admin)          :").upper()
+            self.reason =               input("Reason for attending rail                    :").upper()
         self.convertToData()
         self.current_db = currentDatabase
 
@@ -224,7 +224,7 @@ class attendence:
             self.data.update({"time_out"        : self.getCurrentTime()})
 
     def generateArgumentForAttendence(self,inputDict):
-        if(self.action == "login"):
+        if(self.action == ("login".upper())):
             header = '{"HEADER" : {"DATABASE" : "' + self.current_db + '","TABLE_NAME" : "attendence","REQUEST_TYPE" : "insert"},'
             firstHalf = '"DATA":{"FIELDS":'
             secondHalf = json.dumps(inputDict)
@@ -234,7 +234,7 @@ class attendence:
             		},{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"cur_studs","REQUEST_TYPE":"select"},"DATA":{"FIELDS": ["component_status"],"SET":null,"WHERE":{"rail_id" : "' + self.railId + '","component_status":"NO"}},"FOOTER" : {"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}'
             footer_3 = '}],"UPDATE" : [{"HEADER":{"DATABASE":"rail_db","TABLE_NAME":"cur_studs","REQUEST_TYPE":"update"},"DATA":{"FIELDS": null,"SET":{"login_status":"YES"},"WHERE":{"rail_id":"' + self.railId +'"}},"FOOTER":{"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}}]}}'
             return (header + firstHalf + secondHalf + thirdHalf + footer_1 + dep + footer_3)
-        elif(self.action == "logout"):
+        elif(self.action == ("logout".upper())):
             header = '{"HEADER" : {"DATABASE" : "' + self.current_db + '","TABLE_NAME" : "attendence","REQUEST_TYPE" : "update"},'
             firstHalf = '"DATA":{"FIELDS":null'
             thirdHalf = ',"SET" : {"time_out": "' + self.getCurrentTime() + '"},"WHERE" : {"rail_id" : "' + self.railId + '","time_out":"NULL"}},'
@@ -259,12 +259,12 @@ class component:
         print("\t\t\tCOMPONENT")
         self.numberOfComponents = int(input("Number of components                        :"))
         self.requestType        =     input("Request/Return?                             :").upper()
-        self.issuedTo           =    input("Enter your rail_id                          :")
+        self.issuedTo           =    input("Enter your rail_id                          :").upper()
         self.componentId = []
         for index in range(self.numberOfComponents):
-            self.componentId.append(input("Enter the component id of component number %d:" % (index+1)))
+            self.componentId.append(input("Enter the component id of component number %d:" % (index+1)).upper())
         if(self.requestType == "REQUEST"):
-            self.associatedTeam     =    input("Enter your associated team                  :")
+            self.associatedTeam     =    input("Enter your associated team                  :").upper()
         self.checkCompId()
         self.convertToData()
         self.current_db = currentDatabase
@@ -357,7 +357,7 @@ def changeMode():
     print("3->component")
     print("4->exit")
     mode = input("Enter new mode:")
-    logging.warning("Changing mode to"+str(mode))
+    logging.warning("Changing mode to:"+str(mode))
 
 logging.info("Start of railCli.py")
 if __name__ == "__main__":

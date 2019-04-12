@@ -7,6 +7,7 @@ menu traversal through numbers. -- DONE!
 
 status updates please. for everything.
 
-
+change arguments to a ".format()"
 
   
+Make the component status to a integer so that it is easier to check if hes taken any components and set 
