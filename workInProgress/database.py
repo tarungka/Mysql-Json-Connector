@@ -6,6 +6,14 @@ import datetime
 import json
 import logger
 import query
+import logging
+
+logging.basicConfig(
+        filename='railApplication.log',
+        format='%(asctime)s.%(msecs)3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+        level=logging.INFO
+    )
 
 logger =  logger.logIt(__file__)
 
@@ -16,19 +24,11 @@ class main:
 	3)PLAN BEFORE YOU WRITE THE ACTUAL CODE
 	'''
 	def __init__(self,jsonData):		#Constructor which decodes the incoming json data
-		#print("The json data before convertion is:",type(jsonData))
-		#print("The json data is:",jsonData)
 		try:	#Checking if the input data is of string type
-			#print("Trying to convert json data(of string datatype) to dictionary format ...",end='')
 			self.jsonString = json.loads(str(jsonData))
-			#print("(success)")
-		except:	#Checking of the input data is of dict type
-			#print("(failed)")
-			#print("Trying to assign data(of dict datatype) to dictionary format ...",end='')
+		except:	#Checking of the input data is of dict type, this happens only when the class create an instance of itself
 			self.jsonString = jsonData
-			#print("(success)")
-		logger.log(str(self.jsonString))
-		#print("The json data after convertion is",type(self.jsonString))
+		logger.log(str(json.dumps(self.jsonString)))
 		
 		self.header = self.jsonString["HEADER"]			#Gets the header 
 		self.database = self.header["DATABASE"]			#database name within header
@@ -48,19 +48,19 @@ class main:
 		'''
 
 
-	def showData(self):
-		print("jsonString",self.jsonString)
-		print("header			:",self.header)
-		print("---database			:",self.database)
-		print("---table name		:",self.table)
-		print("---request type		:",self.requestType)
-		print("data				:",self.data)
-		print("---fields			:",self.fields)
-		print("---set				:",self.setClause)
-		print("---where				:",self.whereClause)
-		print("footer			:",self.footer)
-		print("---update			:",self.updateData)
-		print("---dependency		:",self.conditionList)
+	#def showData(self):
+	#	print("jsonString",self.jsonString)
+	#	print("header			:",self.header)
+	#	print("---database			:",self.database)
+	#	print("---table name		:",self.table)
+	#	print("---request type		:",self.requestType)
+	#	print("data				:",self.data)
+	#	print("---fields			:",self.fields)
+	#	print("---set				:",self.setClause)
+	#	print("---where				:",self.whereClause)
+	#	print("footer			:",self.footer)
+	#	print("---update			:",self.updateData)
+	#	print("---dependency		:",self.conditionList)
 
 	def getDatabase(self):
 		return self.database
@@ -74,22 +74,39 @@ class main:
 			host 	 = data["host"]
 			user 	 = data["user"]
 			password = data["password"]
-			self.mysqlConnection = mysql.connector.connect(
-				host		=	host,		#CREATE A SEPERATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
-				user		=	user, 		#CREATE A SEPERATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
-				passwd		=	password, 	#CREATE A SEPERATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
-				database	=	self.getDatabase()
-			)
-			self.cursor = self.mysqlConnection.cursor(dictionary=True)
-			return self.cursor
-			#WRITE EXPECTIONS FOR THIS
+			try:
+				self.mysqlConnection = mysql.connector.connect(
+					host		=	host,		#CREATE A SEPERATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
+					user		=	user, 		#CREATE A SEPERATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
+					passwd		=	password, 	#CREATE A SEPERATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
+					database	=	self.getDatabase()
+				)
+				self.cursor = self.mysqlConnection.cursor(dictionary=True)
+				return self.cursor
+			except mysql.connector.Error as err:
+				logger.log(("An error occured. ERROR NO: %d" % (err.errno)),True)
+				logging.critical("Mysql connector error Error No:%4d:%s" % (err.errno,str(err.msg)))
+				if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+					logger.log("Access was denied.",True)
+					logging.critical("Access was denied.")
+				elif err.errno == errorcode.ER_BAD_DB_ERROR:
+					logger.log("Database does not exist",True)
+					logging.critical("Database does not exist.")
+				elif err.errno == errorcode.ER_BAD_FIELD_ERROR:
+					logger.log(("Invalid field : %s" % (err.msg)),True)
+					logging.critical("Invalid field.")
+				elif err.errno == errorcode.ER_BAD_TABLE_ERROR:
+					logger.log("Table does not exist",True)
+					logging.critical("Table does not exist.")
+				else:
+					logger.log(str(err),True)
+					logging.critical(str(err.msg))
+			else:
+				exit(1)
 
-	
-	'''
-	FOR ALL THE QUERIES WRITE EXCEPTION TO HANDLES MYSQL EXCEPTIONS.
-	'''
-	
-	
+	"""
+	IM PLANNING ON SHIFTING ALL OF THE QUERIES INTO ANOTHER MODULE AS IT WILL BE REUSABLE.
+	"""	
 	def insertData(self,insDict):
 		logger.log("Generating CREATE query(%s) ..." % (self.getTable()))
 		finalQuery = ("INSERT INTO %s(" % (self.getTable()))
@@ -414,11 +431,13 @@ class analytics:
 
 if __name__ == '__main__':
 	logger.log("Start of database.py")
+	logging.info("Start of database.py")
 	process = main(sys.argv[1])
 	process.validateData()
 	process.setConnection()
 	process.processRequest()
 	process.generateAnalytics()
+	logging.info("End of database.py")
 	logger.log("End of database.py")
 else:
 	print("This code does not support being imported as a module")
