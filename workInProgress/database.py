@@ -168,10 +168,10 @@ class main:
 
 	def selectData(self,dataList,whereDict = None):
 		logger.log("Generating SELECT query(%s)" % (self.getTable))
-		finalQuery = ("SELECT " + dataList[0])
+		finalQuery = ("SELECT `" + dataList[0] + "`")
 		length = len(dataList)
 		for index in range(length - 1):
-			finalQuery = finalQuery + "," + dataList[index + 1]
+			finalQuery = finalQuery + ",`" + dataList[index + 1] + "`"
 		finalQuery = finalQuery + " FROM " + self.getTable()
 		if(whereDict != None):
 			finalQuery = finalQuery + " WHERE "
