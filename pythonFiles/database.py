@@ -1,119 +1,444 @@
+#!/usr/bin/python3
 import mysql.connector
 from mysql.connector import errorcode
 import sys
-import constants
-import import_student as student
-import import_attendence as attendence
-import import_projects as projects
-import import_teams as teams
+import datetime
 import json
-#import import_component as component
-import import_logger
+import logger
+import query
+import logging
 
-logger =  import_logger.logIt(__file__)
+logging.basicConfig(
+        filename='railApplication.log',
+        format='%(asctime)s.%(msecs)3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+        level=logging.INFO
+    )
 
-def main(jsonIn):
-	try:
-		connection = mysql.connector.connect(
-			host		=	"none",
-			user		=	"none",
-			passwd		=	"none",
-			database	=	"null"
-		)
-		#print(connection)
-		cursor = connection.cursor()
-		#decrypt = constants.constData()
-		logger.log("Table number:" + jsonIn["table_name"] + ",Request type:" + jsonIn["request_type"])
-		if(jsonIn["table_name"] == "1"):
-			if(jsonIn["request_type"] == "insert"):
-				data = jsonIn["data"]
-				student.insert(data,cursor=cursor)
-			elif(jsonIn["request_type"] == "delete"):
-				data = jsonIn["data"]
-				student.delete(data,cursor=cursor)
-			elif(jsonIn["request_type"] == "read"):
-				logger.log(student.read(cursor=cursor),True)					#REMOVE THIS PRINT STATEMENT
-			elif(jsonIn["request_type"] == "readeach"):
-				data = jsonIn["data"]
-				logger.log(student.readEach(data,cursor=cursor),True)			#REMOVE THIS PRINT STATEMENT
+logger =  logger.logIt(__file__)
+
+class main:
+	'''
+	1)GET A BETTER NAME FOR THE CLASS
+	2)WRITE BETTER DOCUMENTATION AS YOU GO
+	3)PLAN BEFORE YOU WRITE THE ACTUAL CODE
+	'''
+	def __init__(self,jsonData):		#Constructor which decodes the incoming json data
+		try:	#Checking if the input data is of string type
+			self.jsonString = json.loads(str(jsonData))
+		except:	#Checking of the input data is of dict type, this happens only when the class create an instance of itself
+			self.jsonString = jsonData
+		logger.log(str(json.dumps(self.jsonString)))
+		
+		self.header = self.jsonString["HEADER"]			#Gets the header 
+		self.database = self.header["DATABASE"]			#database name within header
+		self.table = self.header["TABLE_NAME"]			#table name name within header
+		self.requestType = self.header["REQUEST_TYPE"]	#request type name within header
+		
+		self.data = self.jsonString["DATA"]				#Gets the data
+		self.fields = self.data["FIELDS"]				#fields name within header
+		self.setClause = self.data["SET"]				#setClause name within header
+		self.whereClause = self.data["WHERE"]			#whereClause name within header
+		
+		self.footer = self.jsonString["FOOTER"]			#Gets the footer
+		self.updateList = self.footer["UPDATE"]			#update name within header
+		self.conditionList = self.footer["DEP"]			#dep name within header
+		'''
+		WRITE THE CODE HERE TO GET DATA ABOUT THE REQUEST AND THE COMMENT FROM THE FOOTER SECTION
+		'''
+
+
+	#def showData(self):
+	#	print("jsonString",self.jsonString)
+	#	print("header			:",self.header)
+	#	print("---database			:",self.database)
+	#	print("---table name		:",self.table)
+	#	print("---request type		:",self.requestType)
+	#	print("data				:",self.data)
+	#	print("---fields			:",self.fields)
+	#	print("---set				:",self.setClause)
+	#	print("---where				:",self.whereClause)
+	#	print("footer			:",self.footer)
+	#	print("---update			:",self.updateData)
+	#	print("---dependency		:",self.conditionList)
+
+	def getDatabase(self):
+		return self.database
+	
+	def getTable(self):
+		return self.table
+	
+	def setConnection(self):	#Establishes a connection between the script and the mysql database
+		with open(".config/database.json") as cnfFile:
+			data 	 = json.load(cnfFile)
+			host 	 = data["host"]
+			user 	 = data["user"]
+			password = data["password"]
+			try:
+				self.mysqlConnection = mysql.connector.connect(
+					host		=	host,		#CREATE A SEPERATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
+					user		=	user, 		#CREATE A SEPERATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
+					passwd		=	password, 	#CREATE A SEPERATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
+					database	=	self.getDatabase()
+				)
+				self.cursor = self.mysqlConnection.cursor(dictionary=True)
+				return self.cursor
+			except mysql.connector.Error as err:
+				logger.log(("An error occured. ERROR NO: %d" % (err.errno)),True)
+				logging.critical("Mysql connector error Error No:%4d:%s" % (err.errno,str(err.msg)))
+				if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+					logger.log("Access was denied.",True)
+					logging.critical("Access was denied.")
+				elif err.errno == errorcode.ER_BAD_DB_ERROR:
+					logger.log("Database does not exist",True)
+					logging.critical("Database does not exist.")
+				elif err.errno == errorcode.ER_BAD_FIELD_ERROR:
+					logger.log(("Invalid field : %s" % (err.msg)),True)
+					logging.critical("Invalid field.")
+				elif err.errno == errorcode.ER_BAD_TABLE_ERROR:
+					logger.log("Table does not exist",True)
+					logging.critical("Table does not exist.")
+				else:
+					logger.log(str(err),True)
+					logging.critical(str(err.msg))
 			else:
-				logger.log("ERROR: REQUEST IS NOT INSERT OR DELETE",True)
-		elif(jsonIn["table_name"] == "2"):
-			logger.log("table_2,wev",True)
-			if(jsonIn["request_type"] == "login"):
-				#print("request_type is login")
-				data = jsonIn["data"]
-				attendence.insert(data,cursor=cursor)
-			elif(jsonIn["request_type"] == "logout"):
-				#print("request_type is logout")
-				data = jsonIn["data"]
-				attendence.updateLogout(data,cursor=cursor)
-			elif(jsonIn["request_type"] == "read"):
-				logger.log(attendence.read(cursor=cursor),True)
-			else:
-				logger.log("ERROR: REQUEST IS NOT LOGIN,LOGOUT OR READ",True)
-				return
-		elif(jsonIn["table_name"] == "3"): #COMPONENETS TABLE
-			logger.log("Table selected is:",True)
-		elif(jsonIn["table_name"] == "4"): #ADMIN DETAILS TABLE
-			logger.log("Table selected is:",True)
-		elif(jsonIn["table_name"] == "5"): #PROJECTS TABLE
-			if(jsonIn["request_type"] == "insert"):
-				data = jsonIn["data"]
-				projects.insert(data,cursor=cursor)
-			elif(jsonIn["request_type"] == "read"):
-				#data = jsonIn["data"]
-				projects.read(cursor=cursor)
-			elif(jsonIn["request_type"] == "readeach"):
-				data = jsonIn["data"]
-				projects.readEach(data,cursor=cursor)
-			elif(jsonIn["request_type"] == "delete"):
-				data = jsonIn["data"]
-				projects.delete(data,cursor=cursor)
-			elif(jsonIn["request_type"] == "update"):
-				data = jsonIn["data"]
-				projects.updateProjectDetails(data,cursor=cursor)
-			else:
-				logger.log("request_type is not supported(%s)" % jsonIn["request_type"],True)
-		elif(jsonIn["table_name"] == "6"): #TEAMS TABLE
-			if(jsonIn["request_type"] == "insert"):
-				data = jsonIn["data"]
-				teams.insert(data,cursor)
-			elif(jsonIn["request_type"] == "read"):
-				teams.read(cursor)
-			elif(jsonIn["request_type"] == "readeach"):
-				data = jsonIn["data"]
-				teams.readEach(data,cursor)
-			elif(jsonIn["request_type"] == "update"):
-				data = jsonIn["data"]
-				teams.updateTeams(data,cursor)
-			elif(jsonIn["request_type"] == "delete"):
-				data = jsonIn["data"]
-				teams.delete(data,cursor)
-			else:
-				logger.log("request_type is not supported(%s)" % jsonIn["request_type"],True)
+				exit(1)
+
+	"""
+	IM PLANNING ON SHIFTING ALL OF THE QUERIES INTO ANOTHER MODULE AS IT WILL BE REUSABLE.
+	"""	
+	def insertData(self,insDict):
+		logger.log("Generating CREATE query(%s) ..." % (self.getTable()))
+		finalQuery = ("INSERT INTO %s(" % (self.getTable()))
+		key = list(insDict.keys())
+		value = list(insDict.values())
+		length = len(key)
+		finalQuery = finalQuery + "`" + key[0] + "`"
+		for index in range(length - 1):
+			finalQuery = finalQuery + "," + "`" + key[index + 1] + "`"
+		finalQuery = finalQuery + ") VALUES("
+		finalQuery = finalQuery + "'" + str(value[0]) + "'"
+		for index in range(length - 1):
+			if(value[index + 1] == "null"): #THE BLOCK BELOW GENEREATES ",null"
+				finalQuery = finalQuery + "," + str(value[index + 1])
+				continue
+			finalQuery = finalQuery + "," + "'" + str(value[index + 1]).replace("'",r"\'") + "'" #THE BLOCK BELOW GENEREATES ",'val'"
+		finalQuery = finalQuery + ");"
+		logger.log(finalQuery)
+		self.cursor.execute(finalQuery)
+
+	def deleteData(self,delDict,whereDict):
+		logger.log("Generating DELETE query(%s) ..." % (self.getTable()))
+		finalQuery = ("DELETE FROM " + self.getTable() + " WHERE ")
+		key = list(whereDict.keys())
+		value = list(whereDict.values())
+		length = len(key)
+		finalQuery = finalQuery + key[0] + "=" + "'" + str(value[0]) + "'"
+		for index in range(length - 1):
+			finalQuery = finalQuery + " AND " + key[index + 1] + "=" + "'" + str(value[index + 1]) + "'"
+		finalQuery = finalQuery + ";"
+		logger.log(finalQuery)
+		self.cursor.execute(finalQuery)
+
+
+	def updateData(self,setDict,whereDict):
+		logger.log("Generating UPDATE query(%s) ..." % (self.getTable()))
+		finalQuery = ("UPDATE %s SET " % (self.getTable()))
+		key = list(setDict.keys())
+		value = list(setDict.values())
+		length = len(key)
+		finalQuery = finalQuery + key[0] + "=" + "'" + value[0] + "'"
+		for index in range(length - 1):
+			finalQuery = finalQuery + "," + key[index + 1] + "=" + "'" + value[index + 1] + "'"
+		finalQuery = finalQuery + " WHERE "
+		key = list(whereDict.keys())
+		value = list(whereDict.values())
+		length = len(key)
+		finalQuery = finalQuery + key[0] + "=" + "'" + value[0] + "'"
+		for index in range(length - 1):
+			if(value[index + 1].upper()	 == "NULL"):
+				finalQuery = finalQuery + " AND " + key[index + 1] + " IS NULL"
+				continue
+			finalQuery = finalQuery + " AND " + key[index + 1] + "=" + "'" + value[index + 1] + "'"
+		finalQuery = finalQuery + ";"
+		logger.log(finalQuery)
+		#print("Query ready")
+		self.cursor.execute(finalQuery)
+		#print("Query excuted")
+
+	def selectData(self,dataList,whereDict = None):
+		logger.log("Generating SELECT query(%s)" % (self.getTable))
+		finalQuery = ("SELECT `" + dataList[0] + "`")
+		length = len(dataList)
+		for index in range(length - 1):
+			finalQuery = finalQuery + ",`" + dataList[index + 1] + "`"
+		finalQuery = finalQuery + " FROM " + self.getTable()
+		if(whereDict != None):
+			finalQuery = finalQuery + " WHERE "
+			key = list(whereDict.keys())
+			length = len(key)
+			finalQuery = finalQuery + key[0] + "=" + "'" + whereDict[key[0]] + "'"
+			for index in range((length - 1)):
+				finalQuery = finalQuery + " AND " + key[index + 1] + "=" + "'" + whereDict[key[index + 1]] + "'"
+			finalQuery = finalQuery + ";"
+		logger.log(finalQuery)
+		self.cursor.execute(finalQuery)
+		response = self.cursor.fetchall()
+		return response
+
+	def alterTable(self):
+		print(" Alter table does not work")
+		return
+
+
+	def validateData(self):
+		logger.log("Validating the incoming data")
+		flag = False
+		keys = None
+		curObj = None
+		for index in range(0,3):
+			if(index == 0):
+				if(self.fields == None):
+					logger.log("Fields:No data to validate")
+					continue
+				keys = self.fields.keys()
+				curObj = self.fields
+			elif(index == 1):
+				if(self.setClause == None):
+					logger.log("Set:No data to validate")
+					continue
+				keys = self.setClause.keys()			
+				curObj = self.setClause
+			elif(index == 2):
+				if(self.whereClause == None):
+					logger.log("Where:No data to validate")
+					return
+				keys = self.whereClause.keys()			
+				curObj = self.whereClause
+			for aKey in keys:
+				if(aKey == 'rail_id'):
+					if(not(curObj[aKey].startswith("RSK"))):
+						logger.log("The rail id in invalid!")
+						flag = True
+				elif(aKey == 'gender'):
+					if((curObj[aKey].upper() not in ['M','F'])):
+						logger.log("The gender is invalid :"+curObj[aKey])
+						flag = True
+				elif(aKey == 'date_of_birth'):
+					splitData = curObj[aKey].rsplit('-')
+					if(len(splitData[0]) != 4 and not(splitData[0].isdigit())):
+						logger.log("The year is enterd incorrectly")
+						flag = True
+					if(len(splitData[1]) != 2 and not(splitData[1].isdigit()) and (int(splitData[1])>0 and int(splitData[1])<=12)):
+						logger.log("The month is enterd incorrectly")
+						flag = True
+					if(len(splitData[2]) != 2 and not(splitData[2].isdigit()) and (int(splitData[1])>0 and int(splitData[1])<=31)):
+						logger.log("The date is enterd incorrectly")
+						flag = True
+				elif(aKey == 'phone_number'):
+					if(len(curObj[aKey]) != 10):
+						logger.log("Phone number error")
+						flag = True
+				elif(aKey == 'branch'):
+					if((curObj[aKey] not in ['CS','EC','TX','CV'])):
+						logger.log("Branch invalid")
+						flag = True
+				elif(aKey == 'login_status'):
+					if((curObj[aKey] not in ['YES','NO'])):
+						logger.log("login_status invalid")
+						flag = True
+				elif(aKey == 'component_status'):
+					if((curObj[aKey] not in ['YES','NO'])):
+						logger.log("component_status invalid")
+						flag = True
+				elif(aKey == 'usn'):
+					if(not(curObj[aKey].startswith('1SK'))):
+						logger.log("USN is invalid")
+						flag = True
+				elif(aKey == 'current_highest_role'):
+					if((curObj[aKey].lower() not in ['member','team lead'])):
+						logger.log("Role if student is not supported")
+						flag = True
+				if(flag == True):
+					print("FailedOperation : Error in data entered, check the logs!")
+					exit(0)
+
+	def processRequest(self):
+		self.conditionFlag  = False
+		if(self.conditionList != None):
+			for element in self.conditionList:
+				subProcess = main(element)
+				subProcess.setConnection()
+				if subProcess.processRequest():
+					self.conditionFlag = True
+				else:
+					logger.log("The condition flag is being set to False")
+					self.conditionFlag = False
+					break
+		if(self.conditionList == None or self.conditionFlag == True):
+			'''
+			KIMS THAT WHEN A SELECT IS USED IT RETURNS DATA AND CANNOT BE USED TO UPDATE ANOTHER TABLE.
+			I NEED TO RESTRUCTURE IT TO BE ABLE TO RETURN AS WELL AS RUN AN UPDATE.
+			'''
+			if(self.requestType == "insert"):
+				self.insertData(self.fields)
+				#if(self.getTable == "attendence"):
+				#	print("Need to update the current_students table")
+			elif(self.requestType == "delete"):
+				self.deleteData(self.fields,self.whereClause)
+			elif(self.requestType == "update"):
+				self.updateData(self.setClause,self.whereClause)
+			elif(self.requestType == "select"):
+				#print(type(self.fields))
+				return self.selectData(self.fields,self.whereClause)
+			elif(self.requestType == "alter"):
+				self.alterTable()
+			try:
+				for anObject in self.updateList:
+					#print("Start of a sub process.")
+					#print(anObject)
+					subProcess = main(anObject)
+					subProcess.setConnection()
+					#subProcess.showData()
+					subProcess.processRequest()
+					#print("End of the sub process.")
+			except TypeError:
+				pass
+			except BaseException as e:
+				logger.log("Exception Raised:"+str(e),True)
+				exit(0)
+			self.mysqlConnection.commit()
+
+	def findValueOfKey(self,toBeSearched):
+		if(self.fields != None):
+			if(toBeSearched in self.fields.keys()):
+				return self.fields[toBeSearched]
+		elif(self.whereClause != None):
+			if(toBeSearched in self.whereClause.keys()):
+				return self.whereClause[toBeSearched]
 		else:
-			logger.log("Table does not exist.",True)
-		cursor.close()
-		connection.commit()
-	except mysql.connector.Error as err:
-		logger.log(("An error occured. ERROR NO: %d" % (err.errno)),True)
-		if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-			logger.log("Access was denied.",True)
-		elif err.errno == errorcode.ER_BAD_DB_ERROR:
-			logger.log("Database does not exist",True)
-		elif err.errno == errorcode.ER_BAD_FIELD_ERROR:
-			logger.log(("Invalid field : %s in table '%s'" % (err.msg,jsonIn["table_name"])),True)
-		elif err.errno == errorcode.ER_BAD_TABLE_ERROR:
-			logger.log("Table does not exist",True)
+			logger.log("findValueOfKey:Error could not find the string.")
+
+
+	def generateAnalytics(self):		#Write logger function for this
+		if(self.conditionFlag == False):
+			return
+		logger.log("To generate analytics:"+str(self.requestType)+str(self.footer["DATA ABOUT THE REQUEST"]))
+		if(self.requestType.lower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'logout'):	#This is for attendence
+			logger.log("Running LOGOUT condition")
+			rail_id = self.findValueOfKey('rail_id')
+			self.cursor.execute("SELECT time_in,time_out from attendence where rail_id='"+ rail_id +"' ORDER BY time_out DESC;")
+			mysqlData =  self.cursor.fetchall()
+			loginTime = mysqlData[0]['time_in']
+			logoutTime = mysqlData[0]['time_out']
+			timeSpent = logoutTime - loginTime
+			self.cursor.execute("UPDATE attendence SET time_spent='"+ str(timeSpent) +"' where time_in='"+ loginTime.strftime("%Y-%m-%d %H:%M:%S") +"';")
+			self.cursor.execute("SELECT time_in_rail FROM cur_studs WHERE rail_id='"+ rail_id +"';")
+			mysqlData = self.cursor.fetchall()
+			totalTime = mysqlData[0]['time_in_rail']
+			if(totalTime != None):
+				timeInStringFormat = totalTime.split(":")
+				timeInTimeFormat = datetime.time(int(timeInStringFormat[0]),int(timeInStringFormat[1]),int(timeInStringFormat[2]))
+				timeInTimeFormat = (datetime.datetime.combine(datetime.date.today(),timeInTimeFormat) + timeSpent).time()
+				self.cursor.execute("UPDATE cur_studs SET time_in_rail='"+ str(timeInTimeFormat) +"' WHERE rail_id='"+rail_id+"';")
+			else:
+				self.cursor.execute("UPDATE cur_studs SET time_in_rail='"+ str(timeSpent) +"' WHERE rail_id='"+rail_id+"';")
+		elif(self.requestType.lower() == 'insert' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'login'):	#This is for attendence
+			logger.log("Running LOGIN condition")
+			rail_id = self.findValueOfKey('rail_id')
+			self.cursor.execute("SELECT time_in FROM attendence where rail_id='" + self.findValueOfKey("rail_id") + "' AND time_out is null;")
+			data = self.cursor.fetchall()
+			time_in = data[0]["time_in"]
+			self.cursor.execute("UPDATE cur_studs SET most_recent_login='"+ time_in.strftime("%Y-%m-%d %H:%M:%S") +"' WHERE rail_id = '"+ rail_id +"';")
+		elif(self.requestType.lower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'ret_comp'):	#This is for component
+			logger.log("Running ret_comp condition")
+			rail_id = self.findValueOfKey("issued_to")
+			comp_id = self.findValueOfKey("component_id")
+			self.cursor.execute("SELECT time_of_issue,time_of_return FROM iss_compnts WHERE issued_to='" + rail_id +"' ORDER BY time_of_return DESC;")
+			mysqlData = self.cursor.fetchall()
+			issTime = mysqlData[0]["time_of_issue"]
+			retTime = mysqlData[0]["time_of_return"]
+			timeOfUse = retTime - issTime
+			self.cursor.execute("UPDATE iss_compnts SET time_of_use='"+ str(timeOfUse) +"' where time_of_issue='"+ issTime.strftime("%Y-%m-%d %H:%M:%S") +"';")
+			print("SELECT total_time_of_use FROM components WHERE component_id='" + comp_id + "';")
+			self.cursor.execute("SELECT total_time_of_use FROM components WHERE component_id='" + comp_id + "';")
+			mysqlData = self.cursor.fetchall()
+			print(mysqlData)
+			totalTime = mysqlData[0]["total_time_of_use"]
+			if(totalTime != None):
+				timeInStringFormat = totalTime.split(":")
+				timeInTimeFormat = datetime.time(int(timeInStringFormat[0]),int(timeInStringFormat[1]),int(timeInStringFormat[2]))
+				timeInTimeFormat = (datetime.datetime.combine(datetime.date.today(),timeInTimeFormat) + timeOfUse).time()
+				self.cursor.execute("UPDATE components SET total_time_of_use='"+ str(timeInTimeFormat) +"' WHERE component_id='"+comp_id+"';")
+			else:
+				self.cursor.execute("UPDATE components SET total_time_of_use='"+ str(timeOfUse) +"' WHERE component_id='"+comp_id+"';")
+			#
+			# TO UPDATE THE COMPOENET STATUS TO NO WHEN HE RETURNS ALL THE COMPONENTS
+			#
+			self.cursor.execute("SELECT component_id FROM iss_compnts where issued_to='" + rail_id + "' AND time_of_return is NULL")
+			mysqlData = self.cursor.fetchall()
+			if(not(mysqlData)):
+				self.cursor.execute("UPDATE cur_studs SET component_status = 'NO' where rail_id = '" + rail_id + "';")
+		elif(self.requestType.lower() == 'insert' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'req_comp'):	#This is for component
+			logger.log("Running req_comp condition")
+			comp_id = self.findValueOfKey('component_id')
+			self.cursor.execute("SELECT time_of_issue FROM iss_compnts where component_id='" + comp_id + "' AND time_of_return is null;")
+			data = self.cursor.fetchall()
+			time_iss = data[0]["time_of_issue"]
+			self.cursor.execute("UPDATE components SET most_recent_issue='"+ time_iss.strftime("%Y-%m-%d %H:%M:%S") +"' WHERE component_id = '"+ comp_id +"';")
 		else:
-			logger.log(str(err),True)
-	else:
-		cursor.close()
-		connection.close()
+			pass
+		self.mysqlConnection.commit()
+		
+
+
+
+class analytics:
+	def __init__(self,connection,cursor,):
+		#Write code here to load the data
+		self.connection = connection
+		self.cursor = cursor
+		print("Constructor")
+		try:
+			with open(".config/extraData.json") as cnfFile:
+				self.jsonData = json.load(cnfFile)
+		except FileNotFoundError:
+			ans = input("File does not exit, do you want to create it?(y/n)")
+			if(ans == 'y' or ans == 'Y'):
+				print("Write code to create a new file.")
+		except:
+			print("Unhandeled Error...exitting...")
+			exit()
+
+	def showData(self):
+		print("json data:",self.jsonData)
+
+	def run(self,tableName):
+		self.tableName = tableName
+		if(tableName == ""):
+			print("break")
+		elif(tableName == ""):
+			print("break")
+		else:
+			print("break")
+	
+	def updatedAttendece(self):
+		print('updatedAttendece')
+	
+	def updatedStudents(self):
+		print("updatedStudents")
+
 
 if __name__ == '__main__':
-	result = json.loads(sys.argv[1])
-	main(result)
+	logger.log("Start of database.py")
+	logging.info("Start of database.py")
+	process = main(sys.argv[1])
+	process.validateData()
+	process.setConnection()
+	process.processRequest()
+	process.generateAnalytics()
+	logging.info("End of database.py")
+	logger.log("End of database.py")
 else:
 	print("This code does not support being imported as a module")
+	exit(0)
