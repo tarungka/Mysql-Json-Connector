@@ -7,7 +7,7 @@
     	    "tables"    :   {
     	    	"all_studs"  :   {
     	    	    "table_constrains"  :   {
-		    	    	        "slno"				:	"INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
+		    	    	"slno"				:	"INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY",
 				    	"rail_id"			:	"CHAR(10) NOT NULL",
 				    	"student_name"			:	"VARCHAR(50) NOT NULL",
 				    	"gender"			:	"CHAR(1)",
@@ -20,9 +20,9 @@
 				    	"branch"			:	"VARCHAR(5) NOT NULL",
 				    	"login_status"			:	"VARCHAR(3) DEFAULT 'NO'",
 				    	"component_status"		:	"VARCHAR(3) DEFAULT 'NO'",
-					"usn"				:	"CHAR(10) NOT NULL",
-					"time_in_rail"			:	"TIME",
-					"most_recent_login"		:	"DATETIME DEFAULT null",
+						"usn"				:	"CHAR(10) NOT NULL",
+						"time_in_rail"			:	"TIME",
+						"most_recent_login"		:	"DATETIME DEFAULT null",
 				    	"current_highest_role"		:	"VARCHAR(20)"
     	    	    },
     	    	    "read_list"  :   [

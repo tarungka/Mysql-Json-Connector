@@ -186,16 +186,22 @@ class register:
         #print(self.team)
         #print(self.project)
         logging.info("Updating the database")
-        for student in self.students:
-            studentArgument = self.generateArgumentForStudent(student)
-            logging.debug("arguments to register a student:"+str(studentArgument))
-            os.system("./database.py '" + studentArgument + "'")
-        teamArgument    = self.generateArgumentForTeam(self.team)
-        logging.debug("arguments to register a team:"+str(teamArgument))
-        projectArgument = self.generateArgumentForProject(self.project)
-        logging.debug("arguments to register a project:"+str(projectArgument))
-        os.system("./database.py '" + teamArgument + "'")
-        os.system("./database.py '" + projectArgument + "'")
+        try:
+            #
+            #Add a buffer to check if  all the data is valid - I dont know what I'm doing at the time of typing this
+            #
+            for student in self.students:
+                studentArgument = self.generateArgumentForStudent(student)
+                logging.debug("arguments to register a student:"+str(studentArgument))
+                os.system("./database.py '" + studentArgument + "'")
+            teamArgument    = self.generateArgumentForTeam(self.team)
+            logging.debug("arguments to register a team:"+str(teamArgument))
+            projectArgument = self.generateArgumentForProject(self.project)
+            logging.debug("arguments to register a project:"+str(projectArgument))
+            os.system("./database.py '" + teamArgument + "'")
+            os.system("./database.py '" + projectArgument + "'")
+        except:
+            pass
 
 class attendence:
     def __init__(self):

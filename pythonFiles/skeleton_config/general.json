@@ -1,0 +1,360 @@
+[
+{
+	"comment"	:	"at registraion",
+	"HEADER"    :   {
+        "DATABASE"          : "",
+        "TABLE_NAME"        : "",
+        "REQUEST_TYPE"      : "insert"
+    },
+    "DATA"    :   {
+        "FIELDS"    : {
+			"rail_id"	:	"",
+			"student_name"	:	"",
+			"gender"	:	"",
+			"date_of_birth"	:	"",
+			"time_of_joining_rail"	:	"",
+			"phone_number"	:	"",
+			"email"	:	"",
+			"associated_team"	:	"",
+			"projects_done"	:	"",
+			"branch"	:	"",
+			"login_status"	:	"",
+			"component_status"	:	"",
+			"most_recent_login"	:	"",
+			"usn"	:	"",
+			"time_in_rail"	:	"",
+			"current_highest_role"	:	""
+		},
+        "SET"       : null,
+        "WHERE"     : null
+    },
+    "FOOTER"    :   {
+        "DATA ABOUT THE REQUEST"  : "",
+        "COMMENT"   : "",
+        "UPDATE"    : [],
+        "DEP"       : []
+    }
+},
+//To insert new components
+{
+	"HEADER": {
+	  "DATABASE": "rail_db",
+	  "TABLE_NAME": "components",
+	  "REQUEST_TYPE": "insert"
+	},
+	"DATA": {
+	  "FIELDS": {
+		"component_id": "RL-GW-T027",
+		"component_name": "83 -032K C CLAMP MAX STEEL 3\"",
+		"associated_colour": "NULL",
+		"group": "GOODWILL",
+		"component_status": "NO",
+		"if_kit": "NO"
+	  },
+	  "SET": null,
+	  "WHERE": null
+	},
+	"FOOTER": {
+	  "DATA ABOUT THE REQUEST": "JUPYTER :D",
+	  "COMMENT": "TESTING",
+	  "DEP": null,
+	  "UPDATE": null
+	}
+},
+//New project
+{
+	"HEADER": {
+	  "DATABASE": "rail_db",
+	  "TABLE_NAME": "cur_projs",
+	  "REQUEST_TYPE": "insert"
+	},
+	"DATA": {
+	  "FIELDS": {
+		"project_name": "TEST",
+		"associated_team": "A",
+		"project_description": "testing",
+		"number_of_members": 2,
+		"mentor": "none",
+		"team_lead": "1SK17CS036",
+		"idea_by": "none",
+		"type_of_project": "sw",
+		"expected_duration": "1mons",
+		"status": "ongoing",
+		"priority": "high",
+		"technology_stack": "all",
+		"date_start": "2019-07-25 13:25:55"
+	  },
+	  "SET": null,
+	  "WHERE": null
+	},
+	"FOOTER": {
+	  "DATA ABOUT THE REQUEST": "just a test",
+	  "COMMENT": "THIS IS A TEST",
+	  "DEP": null,
+	  "UPDATE": null
+	}
+},
+//New team
+{
+	"HEADER": {
+	  "DATABASE": "rail_db",
+	  "TABLE_NAME": "cur_teams",
+	  "REQUEST_TYPE": "insert"
+	},
+	"DATA": {
+	  "FIELDS": {
+		"team_name": "A",
+		"number_of_members": 2,
+		"associated_projects": "TEST",
+		"team_members": [
+		  "1SK17CS036",
+		  "1SK17CS023"
+		]
+	  },
+	  "SET": null,
+	  "WHERE": null
+	},
+	"FOOTER": {
+	  "DATA ABOUT THE REQUEST": "just a test",
+	  "COMMENT": "THIS IS A TEST",
+	  "DEP": null,
+	  "UPDATE": null
+	}
+},
+//New student registration
+{
+	"HEADER": {
+	  "DATABASE": "rail_db",
+	  "TABLE_NAME": "cur_studs",
+	  "REQUEST_TYPE": "insert"
+	},
+	"DATA": {
+	  "FIELDS": {
+		"student_name": "PRAJWAL",
+		"usn": "1SK17CS023",
+		"rail_id": "RSK17CS023",
+		"gender": "M",
+		"date_of_birth": "1999/03/03",
+		"phone_number": "0312654987",
+		"email": "P@G.COM",
+		"associated_team": "A",
+		"branch": "CS",
+		"current_highest_role": "MEMBER"
+	  },
+	  "SET": null,
+	  "WHERE": null
+	},
+	"FOOTER": {
+	  "DATA ABOUT THE REQUEST": "just a test",
+	  "COMMENT": "THIS IS A TEST",
+	  "DEP": null,
+	  "UPDATE": null
+	}
+},
+//For inseting into attendence
+{
+	"HEADER": {
+	  "DATABASE": "rail_db",
+	  "TABLE_NAME": "attendence",
+	  "REQUEST_TYPE": "insert"
+	},
+	"DATA": {
+	  "FIELDS": {
+		"rail_id": "1SK17CS036"
+	  },
+	  "SET": null,
+	  "WHERE": null
+	},
+	"FOOTER": {
+	  "DATA ABOUT THE REQUEST": "login",
+	  "COMMENT": "THIS IS A TEST",
+	  "DEP": [
+		{
+		  "HEADER": {
+			"DATABASE": "rail_db",
+			"TABLE_NAME": "cur_studs",
+			"REQUEST_TYPE": "select"
+		  },
+		  "DATA": {
+			"FIELDS": [
+			  "rail_id"
+			],
+			"SET": null,
+			"WHERE": {
+			  "rail_id": "1SK17CS036",
+			  "login_status": "NO"
+			}
+		  },
+		  "FOOTER": {
+			"DATA ABOUT THE REQUEST": "just a test",
+			"COMMENT": "THIS IS A TEST",
+			"DEP": null,
+			"UPDATE": null
+		  }
+		},
+		{
+		  "HEADER": {
+			"DATABASE": "rail_db",
+			"TABLE_NAME": "cur_studs",
+			"REQUEST_TYPE": "select"
+		  },
+		  "DATA": {
+			"FIELDS": [
+			  "component_status"
+			],
+			"SET": null,
+			"WHERE": {
+			  "rail_id": "1SK17CS036",
+			  "component_status": "NO"
+			}
+		  },
+		  "FOOTER": {
+			"DATA ABOUT THE REQUEST": "just a test",
+			"COMMENT": "THIS IS A TEST",
+			"DEP": null,
+			"UPDATE": null
+		  }
+		}
+	  ],
+	  "UPDATE": [
+		{
+		  "HEADER": {
+			"DATABASE": "rail_db",
+			"TABLE_NAME": "cur_studs",
+			"REQUEST_TYPE": "update"
+		  },
+		  "DATA": {
+			"FIELDS": null,
+			"SET": {
+			  "login_status": "YES"
+			},
+			"WHERE": {
+			  "rail_id": "1SK17CS036"
+			}
+		  },
+		  "FOOTER": {
+			"DATA ABOUT THE REQUEST": "just a test",
+			"COMMENT": "THIS IS A TEST",
+			"DEP": null,
+			"UPDATE": null
+		  }
+		}
+	  ]
+	}
+  },
+//Issue of new component
+{
+	"HEADER": {
+	  "DATABASE": "rail_db",
+	  "TABLE_NAME": "iss_compnts",
+	  "REQUEST_TYPE": "insert"
+	},
+	"DATA": {
+	  "FIELDS": {
+		"component_id": "RL-1-GR-K001",
+		"issued_to": "1SK17CS036",
+		"associated_team": "A"
+	  },
+	  "SET": null,
+	  "WHERE": null
+	},
+	"FOOTER": {
+	  "DATA ABOUT THE REQUEST": "req_comp",
+	  "COMMENT": "THIS IS A TEST",
+	  "DEP": [
+		{
+		  "HEADER": {
+			"DATABASE": "rail_db",
+			"TABLE_NAME": "cur_studs",
+			"REQUEST_TYPE": "select"
+		  },
+		  "DATA": {
+			"FIELDS": [
+			  "rail_id"
+			],
+			"SET": null,
+			"WHERE": {
+			  "rail_id": "1SK17CS036",
+			  "login_status": "YES"
+			}
+		  },
+		  "FOOTER": {
+			"DATA ABOUT THE REQUEST": "just a test",
+			"COMMENT": "THIS IS A TEST",
+			"DEP": null,
+			"UPDATE": null
+		  }
+		},
+		{
+		  "HEADER": {
+			"DATABASE": "rail_db",
+			"TABLE_NAME": "components",
+			"REQUEST_TYPE": "select"
+		  },
+		  "DATA": {
+			"FIELDS": [
+			  "component_id"
+			],
+			"SET": null,
+			"WHERE": {
+			  "component_id": "RL-1-GR-K001",
+			  "component_status": "NO"
+			}
+		  },
+		  "FOOTER": {
+			"DATA ABOUT THE REQUEST": "just a test",
+			"COMMENT": "THIS IS A TEST",
+			"DEP": null,
+			"UPDATE": null
+		  }
+		}
+	  ],
+	  "UPDATE": [
+		{
+		  "HEADER": {
+			"DATABASE": "rail_db",
+			"TABLE_NAME": "cur_studs",
+			"REQUEST_TYPE": "update"
+		  },
+		  "DATA": {
+			"FIELDS": null,
+			"SET": {
+			  "component_status": "YES"
+			},
+			"WHERE": {
+			  "rail_id": "1SK17CS036"
+			}
+		  },
+		  "FOOTER": {
+			"DATA ABOUT THE REQUEST": "just a test",
+			"COMMENT": "THIS IS A TEST",
+			"DEP": null,
+			"UPDATE": null
+		  }
+		},
+		{
+		  "HEADER": {
+			"DATABASE": "rail_db",
+			"TABLE_NAME": "components",
+			"REQUEST_TYPE": "update"
+		  },
+		  "DATA": {
+			"FIELDS": null,
+			"SET": {
+			  "component_status": "YES"
+			},
+			"WHERE": {
+			  "component_id": "RL-1-GR-K001"
+			}
+		  },
+		  "FOOTER": {
+			"DATA ABOUT THE REQUEST": "just a test",
+			"COMMENT": "THIS IS A TEST",
+			"DEP": null,
+			"UPDATE": null
+		  }
+		}
+	  ]
+	}
+  }
+]
