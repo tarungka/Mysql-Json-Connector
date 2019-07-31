@@ -8,6 +8,14 @@ import logging
 
 logger =  logger.logIt(__file__)
 
+logging.basicConfig(
+        filename='railApplication.log',
+        format='%(asctime)s.%(msecs)-3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+        level=logging.INFO
+    )
+
+
 def main(jsonCnf):
 	try:
 		connection = mysql.connector.connect(
@@ -31,9 +39,9 @@ def main(jsonCnf):
 			if(answer == 'y' or answer == 'Y'):
 				cursor.execute(query.dropQuery("database",database))
 				logger.log(database + " was dropped.",True)
-				logging.info("Database '" + database + "' was dropped.")
+				logging.info("Database " + database + " was dropped.")
 			else:
-				logging.info("There already exists a database by the name '" + database + "' please drop it.")
+				logging.info("There already exists a database by the name " + database + " please drop it.")
 				logger.log("Please change the name of the database in the config file and try again.",True)
 				logger.log("Exitting",True)
 				return
@@ -45,6 +53,7 @@ def main(jsonCnf):
 		print("Creating database %s ..." % (database),end='')
 		cursor.execute(query.createQuery("database",database))
 		print("(success)")
+		logging.info("Creating database %s ...(success)" % (database))
 		cursor.execute(query.useQuery(database))
 		tableObject = databases[database]
 		allTables = tableObject["tables"].keys()
@@ -53,6 +62,7 @@ def main(jsonCnf):
 			print("Creating table %s ..." % (table),end='')
 			cursor.execute(query.createQuery("table",table,dictionary))
 			print("(success)")
+			logging.info("Creating table %s ...(success)" % (table))
 			#	THE FOLLOWING CODE IS A BIT BUGGY, WILL NEED TO FIX IT.
 			#	REMOVED AS OF NOW, WILL ADD IT BACK AFTER REMOVING THE BUGS
 			#	DATED 22 MAR 2019 21:17:23

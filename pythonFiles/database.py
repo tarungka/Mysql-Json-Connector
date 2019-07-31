@@ -5,12 +5,12 @@ import sys
 import datetime
 import json
 import logger
-import query
+#import query
 import logging
 
 logging.basicConfig(
         filename='railApplication.log',
-        format='%(asctime)s.%(msecs)3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
+        format='%(asctime)s.%(msecs)-3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
         datefmt='%Y-%m-%d %H:%M:%S',
         level=logging.INFO
     )
@@ -22,14 +22,20 @@ class main:
 	1)GET A BETTER NAME FOR THE CLASS
 	2)WRITE BETTER DOCUMENTATION AS YOU GO
 	3)PLAN BEFORE YOU WRITE THE ACTUAL CODE
+	4)PLEASE MAKE SURE YOU PASS 'null' AND NOT AN EMPTY LIST OR A DICTIONARY
 	'''
-	def __init__(self,jsonData):		#Constructor which decodes the incoming json data
+	def __init__(self,jsonData,levelNumber):		#Constructor which decodes the incoming json data
 		try:	#Checking if the input data is of string type
+			logging.debug("Input data is of string type, converting into dict format")
 			self.jsonString = json.loads(str(jsonData))
 		except:	#Checking of the input data is of dict type, this happens only when the class create an instance of itself
+			logging.debug("Input data is of dict type, no changes made")
 			self.jsonString = jsonData
 		logger.log(str(json.dumps(self.jsonString)))
+		logging.info("Input data is:"+str(json.dumps(self.jsonString)))
 		
+		self.levelNumber = levelNumber
+
 		self.header = self.jsonString["HEADER"]			#Gets the header 
 		self.database = self.header["DATABASE"]			#database name within header
 		self.table = self.header["TABLE_NAME"]			#table name name within header
@@ -43,6 +49,10 @@ class main:
 		self.footer = self.jsonString["FOOTER"]			#Gets the footer
 		self.updateList = self.footer["UPDATE"]			#update name within header
 		self.conditionList = self.footer["DEP"]			#dep name within header
+		try:
+			self.runCondition = self.footer["CONDITION"]	#Run analytics
+		except:
+			logging.warning("Change 'DATA ABOUT THE REQUEST' to 'CONDITION'")
 		'''
 		WRITE THE CODE HERE TO GET DATA ABOUT THE REQUEST AND THE COMMENT FROM THE FOOTER SECTION
 		'''
@@ -69,6 +79,8 @@ class main:
 		return self.table
 	
 	def setConnection(self):	#Establishes a connection between the script and the mysql database
+		logger.log("Starting connection stage")
+		logging.info("Connecting to the database")
 		with open(".config/database.json") as cnfFile:
 			data 	 = json.load(cnfFile)
 			host 	 = data["host"]
@@ -82,6 +94,8 @@ class main:
 					database	=	self.getDatabase()
 				)
 				self.cursor = self.mysqlConnection.cursor(dictionary=True)
+				logger.log("Successful creation of the cursor")
+				logging.info("Connection successful")
 				return self.cursor
 			except mysql.connector.Error as err:
 				logger.log(("An error occured. ERROR NO: %d" % (err.errno)),True)
@@ -102,13 +116,17 @@ class main:
 					logger.log(str(err),True)
 					logging.critical(str(err.msg))
 			else:
+				logger.log("Closing ubruptly at connection stage")
+				logging.critical("Closing ubruptly at connection stage ... exiting program")
 				exit(1)
 
 	"""
 	IM PLANNING ON SHIFTING ALL OF THE QUERIES INTO ANOTHER MODULE AS IT WILL BE REUSABLE.
 	"""	
+
 	def insertData(self,insDict):
 		logger.log("Generating CREATE query(%s) ..." % (self.getTable()))
+		logging.info("Generating CREATE query(%s) ..." % (self.getTable()))
 		finalQuery = ("INSERT INTO %s(" % (self.getTable()))
 		key = list(insDict.keys())
 		value = list(insDict.values())
@@ -125,10 +143,12 @@ class main:
 			finalQuery = finalQuery + "," + "'" + str(value[index + 1]).replace("'",r"\'") + "'" #THE BLOCK BELOW GENEREATES ",'val'"
 		finalQuery = finalQuery + ");"
 		logger.log(finalQuery)
+		logging.debug(finalQuery)
 		self.cursor.execute(finalQuery)
 
 	def deleteData(self,delDict,whereDict):
 		logger.log("Generating DELETE query(%s) ..." % (self.getTable()))
+		logging.info("Generating DELETE query(%s) ..." % (self.getTable()))
 		finalQuery = ("DELETE FROM " + self.getTable() + " WHERE ")
 		key = list(whereDict.keys())
 		value = list(whereDict.values())
@@ -138,11 +158,13 @@ class main:
 			finalQuery = finalQuery + " AND " + key[index + 1] + "=" + "'" + str(value[index + 1]) + "'"
 		finalQuery = finalQuery + ";"
 		logger.log(finalQuery)
+		logging.debug(finalQuery)
 		self.cursor.execute(finalQuery)
 
 
 	def updateData(self,setDict,whereDict):
 		logger.log("Generating UPDATE query(%s) ..." % (self.getTable()))
+		logging.info("Generating UPDATE query(%s) ..." % (self.getTable()))
 		finalQuery = ("UPDATE %s SET " % (self.getTable()))
 		key = list(setDict.keys())
 		value = list(setDict.values())
@@ -162,12 +184,14 @@ class main:
 			finalQuery = finalQuery + " AND " + key[index + 1] + "=" + "'" + value[index + 1] + "'"
 		finalQuery = finalQuery + ";"
 		logger.log(finalQuery)
+		logging.debug(finalQuery)
 		#print("Query ready")
 		self.cursor.execute(finalQuery)
 		#print("Query excuted")
 
 	def selectData(self,dataList,whereDict = None):
 		logger.log("Generating SELECT query(%s)" % (self.getTable))
+		logging.info("Generating SELECT query(%s)" % (self.getTable))
 		finalQuery = ("SELECT `" + dataList[0] + "`")
 		length = len(dataList)
 		for index in range(length - 1):
@@ -184,15 +208,18 @@ class main:
 		logger.log(finalQuery)
 		self.cursor.execute(finalQuery)
 		response = self.cursor.fetchall()
+		logging.debug(response)
 		return response
 
 	def alterTable(self):
 		print(" Alter table does not work")
+		logging.critical("alterTable is not yet functional")
 		return
 
 
 	def validateData(self):
 		logger.log("Validating the incoming data")
+		logging.info("Validating the incoming data")
 		flag = False
 		keys = None
 		curObj = None
@@ -200,18 +227,21 @@ class main:
 			if(index == 0):
 				if(self.fields == None):
 					logger.log("Fields:No data to validate")
+					logging.info("Fields:No data to validate")
 					continue
 				keys = self.fields.keys()
 				curObj = self.fields
 			elif(index == 1):
 				if(self.setClause == None):
 					logger.log("Set:No data to validate")
+					logging.info("Set:No data to validate")
 					continue
 				keys = self.setClause.keys()			
 				curObj = self.setClause
 			elif(index == 2):
 				if(self.whereClause == None):
 					logger.log("Where:No data to validate")
+					logging.info("Where:No data to validate")
 					return
 				keys = self.whereClause.keys()			
 				curObj = self.whereClause
@@ -219,68 +249,89 @@ class main:
 				if(aKey == 'rail_id'):
 					if(not(curObj[aKey].startswith("RSK"))):
 						logger.log("The rail id in invalid!")
+						logging.info("The rail id in invalid!")
 						flag = True
 				elif(aKey == 'gender'):
 					if((curObj[aKey].upper() not in ['M','F'])):
 						logger.log("The gender is invalid :"+curObj[aKey])
+						logging.info("The gender is invalid :"+curObj[aKey])
 						flag = True
 				elif(aKey == 'date_of_birth'):
 					splitData = curObj[aKey].rsplit('-')
 					if(len(splitData[0]) != 4 and not(splitData[0].isdigit())):
 						logger.log("The year is enterd incorrectly")
+						logging.info("The year is enterd incorrectly")
 						flag = True
 					if(len(splitData[1]) != 2 and not(splitData[1].isdigit()) and (int(splitData[1])>0 and int(splitData[1])<=12)):
 						logger.log("The month is enterd incorrectly")
+						logging.info("The month is enterd incorrectly")
 						flag = True
 					if(len(splitData[2]) != 2 and not(splitData[2].isdigit()) and (int(splitData[1])>0 and int(splitData[1])<=31)):
 						logger.log("The date is enterd incorrectly")
+						logging.info("The date is enterd incorrectly")
 						flag = True
 				elif(aKey == 'phone_number'):
 					if(len(curObj[aKey]) != 10):
 						logger.log("Phone number error")
+						logging.info("Phone number error")
 						flag = True
 				elif(aKey == 'branch'):
 					if((curObj[aKey] not in ['CS','EC','TX','CV'])):
 						logger.log("Branch invalid")
+						logging.info("Branch invalid")
 						flag = True
 				elif(aKey == 'login_status'):
 					if((curObj[aKey] not in ['YES','NO'])):
 						logger.log("login_status invalid")
+						logging.info("login_status invalid")
 						flag = True
 				elif(aKey == 'component_status'):
 					if((curObj[aKey] not in ['YES','NO'])):
 						logger.log("component_status invalid")
+						logging.info("component_status invalid")
 						flag = True
-				elif(aKey == 'usn'):
+				elif(aKey == 'usn'):								#You need to change this if this is given to somone else
 					if(not(curObj[aKey].startswith('1SK'))):
 						logger.log("USN is invalid")
+						logging.info("USN is invalid")
 						flag = True
 				elif(aKey == 'current_highest_role'):
 					if((curObj[aKey].lower() not in ['member','team lead'])):
 						logger.log("Role if student is not supported")
+						logging.info("Role if student is not supported")
 						flag = True
 				if(flag == True):
 					print("FailedOperation : Error in data entered, check the logs!")
 					exit(0)
 
 	def processRequest(self):
+		logger.log("Start of process request")
+		logging.info("Processing request")
 		self.conditionFlag  = False
-		if(self.conditionList != None):
+		if(self.conditionList != None): #cannot test for len(self.conditionList) == 0 i.e when there is a empty list passed, raises TypeError
 			for element in self.conditionList:
-				subProcess = main(element)
+				logging.info("LevelNumber: {} - Creating a new sub process with:".format(self.levelNumber)+str(element))
+				subProcess = main(element,self.levelNumber + 1)
 				subProcess.setConnection()
-				if subProcess.processRequest():
+				if subProcess.processRequest():			#Ok, I have forgotten what this statment is supposed to mean
+					logger.log("The condition flag is being set to True")
+					logging.debug("The condition flag is being set to True")
 					self.conditionFlag = True
 				else:
 					logger.log("The condition flag is being set to False")
+					logging.debug("The condition flag is being set to False")
 					self.conditionFlag = False
 					break
-		if(self.conditionList == None or self.conditionFlag == True):
+		else:
+			logger.log("condition list is null")
+			logging.debug("conditionList is null")
+		if(self.conditionList == None or self.conditionFlag == True): #cannot test for len(self.conditionList) == 0 i.e when there is a empty list passed, raises TypeError
 			'''
 			KIMS THAT WHEN A SELECT IS USED IT RETURNS DATA AND CANNOT BE USED TO UPDATE ANOTHER TABLE.
 			I NEED TO RESTRUCTURE IT TO BE ABLE TO RETURN AS WELL AS RUN AN UPDATE.
 			'''
 			if(self.requestType == "insert"):
+				logger.log("The insert condition is being run")
 				self.insertData(self.fields)
 				#if(self.getTable == "attendence"):
 				#	print("Need to update the current_students table")
@@ -297,7 +348,8 @@ class main:
 				for anObject in self.updateList:
 					#print("Start of a sub process.")
 					#print(anObject)
-					subProcess = main(anObject)
+					logging.info("LevelNumber: {} - Creating a new sub process with:".format(self.levelNumber)+str(anObject))
+					subProcess = main(anObject,self.levelNumber + 1)
 					subProcess.setConnection()
 					#subProcess.showData()
 					subProcess.processRequest()
@@ -306,6 +358,7 @@ class main:
 				pass
 			except BaseException as e:
 				logger.log("Exception Raised:"+str(e),True)
+				logging.info("Exception Raised:"+str(e))
 				exit(0)
 			self.mysqlConnection.commit()
 
@@ -318,6 +371,7 @@ class main:
 				return self.whereClause[toBeSearched]
 		else:
 			logger.log("findValueOfKey:Error could not find the string.")
+			logging.error("findValueOfKey:Error could not find the string.")
 
 
 	def generateAnalytics(self):		#Write logger function for this
@@ -394,7 +448,7 @@ class main:
 
 
 class analytics:
-	def __init__(self,connection,cursor,):
+	def __init__(self,connection,cursor):
 		#Write code here to load the data
 		self.connection = connection
 		self.cursor = cursor
@@ -432,7 +486,7 @@ class analytics:
 if __name__ == '__main__':
 	logger.log("Start of database.py")
 	logging.info("Start of database.py")
-	process = main(sys.argv[1])
+	process = main(sys.argv[1],0)
 	process.validateData()
 	process.setConnection()
 	process.processRequest()

@@ -201,7 +201,7 @@ class register:
             os.system("./database.py '" + teamArgument + "'")
             os.system("./database.py '" + projectArgument + "'")
         except:
-            pass
+            print("MAJOR ERROR, THE DATABASE HAS BEEN CORRUPTED")
 
 class attendence:
     def __init__(self):
@@ -255,8 +255,10 @@ class attendence:
         logging.info("Updating the database")
         attendenceArgument = self.generateArgumentForAttendence(self.data)
         logging.debug("arguments for attendence is:"+str(attendenceArgument))
-        os.system("./database.py '" + attendenceArgument + "'")
-        
+        try:
+            os.system("./database.py '" + attendenceArgument + "'")
+        except:
+            print("MAJOR ERROR, THE DATABASE HAS BEEN CORRUPTED")
 
 class component:
     def __init__(self):
@@ -340,15 +342,19 @@ class component:
         logging.info("Inside updateDatabase")
         componentArguments = self.generateArgumentForComponent(self.data)
         print("Number of components is:",len(componentArguments))
-        for aData in componentArguments:
-            logging.debug("argument to issue component-"+str(aData))
-            os.system("./database.py '" + aData + "'")
+        try:
+            for aData in componentArguments:
+                logging.debug("argument to issue component-"+str(aData))
+                os.system("./database.py '" + aData + "'")
+        except:
+            print("MAJOR ERROR, THE DATABASE HAS BEEN CORRUPTED")
+            
 
-    def showData(self):
-        print("numberOfComponents   :",self.numberOfComponents)
-        print("request/return       :",self.requestType)
-        for index in range(self.numberOfComponents):
-            print(("component no %d       :") % (index+1),self.componentId[index])
+    #def showData(self):
+    #    print("numberOfComponents   :",self.numberOfComponents)
+    #    print("request/return       :",self.requestType)
+    #    for index in range(self.numberOfComponents):
+    #        print(("component no %d       :") % (index+1),self.componentId[index])
         #print("numberOfComponents:",self.numberOfComponents)
         #print("numberOfComponents:",self.numberOfComponents)
 
