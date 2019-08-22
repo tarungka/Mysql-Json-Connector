@@ -19,7 +19,7 @@ logging.basicConfig(
         filename='railApplication.log',
         format='%(asctime)s.%(msecs)03d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
         datefmt='%Y-%m-%d %H:%M:%S',
-        level=logging.INFO
+        level=logging.DEBUG
     )
 
 mode = "register"
@@ -34,7 +34,7 @@ class register:
         print(message)
         print("\t\t\tTEAM REGISTRATION")
         logging.info("Getting basic information")
-        self.numberOfStudents = int(input("Enter the number of students(either 2 or 4)  :"))
+        self.numberOfStudents =      int(input("Enter the number of students(either 2 or 4)  :"))
         self.teamName =                  input("Enter team name(given by sir/admin)          :")
         self.projectName =               input("Name of the project                          :").upper()
         self.current_db = currentDatabase
@@ -109,13 +109,13 @@ class register:
         logging.info("Registering a team")
         teamMembers = []
         if(self.numberOfStudents == 2):
-            teamMembers.append(input("Enter the first students usn                 :"))
-            teamMembers.append(input("Enter the second students usn                :"))
+            teamMembers.append(input("Enter the first students usn                 :").upper())
+            teamMembers.append(input("Enter the second students usn                :").upper())
         elif(self.numberOfStudents == 4):
-            teamMembers.append(input("Enter the first students usn                 :"))
-            teamMembers.append(input("Enter the second students usn                :"))
-            teamMembers.append(input("Enter the third students usn                 :"))
-            teamMembers.append(input("Enter the fourth students usn                :"))
+            teamMembers.append(input("Enter the first students usn                 :").upper())
+            teamMembers.append(input("Enter the second students usn                :").upper())
+            teamMembers.append(input("Enter the third students usn                 :").upper())
+            teamMembers.append(input("Enter the fourth students usn                :").upper())
         else:
             print(" Error..!")
             exit(0)
@@ -133,14 +133,14 @@ class register:
         print("Team name                      :"+self.teamName)
         projectDescription  = input("Enter the project description  :")
         print("Number of members              :"+str(self.numberOfStudents))
-        mentor              = input("Enter the mentor name          :")
-        teamLead            = input("Enter the team lead rsn        :")
-        ideaBy              = input("Idea by                        :")
-        typeOfProject       = input("Enter the type of project      :")
-        expectedDuration    = input("Enter the expected duration    :")
-        priority            = input("Enter the project priority     :")
-        status              = input("Enter the project status       :")
-        technologyStack     = input("Enter the technology stack     :")
+        mentor              = input("Enter the mentor name          :").upper()
+        teamLead            = input("Enter the team lead rsn        :").upper()
+        ideaBy              = input("Idea by                        :").upper()
+        typeOfProject       = input("Enter the type of project      :").upper()
+        expectedDuration    = input("Enter the expected duration    :").upper()
+        priority            = input("Enter the project priority     :").upper()
+        status              = input("Enter the project status       :").upper()
+        technologyStack     = input("Enter the technology stack     :").upper()
         self.project = {}
         self.project.update({"project_name"         : self.projectName})
         self.project.update({"associated_team"      : self.teamName})
@@ -222,14 +222,15 @@ class attendence:
     def convertToData(self):
         self.data = {}
         self.data.update({"rail_id"         : self.railId})
-        if(self.action == "login"):
+        if(self.action == "login".upper()):
             self.data.update({"time_in"         : self.getCurrentTime()})
             self.data.update({"current_team"    : self.team})
             self.data.update({"purpose"         : self.reason})
-        elif(self.action == "logout"):
+        elif(self.action == "logout".upper()):
             self.data.update({"time_out"        : self.getCurrentTime()})
 
     def generateArgumentForAttendence(self,inputDict):
+        logging.debug(inputDict)
         if(self.action == ("login".upper())):
             header = '{"HEADER" : {"DATABASE" : "' + self.current_db + '","TABLE_NAME" : "attendence","REQUEST_TYPE" : "insert"},'
             firstHalf = '"DATA":{"FIELDS":'

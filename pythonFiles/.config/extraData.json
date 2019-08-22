@@ -1,5 +1,43 @@
+
 {
-    "DATABASE"  : {
-        "database_name" : "rail_db"
+    "login"     :   {
+        "select"    :   [
+            {
+                "fields"    :   ["attendence.time_in"],
+                "from"      :   ["attendence"],
+                "where"     :   ["rail_id"],
+                "extension" :   "ORDER BY time_in DESC LIMIT 1"
+            },
+            {
+                "fields"    :   ["attendence.rail_id"],
+                "from"      :   ["attendence"],
+                "where"     :   ["rail_id"],
+                "extension" :   "LIMIT 1"
+            }
+        ],
+        "update"    :   [
+            {
+                "table"     :   "cur_studs",
+                "set"       :   ["most_recent_login=select[0]"],
+                "where"     :   ["rail_id"]
+            }
+        ]
+    },
+    "logout"    :   {
+        "select"    :   [
+            {
+                "fields"    :   ["attendence.time_in","attendence.time_out"],
+                "from"      :   ["attendence"],
+                "where"     :   ["rail_id"],
+                "extension" :   "ORDER BY time_out DESC LIMIT 1"
+            }
+        ],
+        "update"    :   [
+            {
+                "table"     :   "cur_studs",
+                "set"       :   ["time_in_rail=calc_time_in_rail_as_string()"],
+                "where"     :   ["rail_id"]
+            }
+        ]
     }
 }

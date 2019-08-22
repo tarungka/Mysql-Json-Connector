@@ -12,7 +12,7 @@ logging.basicConfig(
         filename='railApplication.log',
         format='%(asctime)s.%(msecs)-3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
         datefmt='%Y-%m-%d %H:%M:%S',
-        level=logging.INFO
+        level=logging.DEBUG
     )
 
 logger =  logger.logIt(__file__)
@@ -190,8 +190,8 @@ class main:
 		#print("Query excuted")
 
 	def selectData(self,dataList,whereDict = None):
-		logger.log("Generating SELECT query(%s)" % (self.getTable))
-		logging.info("Generating SELECT query(%s)" % (self.getTable))
+		logger.log("Generating SELECT query(%s)" % (self.getTable()))
+		logging.info("Generating SELECT query(%s)" % (self.getTable()))
 		finalQuery = ("SELECT `" + dataList[0] + "`")
 		length = len(dataList)
 		for index in range(length - 1):
@@ -257,7 +257,19 @@ class main:
 						logging.info("The gender is invalid :"+curObj[aKey])
 						flag = True
 				elif(aKey == 'date_of_birth'):
-					splitData = curObj[aKey].rsplit('-')
+					splitData = curObj[aKey].rsplit('-')				#Validates the date only if it is seperated by a "-"
+					####################################
+					"""WRITING CODE TO VALIDATE WHEN IT IS SEPERATED BY EITHER '-' OR '/'"""
+					"""
+					if("-" in curObj[aKey]):
+						splitData = curObj[aKey].rsplit('-')
+					elif("/" in curObj[aKey]):
+						splitData = curObj[aKey].rsplit('/')
+					else:
+						logging.info("Dates must be seperated by either '-' or '/'")
+						flag = True
+					"""
+					####################################
 					if(len(splitData[0]) != 4 and not(splitData[0].isdigit())):
 						logger.log("The year is enterd incorrectly")
 						logging.info("The year is enterd incorrectly")
@@ -313,7 +325,7 @@ class main:
 				logging.info("LevelNumber: {} - Creating a new sub process with:".format(self.levelNumber)+str(element))
 				subProcess = main(element,self.levelNumber + 1)
 				subProcess.setConnection()
-				if subProcess.processRequest():			#Ok, I have forgotten what this statment is supposed to mean
+				if subProcess.processRequest():			#Ok, I have forgotten what this statement is supposed to mean
 					logger.log("The condition flag is being set to True")
 					logging.debug("The condition flag is being set to True")
 					self.conditionFlag = True
@@ -460,6 +472,7 @@ class analytics:
 			ans = input("File does not exit, do you want to create it?(y/n)")
 			if(ans == 'y' or ans == 'Y'):
 				print("Write code to create a new file.")
+				exit(0)
 		except:
 			print("Unhandeled Error...exitting...")
 			exit()
