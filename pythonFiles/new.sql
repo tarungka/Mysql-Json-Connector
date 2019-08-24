@@ -11,8 +11,8 @@ USE testdatabase;
 
 CREATE TABLE all_studs(
 	/* Removed slno	*/
-	`usn` CHAR(10) NOT NULL PRIMARY KEY,			/* Debate whether usn or rail_id must be PRIMARY KEY */
-	`rail_id` CHAR(10) NOT NULL,					
+	`usn` CHAR(10) NOT NULL,						/* Debate whether usn or rail_id must be PRIMARY KEY */
+	`rail_id` CHAR(10) NOT NULL,
 	`student_name` VARCHAR(100) NOT NULL,			/* Is 100 too much? */
 	`gender` CHAR(1) NOT NULL,
 	`date_of_birth` DATE NOT NULL,
@@ -22,7 +22,8 @@ CREATE TABLE all_studs(
 	`associated_team` VARCHAR(20) NOT NULL,			/* Why does this have 20 characters? */
 	`projects_done` INT UNSIGNED DEFAULT 0,
 	`branch` VARCHAR(5) NOT NULL,					/* I guess for this varchar(3) is fine */
-	`time_in_rail` TIME	NOT NULL					/* Debate on which format must this be in */
+	`time_in_rail` TIME	NOT NULL,					/* Debate on which format must this be in */
+	PRIMARY KEY(`usn`)
 );
 
 CREATE TABLE cur_studs(
@@ -45,16 +46,16 @@ CREATE TABLE cur_studs(
 	INDEX(`rail_id`)
 );
 
-CREATE TABLE all_teams(
+-- CREATE TABLE all_teams(
 	-- ADD A COLUMN WITH A PRIMARY KEY
-	`team_hash` CHAR(8) NOT NULL PRIMARY KEY,		/* Probably generated as a hash of concatination of usn's/rsn's with current datetime stamp */
-	`team_letter` CHAR(1) NOT NULL,
-	`team_name` CHAR(30) NOT NULL,
-	`associated_projects` VARCHAR(100) NOT NULL,
-	`number_of_members` TINYINT UNSIGNED NOT NULL,
-	`team_members` VARCHAR(55) NOT NULL,			/* Supports only upto 4 members in a team */
-	`date_of_team_creation` DATETIME DEFAULT NOW()
-);
+--	`team_hash` CHAR(8) NOT NULL PRIMARY KEY,		/* Probably generated as a hash of concatination of usn's/rsn's with current datetime stamp */
+--	`team_letter` CHAR(1) NOT NULL,
+--	`team_name` CHAR(30) NOT NULL,
+--	`associated_projects` VARCHAR(100) NOT NULL,
+--	`number_of_members` TINYINT UNSIGNED NOT NULL,
+--	`team_members` VARCHAR(55) NOT NULL,			/* Supports only upto 4 members in a team */
+--	`date_of_team_creation` DATETIME DEFAULT NOW()
+-- );
 
 CREATE TABLE cur_teams(
 	-- ADD A COLUMN WITH A PRIMARY KEY
@@ -68,8 +69,7 @@ CREATE TABLE cur_teams(
 );
 
 CREATE TABLE all_projs(
-	`slno` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`team_hash` CHAR(8) NOT NULL,
+	`team_hash` CHAR(8) NOT NULL PRIMARY KEY,
 	`project_name` VARCHAR(30) NOT NULL,
 	`associated_team` CHAR(1) NOT NULL,
 	`project_description` VARCHAR(200) NOT NULL,
@@ -88,8 +88,7 @@ CREATE TABLE all_projs(
 );
 
 CREATE TABLE cur_projs(
-	`slno` INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`team_hash` CHAR(8) NOT NULL,
+	`team_hash` CHAR(8) NOT NULL PRIMARY KEY,
 	`project_name` VARCHAR(30) NOT NULL,
 	`associated_team` CHAR(1) NOT NULL,
 	`project_description` VARCHAR(200) NOT NULL,
