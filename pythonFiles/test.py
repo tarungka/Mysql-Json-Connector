@@ -60,4 +60,41 @@ if __name__ == "__main__":
     #run(string="what",b=10,a=500)
     #z = add_back_ticks(['attendence',"studs"],['attendence.time_in', 'attendence.time_out=attendence.time_in',"studs.groups","studs.groups=attendence.groups"])
     #print(z)
-    x(a=10,b=20,c=30)
+    #x(a=10,b=20,c=30)
+    process = sql.mysqlConnector(host='127.0.0.1',port=25000,user='testuser_all',password='testpassword',database='rail_db')
+    process.setConnection()
+    dictionary = {
+                        "usn": "CHAR(10) NOT NULL",
+                        "team_login": "CHAR(8) NOT NULL",
+                        "rail_id": "CHAR(10) NOT NULL",
+                        "student_name": "VARCHAR(100) NOT NULL",
+                        "gender": "CHAR(1) NOT NULL",
+                        "date_of_birth": "DATE NOT NULL"
+    }
+    primary = "usn"
+    foreign =   [
+                    {
+                        "constraint_name": "constraint_1",
+                        "foreign_table": "cur_studs",
+                        "child_attribute": [
+                            "rail_id"
+                        ],
+                        "parent_attribute": [
+                            "rail_id"
+                        ]
+                    },
+                    {
+                        "constraint_name": "constraint_2",
+                        "foreign_table": "cur_teams",
+                        "child_attribute": [
+                            "team_login"
+                        ],
+                        "parent_attribute": [
+                            "team_hash"
+                        ]
+                    }
+                ]
+    index = [['student_name'],['date_of_birth'],['student_name','date_of_birth']]
+    ans = process.create("TABLE","testtable",dictionary=dictionary,primaryKey=primary,foreignKeys=foreign,index=index)
+    process.commitChanges()
+    print(ans)

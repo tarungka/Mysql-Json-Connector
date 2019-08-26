@@ -130,9 +130,14 @@
                     "primary_key": null,
                     "foreign_key": [
                         {
+                            "constraint_name": null,
                             "foreign_table_name": "cur_teams",
-                            "child_table": ["team_hash"],
-                            "parent_table": ["team_hash"]
+                            "child_attribute": [
+                                "team_hash"
+                            ],
+                            "parent_attribute": [
+                                "team_hash"
+                            ]
                         }
                     ]
                 },
@@ -164,9 +169,14 @@
                     "primary_key": null,
                     "foreign_key": [
                         {
+                            "constraint_name": null,
                             "foreign_table_name": "cur_teams",
-                            "child_table": ["team_hash"],
-                            "parent_table": ["team_hash"]
+                            "child_attribute": [
+                                "team_hash"
+                            ],
+                            "parent_attribute": [
+                                "team_hash"
+                            ]
                         }
                     ]
                 },
@@ -184,14 +194,24 @@
                     "primary_key": null,
                     "foreign_key": [
                         {
+                            "constraint_name": null,
                             "foreign_table_name": "cur_studs",
-                            "child_table": ["rail_id"],
-                            "parent_table": ["rail_id"]
+                            "child_attribute": [
+                                "rail_id"
+                            ],
+                            "parent_attribute": [
+                                "rail_id"
+                            ]
                         },
                         {
+                            "constraint_name": null,
                             "foreign_table_name": "cur_teams",
-                            "child_table": ["team_login"],
-                            "parent_table": ["team_hash"]
+                            "child_attribute": [
+                                "team_login"
+                            ],
+                            "parent_attribute": [
+                                "team_hash"
+                            ]
                         }
                     ]
                 },
@@ -273,9 +293,14 @@
                     "primary_key": null,
                     "foreign_key": [
                         {
+                            "constraint_name": null,
                             "foreign_table_name": "cur_admin",
-                            "child_table": ["admin_id"],
-                            "parent_table": ["admin_id"]
+                            "child_attribute": [
+                                "admin_id"
+                            ],
+                            "parent_attribute": [
+                                "admin_id"
+                            ]
                         }
                     ]
                 },
@@ -320,9 +345,14 @@
                     "primary_key": null,
                     "foreign_key": [
                         {
+                            "constraint_name": null,
                             "foreign_table_name": "components",
-                            "child_table": ["component_id"],
-                            "parent_table": ["component_id"]
+                            "child_attribute": [
+                                "component_id"
+                            ],
+                            "parent_attribute": [
+                                "component_id"
+                            ]
                         }
                     ]
                 },
@@ -340,9 +370,14 @@
                     "primary_key": null,
                     "foreign_key": [
                         {
+                            "constraint_name": null,
                             "foreign_table_name": "components",
-                            "child_table": ["component_id"],
-                            "parent_table": ["component_id"]
+                            "child_attribute": [
+                                "component_id"
+                            ],
+                            "parent_attribute": [
+                                "component_id"
+                            ]
                         }
                     ]
                 },

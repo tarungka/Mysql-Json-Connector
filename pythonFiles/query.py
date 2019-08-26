@@ -21,7 +21,7 @@ def insertQuery(tableName,dictionary):
 	finalQuery = finalQuery + ");"
 	logger.log(finalQuery)
 	return finalQuery
-	
+
 
 def updateQuery(tableName,setDictionary,whereDictionary):
 	logger.log("Generating UPDATE query(%s) ..." % (tableName))
@@ -42,7 +42,7 @@ def updateQuery(tableName,setDictionary,whereDictionary):
 	finalQuery = finalQuery + ";"
 	logger.log(finalQuery)
 	return finalQuery
-	
+
 
 def deleteQuery(tableName,whereDictionary):
 	logger.log("Generating DELETE query(%s) ..." % (tableName))
@@ -56,7 +56,7 @@ def deleteQuery(tableName,whereDictionary):
 	finalQuery = finalQuery + ";"
 	logger.log(finalQuery)
 	return finalQuery
-	
+
 
 def createQuery(what,nameOfWhat,dictionary = None):
 	whatUpper = what.upper()
@@ -84,7 +84,7 @@ def createQuery(what,nameOfWhat,dictionary = None):
 		finalQuery = ("CREATE " + whatUpper + " `" + nameOfWhat + "`;")
 		logger.log(finalQuery)
 		return finalQuery
-	else:	
+	else:
 		logger.log("THIS FUNCITON CAN ONLY CREATE ONLY 'TALBE' AND 'DATABASE'",True)
 
 def useQuery(databaseName):
