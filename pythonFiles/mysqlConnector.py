@@ -35,16 +35,6 @@ class mysqlConnector():
     It supports only where condition as of now
     """
     def __init__(self,**kwargs):
-        """
-        Initialize all the data in this class with default values
-        If you cannot initialize all the data just pass them to the mysql connector as it is!!!!!!!!!!!!
-        self.host = '127.0.0.1'
-        self.user = ''
-        self.password = ''
-        self.database = None
-        self.port = 3306
-        self.mysqlConnection = None
-        """
         try:
             if(kwargs["mysql_connection"]):
                 self.mysqlConnection = kwargs["connection"]
@@ -57,94 +47,7 @@ class mysqlConnector():
         except Exception as e:
             logging.critical("Error in connecting to the database:"+str(e))
             UserDefinedError("Error in connecting to the database")
-        """
-        keys = kwargs.keys()
-        try:
-            if(not self.user):
-                self.user = kwargs["user"]
-            if(not self.password):
-                try:
-                    self.password = kwargs["password"]
-                except KeyError:
-                    self.password = kwargs["psswd"]
-                except:
-                    raise UserDefinedError("Password not passed")
-            if(not self.database):
-                self.database = kwargs["database"]
-            try:
-                self.port = kwargs["port"]
-            except KeyError:
-                pass
-            if(set(["password","host","user","database"]).issubset(keys)):
-                self.host = kwargs["host"]
-                self.user = kwargs["user"]
-                self.password = kwargs["password"]
-                self.database = kwargs["database"]
-            elif(set(["passwd","host","user","database"]).issubset(keys)):
-                self.host = kwargs["host"]
-                self.user = kwargs["user"]
-                self.password = kwargs["passwd"]
-                self.database = kwargs["database"]
-            elif(set(["connection"]).issubset(keys)):
-                logging.info("Trying to connect to the database")
-                self.mysqlConnection = kwargs["connection"]
-                self.cursor = self.mysqlConnection.cursor(dictionary=True)
-                logging.info("Connection successful")
-            else:
-                raise InsufficientDataError()
-        except KeyError:
-            if(not self.mysqlConnection):
-                self.mysqlConnection = kwargs["connection"]
-                self.cursor = self.mysqlConnection.cursor(dictionary=True)
-                logging.info("Connection successful")
-        except InsufficientDataError:
-            exit(0)
-        except:
-            print("Uncaught error in constructor of mysqlConnector class.")
-            exit(0)
-        """
 
-    def showData(self):
-        print(self.host)
-        print(self.user)
-        print(self.password)
-        print(self.database)
-
-    """
-    def setConnection(self):
-        Check if there is already a connection present,this is needed because we can connect either through an already
-        existing connection or a new connection created now
-        The cursor is returned.
-        if(self.mysqlConnection):
-            logging.info("There already exists a connection to the database, aborting a new connection. Using the existing one.")
-            return
-        try:
-            logging.info("Trying to connect to the database")
-            self.mysqlConnection = mysql.connector.connect(
-                host        =   self.host,
-                user        =   self.user,
-                port        =   self.port,
-                passwd      =   self.password,
-                database    =   self.database
-            )
-            self.cursor = self.mysqlConnection.cursor(dictionary=True)
-            logging.info("Connection successful")
-            return self.cursor
-        except mysql.connector.Error as err:
-            logging.critical("Mysql connector error Error No:%4d:%s" % (err.errno,str(err.msg)))
-            if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-            	logging.critical("Access was denied.")
-            elif err.errno == errorcode.ER_BAD_DB_ERROR:
-            	logging.critical("Database does not exist.")
-            elif err.errno == errorcode.ER_BAD_FIELD_ERROR:
-            	logging.critical("Invalid field.")
-            elif err.errno == errorcode.ER_BAD_TABLE_ERROR:
-            	logging.critical("Table does not exist.")
-            else:
-            	logging.critical(str(err.msg))
-            print("Error while connecting to he database, check the logs!")
-            exit(0)
-    """
 
     def _getConnection(self):
         return self.mysqlConnection
@@ -161,7 +64,7 @@ class mysqlConnector():
                 #for eachVal in val:
                 if(val and ("." in data)):
                     if("=" in data):
-                        returnData.append("=".join(add_back_ticks(tableNames,data.split("="))))
+                        returnData.append("=".join(self.add_back_ticks(tableNames,data.split("="))))
                         break
                     else:
                         if(len(val) != 1): raise UserDefinedError("The list must contain only one element")
@@ -266,10 +169,10 @@ class mysqlConnector():
         finalQuery = finalQuery + ") VALUES("
         finalQuery = finalQuery + "'" + str(value[0]) + "'"
         for index in range(length - 1):
-            if(value[index + 1] == "null"): #THE BLOCK BELOW GENEREATES ",null"
+            if(value[index + 1] == "null"): #THE BLOCK BELOW GENERATES ",null"
                 finalQuery = finalQuery + "," + str(value[index + 1])
                 continue
-            finalQuery = finalQuery + "," + "'" + str(value[index + 1]).replace("'",r"\'") + "'" #THE BLOCK BELOW GENEREATES ",'val'"
+            finalQuery = finalQuery + "," + "'" + str(value[index + 1]).replace("'",r"\'") + "'" #THE BLOCK BELOW GENERATES ",'val'"
         finalQuery = finalQuery + ");"
         logging.debug(finalQuery)
         self.cursor.execute(finalQuery)
@@ -313,7 +216,7 @@ class mysqlConnector():
     #def select(self,tableName,dataList,whereDict = None):
     def select(self,tables,dataList,whereDict = None,conditions = None):
         """
-        PLEASE REMEMBER TO ADD BACK TICKS TO THE CONDTIONS IN CASE OF KEYWORDS OF MYSQL BEING USED AS A COLUMN HEADER
+        PLEASE REMEMBER TO ADD BACK TICKS TO THE CONDITIONS IN CASE OF KEYWORDS OF MYSQL BEING USED AS A COLUMN HEADER
         """
         assert type(tables) is list and type(dataList) is list and ((type(whereDict) is dict) or (whereDict is None)) and ((type(conditions) is str) or (conditions is None))
         logging.info("Generating SELECT query(%s)" % (tables))
