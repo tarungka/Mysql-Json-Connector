@@ -78,7 +78,7 @@
                 },
                 "cur_teams": {
                     "table_constrains": {
-                        "team_hash": "CHAR(8) NOT NULL  ",
+                        "team_hash": "CHAR(8) NOT NULL",
                         "team_letter": "CHAR(1) NOT NULL",
                         "team_name": "VARCHAR(30) NOT NULL",
                         "associated_projects": "VARCHAR(100) NOT NULL",
@@ -103,6 +103,7 @@
                 },
                 "all_projs": {
                     "table_constrains": {
+                        "team_hash": "CHAR(8) NOT NULL",
                         "team_name": "VARCHAR(30) NOT NULL",
                         "number_of_members": "TINYINT UNSIGNED NOT NULL",
                         "team_members": "VARCHAR(55) NOT NULL",

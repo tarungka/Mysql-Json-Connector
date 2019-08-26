@@ -67,7 +67,7 @@ def main(jsonCnf):
 			foreignKeys = tableObject["tables"][table]["foreign_key"]
 			# print("->",type(index),type(index[0]))
 			# exit(0)
-			print(table,dictionary,primaryKey,foreignKeys,index)
+			# print(table,dictionary,primaryKey,foreignKeys,index)
 			print("Creating table %s ..." % (table),end='')
 			db.create("table",table,dictionary=dictionary,primaryKey=primaryKey,foreignKeys=foreignKeys,indexAttributes=index)
 			# cursor.execute(query.createQuery("table",table,dictionary))
