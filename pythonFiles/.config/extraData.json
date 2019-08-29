@@ -1,24 +1,49 @@
 {
+    "reg_team": {
+        "select": [
+            {
+                "fields": [
+                    "team_hash"
+                ],
+                "from": null,
+                "where": null,
+                "extension": null,
+                "passed_by_another_script": true
+            }
+        ],
+        "update": [
+            {
+                "table": "cur_studs",
+                "set": [
+                    "team_hash=select[0]"
+                ],
+                "where": [
+                    "rail_id"
+                ]
+            }
+        ]
+    },
     "login": {
         "select": [
             {
                 "fields": [
-                    "attendence.time_in"
+                    "attendance.time_in"
                 ],
                 "from": [
-                    "attendence"
+                    "attendance"
                 ],
                 "where": [
                     "rail_id"
                 ],
-                "extension": "ORDER BY time_in DESC LIMIT 1"
+                "extension": "ORDER BY time_in DESC LIMIT 1",
+                "passed_by_another_script": false
             },
             {
                 "fields": [
-                    "attendence.rail_id"
+                    "attendance.rail_id"
                 ],
                 "from": [
-                    "attendence"
+                    "attendance"
                 ],
                 "where": [
                     "rail_id"
@@ -42,16 +67,17 @@
         "select": [
             {
                 "fields": [
-                    "attendence.time_in",
-                    "attendence.time_out"
+                    "attendance.time_in",
+                    "attendance.time_out"
                 ],
                 "from": [
-                    "attendence"
+                    "attendance"
                 ],
                 "where": [
                     "rail_id"
                 ],
-                "extension": "ORDER BY time_out DESC LIMIT 1"
+                "extension": "ORDER BY time_out DESC LIMIT 1",
+                "passed_by_another_script": false
             }
         ],
         "update": [

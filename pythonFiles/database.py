@@ -4,6 +4,8 @@ from mysql.connector import errorcode
 import sys
 import datetime
 import json
+import mysqlConnector as sql
+import analytics
 # import # logger
 #import query
 import logging
@@ -51,6 +53,7 @@ class main:
 		self.conditionList = self.footer["DEP"]			#dep name within header
 		try:
 			self.runCondition = self.footer["CONDITION"]	#Run analytics
+			self.analyticsArguments = self.data["FIELDS"]
 		except:
 			logging.warning("Change 'DATA ABOUT THE REQUEST' to 'CONDITION'")
 		'''
@@ -79,7 +82,14 @@ class main:
 		return self.table
 
 	def setConnection(self):	#Establishes a connection between the script and the mysql database
+		logging.info("Connecting to the database")
+		self.mysqlConnection = sql.mysqlConnector(option_files=".config/mysql.cnf",database=self.database)
+		#self.cursor = self.mysqlConnection.cursor(dictionary=True)
+		logging.info("Connection successful")
+		return
+		#return self.cursor
 		# # logger.log("Starting connection stage")
+		"""
 		logging.info("Connecting to the database")
 		with open(".config/database.json") as cnfFile:
 			data 	 = json.load(cnfFile)
@@ -116,12 +126,15 @@ class main:
 					# logger.log(str(err),True)
 					logging.critical(str(err.msg))
 			else:
-				# logger.log("Closing ubruptly at connection stage")
-				logging.critical("Closing ubruptly at connection stage ... exiting program")
+				# logger.log("Closing abruptly at connection stage")
+				logging.critical("Closing abruptly at connection stage ... exiting program")
 				exit(1)
+		"""
 
 	"""
 	IM PLANNING ON SHIFTING ALL OF THE QUERIES INTO ANOTHER MODULE AS IT WILL BE REUSABLE.
+	"""
+
 	"""
 
 	def insertData(self,insDict):
@@ -137,10 +150,10 @@ class main:
 		finalQuery = finalQuery + ") VALUES("
 		finalQuery = finalQuery + "'" + str(value[0]) + "'"
 		for index in range(length - 1):
-			if(value[index + 1] == "null"): #THE BLOCK BELOW GENEREATES ",null"
+			if(value[index + 1] == "null"): #THE BLOCK BELOW GENERATES ",null"
 				finalQuery = finalQuery + "," + str(value[index + 1])
 				continue
-			finalQuery = finalQuery + "," + "'" + str(value[index + 1]).replace("'",r"\'") + "'" #THE BLOCK BELOW GENEREATES ",'val'"
+			finalQuery = finalQuery + "," + "'" + str(value[index + 1]).replace("'",r"\'") + "'" #THE BLOCK BELOW GENERATES ",'val'"
 		finalQuery = finalQuery + ");"
 		# logger.log(finalQuery)
 		logging.debug(finalQuery)
@@ -216,6 +229,7 @@ class main:
 		logging.critical("alterTable is not yet functional")
 		return
 
+	"""
 
 	def validateData(self):
 		# logger.log("Validating the incoming data")
@@ -257,10 +271,9 @@ class main:
 						logging.info("The gender is invalid :"+curObj[aKey])
 						flag = True
 				elif(aKey == 'date_of_birth'):
-					splitData = curObj[aKey].rsplit('-')				#Validates the date only if it is seperated by a "-"
+					# splitData = curObj[aKey].rsplit('-')				#Validates the date only if it is seperated by a "-"
 					####################################
 					"""WRITING CODE TO VALIDATE WHEN IT IS SEPERATED BY EITHER '-' OR '/'"""
-					"""
 					if("-" in curObj[aKey]):
 						splitData = curObj[aKey].rsplit('-')
 					elif("/" in curObj[aKey]):
@@ -268,19 +281,18 @@ class main:
 					else:
 						logging.info("Dates must be seperated by either '-' or '/'")
 						flag = True
-					"""
 					####################################
 					if(len(splitData[0]) != 4 and not(splitData[0].isdigit())):
-						# logger.log("The year is enterd incorrectly")
-						logging.info("The year is enterd incorrectly")
+						# logger.log("The year is entered incorrectly")
+						logging.info("The year is entered incorrectly")
 						flag = True
 					if(len(splitData[1]) != 2 and not(splitData[1].isdigit()) and (int(splitData[1])>0 and int(splitData[1])<=12)):
-						# logger.log("The month is enterd incorrectly")
-						logging.info("The month is enterd incorrectly")
+						# logger.log("The month is entered incorrectly")
+						logging.info("The month is entered incorrectly")
 						flag = True
 					if(len(splitData[2]) != 2 and not(splitData[2].isdigit()) and (int(splitData[1])>0 and int(splitData[1])<=31)):
-						# logger.log("The date is enterd incorrectly")
-						logging.info("The date is enterd incorrectly")
+						# logger.log("The date is entered incorrectly")
+						logging.info("The date is entered incorrectly")
 						flag = True
 				elif(aKey == 'phone_number'):
 					if(len(curObj[aKey]) != 10):
@@ -344,18 +356,23 @@ class main:
 			'''
 			if(self.requestType == "insert"):
 				# logger.log("The insert condition is being run")
-				self.insertData(self.fields)
+				# self.insertData(self.fields)
 				#if(self.getTable == "attendance"):
 				#	print("Need to update the current_students table")
+				self.mysqlConnection.insert(self.getTable(),self.fields)
 			elif(self.requestType == "delete"):
-				self.deleteData(self.fields,self.whereClause)
+				# self.deleteData(self.fields,self.whereClause)
+				self.mysqlConnection.delete(self.getTable(),self.fields,self.whereClause)
 			elif(self.requestType == "update"):
-				self.updateData(self.setClause,self.whereClause)
+				# self.updateData(self.setClause,self.whereClause)
+				self.mysqlConnection.update(self.getTable(),self.setClause,self.whereClause)
 			elif(self.requestType == "select"):
 				#print(type(self.fields))
-				return self.selectData(self.fields,self.whereClause)
+				# return self.selectData(self.fields,self.whereClause)
+				return self.mysqlConnection.select([self.getTable()],self.fields,self.whereClause)
 			elif(self.requestType == "alter"):
-				self.alterTable()
+				# self.alterTable()
+				self.mysqlConnection.alter()
 			try:
 				for anObject in self.updateList:
 					#print("Start of a sub process.")
@@ -372,7 +389,8 @@ class main:
 				# logger.log("Exception Raised:"+str(e),True)
 				logging.info("Exception Raised:"+str(e))
 				exit(0)
-			self.mysqlConnection.commit()
+			# self.mysqlConnection.commit()
+			self.mysqlConnection.commitChanges()
 
 	def findValueOfKey(self,toBeSearched):
 		if(self.fields != None):
@@ -389,6 +407,9 @@ class main:
 	def generateAnalytics(self):		#Write # logger function for this
 		if(self.conditionFlag == False):
 			return
+		else:
+			analytics.analytics(self.mysqlConnection,**self.analyticsArguments)
+		return
 		# logger.log("To generate analytics:"+str(self.requestType)+str(self.footer["DATA ABOUT THE REQUEST"]))
 		if(self.requestType.lower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'logout'):	#This is for attendance
 			# logger.log("Running LOGOUT condition")
@@ -458,7 +479,7 @@ class main:
 
 
 
-
+"""
 class analytics:
 	def __init__(self,connection,cursor):
 		#Write code here to load the data
@@ -494,7 +515,7 @@ class analytics:
 
 	def updatedStudents(self):
 		print("updatedStudents")
-
+"""
 
 if __name__ == '__main__':
 	# logger.log("Start of database.py")

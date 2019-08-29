@@ -52,6 +52,9 @@ class mysqlConnector():
     def _getConnection(self):
         return self.mysqlConnection
 
+    def getCursor(self):
+        return self.cursor
+
     def add_back_ticks(self,tableNames,dataList):
         returnData = []
         #print("Incoming data",tableNames,dataList)

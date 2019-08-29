@@ -10,11 +10,6 @@ ASAP:ADD VALIDATION HERE!!!!
 """
 
 
-
-
-
-
-
 logging.basicConfig(
         filename='railApplication.log',
         format='%(asctime)s.%(msecs)03d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
@@ -23,7 +18,7 @@ logging.basicConfig(
     )
 
 mode = "register"
-message = """\t\t\tWELCOME TO RAIL REGISTRAION\nStuents can register as groups of 2 or 4."""
+message = """\t\t\tWELCOME TO RAIL REGISTRATION\nStudents can register as groups of 2 or 4."""
 
 currentDatabase = list(json.load(open(".config/database.json"))["databases"].keys())[0]
 
@@ -58,7 +53,7 @@ class register:
         else:
             logging.debug("Usn in invalid")
             return False
-        
+
 
     def generateRailId(self,usn):
         logging.info("Generating rail id")
@@ -104,7 +99,7 @@ class register:
         for student in self.team["team_members"]:
             self.students.append(self.getStudentInformation(student))
             logging.debug("Done registering a student")
-    
+
     def registerTeams(self):
         logging.info("Registering a team")
         teamMembers = []
@@ -188,7 +183,7 @@ class register:
         logging.info("Updating the database")
         try:
             #
-            #Add a buffer to check if  all the data is valid - I dont know what I'm doing at the time of typing this
+            #Add a buffer to check if  all the data is valid - I don't know what I'm doing at the time of typing this
             #
             for student in self.students:
                 studentArgument = self.generateArgumentForStudent(student)
@@ -203,11 +198,11 @@ class register:
         except:
             print("MAJOR ERROR, THE DATABASE HAS BEEN CORRUPTED")
 
-class attendence:
+class attendance:
     def __init__(self):
         global currentDatabase
         logging.info("Getting information from user")
-        print("\t\t\tATTENDENCE")
+        print("\t\t\tATTENDANCE")
         self.railId =               input("Enter RAIL ID                                :").upper()
         self.action =               input("Login or Logout?                             :").upper()
         if(self.action == 'login'.upper()):
@@ -229,10 +224,10 @@ class attendence:
         elif(self.action == "logout".upper()):
             self.data.update({"time_out"        : self.getCurrentTime()})
 
-    def generateArgumentForAttendence(self,inputDict):
+    def generateArgumentForAttendance(self,inputDict):
         logging.debug(inputDict)
         if(self.action == ("login".upper())):
-            header = '{"HEADER" : {"DATABASE" : "' + self.current_db + '","TABLE_NAME" : "attendence","REQUEST_TYPE" : "insert"},'
+            header = '{"HEADER" : {"DATABASE" : "' + self.current_db + '","TABLE_NAME" : "attendance","REQUEST_TYPE" : "insert"},'
             firstHalf = '"DATA":{"FIELDS":'
             secondHalf = json.dumps(inputDict)
             thirdHalf = ',"SET" : null,"WHERE" : null},'
@@ -242,7 +237,7 @@ class attendence:
             footer_3 = '}],"UPDATE" : [{"HEADER":{"DATABASE":"' + self.current_db + '","TABLE_NAME":"cur_studs","REQUEST_TYPE":"update"},"DATA":{"FIELDS": null,"SET":{"login_status":"YES"},"WHERE":{"rail_id":"' + self.railId +'"}},"FOOTER":{"DATA ABOUT THE REQUEST" : "just a test","COMMENT" : "THIS IS A TEST","DEP" : null,"UPDATE" : null}}]}}'
             return (header + firstHalf + secondHalf + thirdHalf + footer_1 + dep + footer_3)
         elif(self.action == ("logout".upper())):
-            header = '{"HEADER" : {"DATABASE" : "' + self.current_db + '","TABLE_NAME" : "attendence","REQUEST_TYPE" : "update"},'
+            header = '{"HEADER" : {"DATABASE" : "' + self.current_db + '","TABLE_NAME" : "attendance","REQUEST_TYPE" : "update"},'
             firstHalf = '"DATA":{"FIELDS":null'
             thirdHalf = ',"SET" : {"time_out": "' + self.getCurrentTime() + '"},"WHERE" : {"rail_id" : "' + self.railId + '","time_out":"NULL"}},'
             footer_1 = '"FOOTER" : {"DATA ABOUT THE REQUEST" : "logout","COMMENT" : "THIS IS A TEST","DEP" :'
@@ -254,10 +249,10 @@ class attendence:
 
     def updateDatabase(self):
         logging.info("Updating the database")
-        attendenceArgument = self.generateArgumentForAttendence(self.data)
-        logging.debug("arguments for attendence is:"+str(attendenceArgument))
+        attendanceArgument = self.generateArgumentForAttendance(self.data)
+        logging.debug("arguments for attendance is:"+str(attendanceArgument))
         try:
-            os.system("./database.py '" + attendenceArgument + "'")
+            os.system("./database.py '" + attendanceArgument + "'")
         except:
             print("MAJOR ERROR, THE DATABASE HAS BEEN CORRUPTED")
 
@@ -268,7 +263,7 @@ class component:
         print("\t\t\tCOMPONENT")
         self.numberOfComponents = int(input("Number of components                        :"))
         self.requestType        =     input("Request/Return?                             :").upper()
-        self.issuedTo           =    input("Enter your rail_id                          :").upper()
+        self.issuedTo           =     input("Enter your rail_id                          :").upper()
         self.componentId = []
         for index in range(self.numberOfComponents):
             self.componentId.append(input("Enter the component id of component number %d:" % (index+1)).upper())
@@ -287,7 +282,7 @@ class component:
             else:
                 localComp.append(aComponent)
         self.componentId = localComp
-    
+
     def getCurrentTime(self):
         return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -349,15 +344,15 @@ class component:
                 os.system("./database.py '" + aData + "'")
         except:
             print("MAJOR ERROR, THE DATABASE HAS BEEN CORRUPTED")
-            
 
-    #def showData(self):
+
+    # def showData(self):
     #    print("numberOfComponents   :",self.numberOfComponents)
     #    print("request/return       :",self.requestType)
     #    for index in range(self.numberOfComponents):
     #        print(("component no %d       :") % (index+1),self.componentId[index])
-        #print("numberOfComponents:",self.numberOfComponents)
-        #print("numberOfComponents:",self.numberOfComponents)
+    #     print("numberOfComponents:",self.numberOfComponents)
+    #     print("numberOfComponents:",self.numberOfComponents)
 
 
 
@@ -366,7 +361,7 @@ def changeMode():
     logging.info("Change mode was called.")
     print("The availabe modes are:")
     print("1->register")
-    print("2->attendence")
+    print("2->attendance")
     print("3->component")
     print("4->exit")
     mode = input("Enter new mode:")
@@ -395,9 +390,9 @@ if __name__ == "__main__":
                 logging.error(str(e))
                 print("Exitting ...")
                 exit()
-        elif(mode == "attendence" or mode == "2"):
+        elif(mode == "attendance" or mode == "2"):
             try:
-               process = attendence()
+               process = attendance()
                process.updateDatabase()
             except KeyboardInterrupt:
                 changeMode()

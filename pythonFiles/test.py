@@ -57,6 +57,11 @@ def x(**kwargs):
 
 
 if __name__ == "__main__":
+    import analytics
+    process = sql.mysqlConnector(host='127.0.0.1',port=3306,user='testuser',password='testpassword',database='test_db')
+    blah = analytics.analytics("connection",**{"team_hash":"ABBA234F","rail_id":"RSK17CS036"})
+    blah.generateAnalytics("login")
+else:
     #run(string="what",b=10,a=500)
     #z = add_back_ticks(['attendence',"studs"],['attendence.time_in', 'attendence.time_out=attendence.time_in',"studs.groups","studs.groups=attendence.groups"])
     #print(z)
@@ -94,7 +99,8 @@ if __name__ == "__main__":
                         ]
                     }
                 ]
-    index = [['student_name'],['date_of_birth'],['student_name','date_of_birth']]
-    ans = process.create("TABLE","testtable",dictionary=dictionary,primaryKey=primary,foreignKeys=foreign,index=index)
-    process.commitChanges()
-    print(ans)
+    # index = [['student_name'],['date_of_birth'],['student_name','date_of_birth']]
+    # ans = process.create("TABLE","testtable",dictionary=dictionary,primaryKey=primary,foreignKeys=foreign,index=index)
+    # process.commitChanges()
+    # print(ans)
+

@@ -3,7 +3,7 @@
     "user": "testuser",
     "password": "testpassword",
     "databases": {
-        "rail_db": {
+        "test_db": {
             "tables": {
                 "all_studs": {
                     "table_constrains": {
@@ -48,15 +48,14 @@
                         "time_of_joining_rail": "DATETIME DEFAULT NOW()",
                         "phone_number": "VARCHAR(10) NOT NULL",
                         "email": "VARCHAR(40) NOT NULL",
-                        "associated_team": "VARCHAR(20) NOT NULL",
                         "projects_done": "INT UNSIGNED DEFAULT 0",
-                        "branch": "VARCHAR(5) NOT NULL",
+                        "branch": "VARCHAR(3) NOT NULL",
                         "login_status": "BOOLEAN DEFAULT 0",
                         "component_status": "BOOLEAN DEFAULT 0",
                         "most_recent_login": "DATETIME DEFAULT NULL",
                         "time_in_rail": "VARCHAR(20) DEFAULT NULL",
                         "team_hash": "CHAR(8) DEFAULT NULL",
-                        "current_role": "VARCHAR(20) NOT NULL"
+                        "current_role": "VARCHAR(9) NOT NULL"
                     },
                     "read_list": null,
                     "index_constrains": [
@@ -81,7 +80,7 @@
                         "team_hash": "CHAR(8) NOT NULL",
                         "team_letter": "CHAR(1) NOT NULL",
                         "team_name": "VARCHAR(30) NOT NULL",
-                        "associated_projects": "VARCHAR(100) NOT NULL",
+                        "associated_projects": "VARCHAR(100)",
                         "number_of_members": "TINYINT UNSIGNED NOT NULL",
                         "team_members": "VARCHAR(55) NOT NULL",
                         "date_of_team_creation": "DATETIME DEFAULT NOW()"
@@ -123,11 +122,7 @@
                         "technology_stack": "VARCHAR(50) NOT NULL"
                     },
                     "read_list": null,
-                    "index_constrains": [
-                        [
-                            "project_description"
-                        ]
-                    ],
+                    "index_constrains": null,
                     "primary_key": null,
                     "foreign_key": [
                         {
@@ -162,11 +157,7 @@
                         "technology_stack": "VARCHAR(50) NOT NULL"
                     },
                     "read_list": null,
-                    "index_constrains": [
-                        [
-                            "project_description"
-                        ]
-                    ],
+                    "index_constrains": null,
                     "primary_key": null,
                     "foreign_key": [
                         {

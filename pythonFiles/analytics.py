@@ -4,10 +4,10 @@ import json
 import userDefinedFunctions as userFunctions
 
 class analytics:
-    def __init__(self,connection,cursor,**kwargs):
+    def __init__(self,connection,**kwargs):
         #Write code here to load the data
         self.connection = connection
-        self.cursor = cursor
+        # self.cursor = cursor
         self.args = kwargs
         #print("Constructor")
         try:
@@ -45,11 +45,13 @@ class analytics:
 
     def processSetCondition(self,inputList):
         returnDict = {}
+        print(inputList)
         for element in inputList:
             #print(element)
             if("=" in element):
                 key,val = element.split("=")
                 if("select" in val):
+                    # print("val",val)
                     indexNo = val.split("[")[1]
                     indexNo = indexNo.split("]")[0]
                     if(self.selectResponse[int(indexNo)]):
@@ -66,14 +68,24 @@ class analytics:
         if(case):
             self.loadData(self.jsonData[case])
             if(self.select):
+                # print("---",self.select,"---")
                 for selectData in self.select:
-                    values = [self.args[ele.split(".")[-1]] for ele in selectData['where']]
-                    whereCondAsDict = {}
-                    for index,val in enumerate(values):
-                        whereCondAsDict.update({selectData['where'][index] : val})
-                    print(""" whereCondAsDict """,whereCondAsDict)
-                    self.selectResponse.append(self.connection.select(tables=selectData['from'],dataList=selectData['fields'],whereDict=whereCondAsDict,conditions=selectData['extension']))
-                    print("selectResponse:",self.selectResponse)
+                    print(selectData)
+                    if(selectData["passed_by_another_script"] == False):
+                        values = [self.args[ele.split(".")[-1]] for ele in selectData['where']]
+                        whereCondAsDict = {}
+                        for index,val in enumerate(values):
+                            whereCondAsDict.update({selectData['where'][index] : val})
+                        # print(""" whereCondAsDict """,whereCondAsDict)
+                        self.selectResponse.append(self.connection.select(tables=selectData['from'],dataList=selectData['fields'],whereDict=whereCondAsDict,conditions=selectData['extension']))
+                    else:
+                        print(self.args)
+                        # for key in self.args:
+                            # print("{}\t\t\t{}".format(key,self.args[key]))
+                        for indexVal,element in enumerate(selectData['fields']):
+                            # print(indexVal,self.args[element])
+                            self.selectResponse.append(self.args[element])
+                print("selectResponse:",self.selectResponse)
             else:
                 pass
             if(self.update):
@@ -92,7 +104,7 @@ class analytics:
             print("Requires a 'case' condition ... Exitting")
             exit(0)
         print(self.selectResponse)
-    
+
     def run(self,tableName):
     	self.tableName = tableName
     	if(tableName == ""):
@@ -101,10 +113,10 @@ class analytics:
     		print("break")
     	else:
     		print("break")
-	
+
     def updatedAttendece(self):
         print('updatedAttendece')
-	
+
     def updatedStudents(self):
         print("updatedStudents")
 
