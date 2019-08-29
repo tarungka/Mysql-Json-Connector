@@ -295,14 +295,14 @@
                 },
                 "components": {
                     "table_constrains": {
-                        "component_id": "CHAR(10)  ",
+                        "component_id": "CHAR(10)",
                         "component_name": "VARCHAR(55) NOT NULL",
                         "date_of_procurement": "DATE",
-                        "if_kit": "BOOLEAN DEFAULT 0",
-                        "associated_colour": "VARCHAR(20) NOT NULL",
+                        "if_kit": "ENUM('YES','NO')",
+                        "associated_colour": "VARCHAR(20)",
                         "number_of_times_issued": "INT UNSIGNED DEFAULT '0'",
-                        "group": "VARCHAR(15) NOT NULL",
-                        "component_status(if issued)": "BOOLEAN DEFAULT 0",
+                        "group": "VARCHAR(15)",
+                        "component_status": "ENUM('YES','NO')",
                         "most_recent_issue": "DATETIME",
                         "total_time_of_use": "VARCHAR(20)"
                     },

@@ -123,9 +123,9 @@ class analytics:
 
 def test1():
     connection = sql.mysqlConnector(host='localhost',user='testuser',password='testpassword',database='rail_db')
-    cursor = connection.setConnection()
+    # cursor = connection.setConnection()
     #mysqlConnection = connection.__getConnection__()
-    process = analytics(connection,cursor,rail_id="RSK17CS036")
+    process = analytics(connection,rail_id="RSK17CS036")
     process.generateAnalytics('login')
     connection.commitChanges()
     #connection.commitChanges()
