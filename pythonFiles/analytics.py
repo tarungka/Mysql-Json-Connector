@@ -82,7 +82,7 @@ class analytics:
                         print(self.args)
                         # for key in self.args:
                             # print("{}\t\t\t{}".format(key,self.args[key]))
-                        for indexVal,element in enumerate(selectData['fields']):
+                        for element in selectData['fields']:
                             # print(indexVal,self.args[element])
                             self.selectResponse.append(self.args[element])
                 print("selectResponse:",self.selectResponse)
@@ -97,7 +97,7 @@ class analytics:
                     for index,val in enumerate(values):
                         whereCondAsDict.update({selectData['where'][index] : val})
                     print("""-whereCondAsDict """,whereCondAsDict)
-                    self.connection.update(tableName=element['table'],setDict=setVar,whereDict=whereCondAsDict)
+                    self.connection.update(tableName=table,setDict=setVar,whereDict=whereCondAsDict)
                 print(self.update)
             #self.cursor.commit()
         else:
@@ -119,23 +119,6 @@ class analytics:
 
     def updatedStudents(self):
         print("updatedStudents")
-
-
-#def test():
-#    connection = sql.mysqlConnector(host='localhost',user='testuser',password='testpassword',database='rail_db')
-#    cursor = connection.setConnection()
-#    mysqlConnection = connection.__getConnection__()
-#    restData = {
-#        "rail_id"       :   "1SK17CS036",
-#        "stud_name"     :   "Tarun Gopalkrishna A",
-#        "login_status"  :   "Yes"
-#    }
-#    process = analytics(connection,cursor)
-#    process.showData()
-#    process.generateAnalytics('login')
-#    print(process.select[0])
-#    hm = connection.select(process.select[0]["from"],process.select[0]['fileds'],{process.select[0]['where'][0]:"1SK17CS036"},process.select[0]['extension'])
-#    print(hm)
 
 
 def test1():

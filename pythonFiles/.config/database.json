@@ -3,7 +3,7 @@
     "user": "testuser",
     "password": "testpassword",
     "databases": {
-        "test_db": {
+        "rail_test_db": {
             "tables": {
                 "all_studs": {
                     "table_constrains": {
@@ -141,17 +141,14 @@
                     "table_constrains": {
                         "team_hash": "CHAR(8) NOT NULL",
                         "project_name": "VARCHAR(30) NOT NULL",
-                        "associated_team": "CHAR(1) NOT NULL",
                         "project_description": "VARCHAR(200) NOT NULL",
-                        "number_of_members": "TINYINT UNSIGNED NOT NULL",
                         "mentor": "VARCHAR(50)",
-                        "team_lead": "VARCHAR(50) NOT NULL",
                         "guide": "VARCHAR(50)",
                         "idea_by": "VARCHAR(50) NOT NULL",
                         "type_of_project": "VARCHAR(30) NOT NULL",
                         "expected_duration": "VARCHAR(20) NOT NULL",
-                        "date_start": "DATETIME NOT NULL",
-                        "date_end": "DATETIME",
+                        "date_start": "DATE NOT NULL",
+                        "date_end": "DATE",
                         "status": "VARCHAR(20) NOT NULL",
                         "priority": "VARCHAR(20) NOT NULL",
                         "technology_stack": "VARCHAR(50) NOT NULL"

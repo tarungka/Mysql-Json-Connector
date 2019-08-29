@@ -58,7 +58,7 @@ def x(**kwargs):
 
 if __name__ == "__main__":
     import analytics
-    process = sql.mysqlConnector(host='127.0.0.1',port=3306,user='testuser',password='testpassword',database='test_db')
+    process = sql.mysqlConnector(host='127.0.0.1',port=25000,user='connector',password='Conn_Rail_Connector',database='rail_test_db')
     blah = analytics.analytics("connection",**{"team_hash":"ABBA234F","rail_id":"RSK17CS036"})
     blah.generateAnalytics("login")
 else:
