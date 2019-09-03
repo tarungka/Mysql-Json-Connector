@@ -6,9 +6,10 @@ import datetime
 import json
 import mysqlConnector as sql
 import analytics
+import logging
+import os
 # import # logger
 #import query
-import logging
 
 logging.basicConfig(
         filename='railApplication.log',
@@ -83,53 +84,53 @@ class main:
 
 	def setConnection(self):	#Establishes a connection between the script and the mysql database
 		logging.info("Connecting to the database")
-		self.mysqlConnection = sql.mysqlConnector(option_files=".config/mysql.cnf",database=self.database)
+		self.mysqlConnection = sql.mysqlConnector(option_files=("/home/rail/github/back_end/pythonFiles/.config/mysql.cnf"),database=self.database,autocommit=True)
 		#self.cursor = self.mysqlConnection.cursor(dictionary=True)
 		logging.info("Connection successful")
 		return
 		#return self.cursor
 		# # logger.log("Starting connection stage")
-		"""
-		logging.info("Connecting to the database")
-		with open(".config/database.json") as cnfFile:
-			data 	 = json.load(cnfFile)
-			host 	 = data["host"]
-			user 	 = data["user"]
-			password = data["password"]
-			try:
-				self.mysqlConnection = mysql.connector.connect(
-					host		=	host,		#CREATE A SEPARATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
-					user		=	user, 		#CREATE A SEPARATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
-					passwd		=	password, 	#CREATE A SEPARATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
-					database	=	self.getDatabase()
-				)
-				self.cursor = self.mysqlConnection.cursor(dictionary=True)
-				# # logger.log("Successful creation of the cursor")
-				logging.info("Connection successful")
-				return self.cursor
-			except mysql.connector.Error as err:
-				# # logger.log(("An error occurred. ERROR NO: %d" % (err.errno)),True)
-				logging.critical("Mysql connector error Error No:%4d:%s" % (err.errno,str(err.msg)))
-				if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-					# logger.log("Access was denied.",True)
-					logging.critical("Access was denied.")
-				elif err.errno == errorcode.ER_BAD_DB_ERROR:
-					# logger.log("Database does not exist",True)
-					logging.critical("Database does not exist.")
-				elif err.errno == errorcode.ER_BAD_FIELD_ERROR:
-					# logger.log(("Invalid field : %s" % (err.msg)),True)
-					logging.critical("Invalid field.")
-				elif err.errno == errorcode.ER_BAD_TABLE_ERROR:
-					# logger.log("Table does not exist",True)
-					logging.critical("Table does not exist.")
-				else:
-					# logger.log(str(err),True)
-					logging.critical(str(err.msg))
-			else:
-				# logger.log("Closing abruptly at connection stage")
-				logging.critical("Closing abruptly at connection stage ... exiting program")
-				exit(1)
-		"""
+		# """
+		# logging.info("Connecting to the database")
+		# with open(".config/database.json") as cnfFile:
+		# 	data 	 = json.load(cnfFile)
+		# 	host 	 = data["host"]
+		# 	user 	 = data["user"]
+		# 	password = data["password"]
+		# 	try:
+		# 		self.mysqlConnection = mysql.connector.connect(
+		# 			host		=	host,		#CREATE A SEPARATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
+		# 			user		=	user, 		#CREATE A SEPARATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
+		# 			passwd		=	password, 	#CREATE A SEPARATE CONFIG FILE(FOR SECURITY PURPOSES) FOR THIS AND GET DATA FROM IT.
+		# 			database	=	self.getDatabase()
+		# 		)
+		# 		self.cursor = self.mysqlConnection.cursor(dictionary=True)
+		# 		# # logger.log("Successful creation of the cursor")
+		# 		logging.info("Connection successful")
+		# 		return self.cursor
+		# 	except mysql.connector.Error as err:
+		# 		# # logger.log(("An error occurred. ERROR NO: %d" % (err.errno)),True)
+		# 		logging.critical("Mysql connector error Error No:%4d:%s" % (err.errno,str(err.msg)))
+		# 		if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+		# 			# logger.log("Access was denied.",True)
+		# 			logging.critical("Access was denied.")
+		# 		elif err.errno == errorcode.ER_BAD_DB_ERROR:
+		# 			# logger.log("Database does not exist",True)
+		# 			logging.critical("Database does not exist.")
+		# 		elif err.errno == errorcode.ER_BAD_FIELD_ERROR:
+		# 			# logger.log(("Invalid field : %s" % (err.msg)),True)
+		# 			logging.critical("Invalid field.")
+		# 		elif err.errno == errorcode.ER_BAD_TABLE_ERROR:
+		# 			# logger.log("Table does not exist",True)
+		# 			logging.critical("Table does not exist.")
+		# 		else:
+		# 			# logger.log(str(err),True)
+		# 			logging.critical(str(err.msg))
+		# 	else:
+		# 		# logger.log("Closing abruptly at connection stage")
+		# 		logging.critical("Closing abruptly at connection stage ... exiting program")
+		# 		exit(1)
+		# """
 
 	"""
 	IM PLANNING ON SHIFTING ALL OF THE QUERIES INTO ANOTHER MODULE AS IT WILL BE REUSABLE.
@@ -372,7 +373,8 @@ class main:
 				return self.mysqlConnection.select([self.getTable()],self.fields,self.whereClause)
 			elif(self.requestType == "alter"):
 				# self.alterTable()
-				self.mysqlConnection.alter()
+				# self.mysqlConnection.alter()
+				pass
 			try:
 				for anObject in self.updateList:
 					#print("Start of a sub process.")
@@ -412,71 +414,71 @@ class main:
 			analytics.generateAnalytics(self.runCondition)
 		return
 		# logger.log("To generate analytics:"+str(self.requestType)+str(self.footer["DATA ABOUT THE REQUEST"]))
-		if(self.requestType.lower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'logout'):	#This is for attendance
-			# logger.log("Running LOGOUT condition")
-			rail_id = self.findValueOfKey('rail_id')
-			self.cursor.execute("SELECT time_in,time_out from attendance where rail_id='"+ rail_id +"' ORDER BY time_out DESC;")
-			mysqlData =  self.cursor.fetchall()
-			loginTime = mysqlData[0]['time_in']
-			logoutTime = mysqlData[0]['time_out']
-			timeSpent = logoutTime - loginTime
-			self.cursor.execute("UPDATE attendance SET time_spent='"+ str(timeSpent) +"' where time_in='"+ loginTime.strftime("%Y-%m-%d %H:%M:%S") +"';")
-			self.cursor.execute("SELECT time_in_rail FROM cur_studs WHERE rail_id='"+ rail_id +"';")
-			mysqlData = self.cursor.fetchall()
-			totalTime = mysqlData[0]['time_in_rail']
-			if(totalTime != None):
-				timeInStringFormat = totalTime.split(":")
-				timeInTimeFormat = datetime.time(int(timeInStringFormat[0]),int(timeInStringFormat[1]),int(timeInStringFormat[2]))
-				timeInTimeFormat = (datetime.datetime.combine(datetime.date.today(),timeInTimeFormat) + timeSpent).time()
-				self.cursor.execute("UPDATE cur_studs SET time_in_rail='"+ str(timeInTimeFormat) +"' WHERE rail_id='"+rail_id+"';")
-			else:
-				self.cursor.execute("UPDATE cur_studs SET time_in_rail='"+ str(timeSpent) +"' WHERE rail_id='"+rail_id+"';")
-		elif(self.requestType.lower() == 'insert' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'login'):	#This is for attendance
-			# logger.log("Running LOGIN condition")
-			rail_id = self.findValueOfKey('rail_id')
-			self.cursor.execute("SELECT time_in FROM attendance where rail_id='" + self.findValueOfKey("rail_id") + "' AND time_out is null;")
-			data = self.cursor.fetchall()
-			time_in = data[0]["time_in"]
-			self.cursor.execute("UPDATE cur_studs SET most_recent_login='"+ time_in.strftime("%Y-%m-%d %H:%M:%S") +"' WHERE rail_id = '"+ rail_id +"';")
-		elif(self.requestType.lower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'ret_comp'):	#This is for component
-			# logger.log("Running ret_comp condition")
-			rail_id = self.findValueOfKey("issued_to")
-			comp_id = self.findValueOfKey("component_id")
-			self.cursor.execute("SELECT time_of_issue,time_of_return FROM iss_compnts WHERE issued_to='" + rail_id +"' ORDER BY time_of_return DESC;")
-			mysqlData = self.cursor.fetchall()
-			issTime = mysqlData[0]["time_of_issue"]
-			retTime = mysqlData[0]["time_of_return"]
-			timeOfUse = retTime - issTime
-			self.cursor.execute("UPDATE iss_compnts SET time_of_use='"+ str(timeOfUse) +"' where time_of_issue='"+ issTime.strftime("%Y-%m-%d %H:%M:%S") +"';")
-			print("SELECT total_time_of_use FROM components WHERE component_id='" + comp_id + "';")
-			self.cursor.execute("SELECT total_time_of_use FROM components WHERE component_id='" + comp_id + "';")
-			mysqlData = self.cursor.fetchall()
-			print(mysqlData)
-			totalTime = mysqlData[0]["total_time_of_use"]
-			if(totalTime != None):
-				timeInStringFormat = totalTime.split(":")
-				timeInTimeFormat = datetime.time(int(timeInStringFormat[0]),int(timeInStringFormat[1]),int(timeInStringFormat[2]))
-				timeInTimeFormat = (datetime.datetime.combine(datetime.date.today(),timeInTimeFormat) + timeOfUse).time()
-				self.cursor.execute("UPDATE components SET total_time_of_use='"+ str(timeInTimeFormat) +"' WHERE component_id='"+comp_id+"';")
-			else:
-				self.cursor.execute("UPDATE components SET total_time_of_use='"+ str(timeOfUse) +"' WHERE component_id='"+comp_id+"';")
-			#
-			# TO UPDATE THE COMPOENET STATUS TO NO WHEN HE RETURNS ALL THE COMPONENTS
-			#
-			self.cursor.execute("SELECT component_id FROM iss_compnts where issued_to='" + rail_id + "' AND time_of_return is NULL")
-			mysqlData = self.cursor.fetchall()
-			if(not(mysqlData)):
-				self.cursor.execute("UPDATE cur_studs SET component_status = 'NO' where rail_id = '" + rail_id + "';")
-		elif(self.requestType.lower() == 'insert' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'req_comp'):	#This is for component
-			# logger.log("Running req_comp condition")
-			comp_id = self.findValueOfKey('component_id')
-			self.cursor.execute("SELECT time_of_issue FROM iss_compnts where component_id='" + comp_id + "' AND time_of_return is null;")
-			data = self.cursor.fetchall()
-			time_iss = data[0]["time_of_issue"]
-			self.cursor.execute("UPDATE components SET most_recent_issue='"+ time_iss.strftime("%Y-%m-%d %H:%M:%S") +"' WHERE component_id = '"+ comp_id +"';")
-		else:
-			pass
-		self.mysqlConnection.commit()
+		# if(self.requestType.lower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'logout'):	#This is for attendance
+		# 	# logger.log("Running LOGOUT condition")
+		# 	rail_id = self.findValueOfKey('rail_id')
+		# 	self.cursor.execute("SELECT time_in,time_out from attendance where rail_id='"+ rail_id +"' ORDER BY time_out DESC;")
+		# 	mysqlData =  self.cursor.fetchall()
+		# 	loginTime = mysqlData[0]['time_in']
+		# 	logoutTime = mysqlData[0]['time_out']
+		# 	timeSpent = logoutTime - loginTime
+		# 	self.cursor.execute("UPDATE attendance SET time_spent='"+ str(timeSpent) +"' where time_in='"+ loginTime.strftime("%Y-%m-%d %H:%M:%S") +"';")
+		# 	self.cursor.execute("SELECT time_in_rail FROM cur_studs WHERE rail_id='"+ rail_id +"';")
+		# 	mysqlData = self.cursor.fetchall()
+		# 	totalTime = mysqlData[0]['time_in_rail']
+		# 	if(totalTime != None):
+		# 		timeInStringFormat = totalTime.split(":")
+		# 		timeInTimeFormat = datetime.time(int(timeInStringFormat[0]),int(timeInStringFormat[1]),int(timeInStringFormat[2]))
+		# 		timeInTimeFormat = (datetime.datetime.combine(datetime.date.today(),timeInTimeFormat) + timeSpent).time()
+		# 		self.cursor.execute("UPDATE cur_studs SET time_in_rail='"+ str(timeInTimeFormat) +"' WHERE rail_id='"+rail_id+"';")
+		# 	else:
+		# 		self.cursor.execute("UPDATE cur_studs SET time_in_rail='"+ str(timeSpent) +"' WHERE rail_id='"+rail_id+"';")
+		# elif(self.requestType.lower() == 'insert' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'login'):	#This is for attendance
+		# 	# logger.log("Running LOGIN condition")
+		# 	rail_id = self.findValueOfKey('rail_id')
+		# 	self.cursor.execute("SELECT time_in FROM attendance where rail_id='" + self.findValueOfKey("rail_id") + "' AND time_out is null;")
+		# 	data = self.cursor.fetchall()
+		# 	time_in = data[0]["time_in"]
+		# 	self.cursor.execute("UPDATE cur_studs SET most_recent_login='"+ time_in.strftime("%Y-%m-%d %H:%M:%S") +"' WHERE rail_id = '"+ rail_id +"';")
+		# elif(self.requestType.lower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'ret_comp'):	#This is for component
+		# 	# logger.log("Running ret_comp condition")
+		# 	rail_id = self.findValueOfKey("issued_to")
+		# 	comp_id = self.findValueOfKey("component_id")
+		# 	self.cursor.execute("SELECT time_of_issue,time_of_return FROM iss_compnts WHERE issued_to='" + rail_id +"' ORDER BY time_of_return DESC;")
+		# 	mysqlData = self.cursor.fetchall()
+		# 	issTime = mysqlData[0]["time_of_issue"]
+		# 	retTime = mysqlData[0]["time_of_return"]
+		# 	timeOfUse = retTime - issTime
+		# 	self.cursor.execute("UPDATE iss_compnts SET time_of_use='"+ str(timeOfUse) +"' where time_of_issue='"+ issTime.strftime("%Y-%m-%d %H:%M:%S") +"';")
+		# 	print("SELECT total_time_of_use FROM components WHERE component_id='" + comp_id + "';")
+		# 	self.cursor.execute("SELECT total_time_of_use FROM components WHERE component_id='" + comp_id + "';")
+		# 	mysqlData = self.cursor.fetchall()
+		# 	print(mysqlData)
+		# 	totalTime = mysqlData[0]["total_time_of_use"]
+		# 	if(totalTime != None):
+		# 		timeInStringFormat = totalTime.split(":")
+		# 		timeInTimeFormat = datetime.time(int(timeInStringFormat[0]),int(timeInStringFormat[1]),int(timeInStringFormat[2]))
+		# 		timeInTimeFormat = (datetime.datetime.combine(datetime.date.today(),timeInTimeFormat) + timeOfUse).time()
+		# 		self.cursor.execute("UPDATE components SET total_time_of_use='"+ str(timeInTimeFormat) +"' WHERE component_id='"+comp_id+"';")
+		# 	else:
+		# 		self.cursor.execute("UPDATE components SET total_time_of_use='"+ str(timeOfUse) +"' WHERE component_id='"+comp_id+"';")
+		# 	#
+		# 	# TO UPDATE THE COMPOENET STATUS TO NO WHEN HE RETURNS ALL THE COMPONENTS
+		# 	#
+		# 	self.cursor.execute("SELECT component_id FROM iss_compnts where issued_to='" + rail_id + "' AND time_of_return is NULL")
+		# 	mysqlData = self.cursor.fetchall()
+		# 	if(not(mysqlData)):
+		# 		self.cursor.execute("UPDATE cur_studs SET component_status = 'NO' where rail_id = '" + rail_id + "';")
+		# elif(self.requestType.lower() == 'insert' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'req_comp'):	#This is for component
+		# 	# logger.log("Running req_comp condition")
+		# 	comp_id = self.findValueOfKey('component_id')
+		# 	self.cursor.execute("SELECT time_of_issue FROM iss_compnts where component_id='" + comp_id + "' AND time_of_return is null;")
+		# 	data = self.cursor.fetchall()
+		# 	time_iss = data[0]["time_of_issue"]
+		# 	self.cursor.execute("UPDATE components SET most_recent_issue='"+ time_iss.strftime("%Y-%m-%d %H:%M:%S") +"' WHERE component_id = '"+ comp_id +"';")
+		# else:
+		# 	pass
+		# self.mysqlConnection.commit()
 
 
 

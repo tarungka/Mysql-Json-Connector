@@ -67,7 +67,7 @@ else:
     #print(z)
     #x(a=10,b=20,c=30)
     process = sql.mysqlConnector(host='127.0.0.1',port=25000,user='testuser_all',password='testpassword',database='rail_db')
-    process.setConnection()
+    # process.setConnection()
     dictionary = {
                         "usn": "CHAR(10) NOT NULL",
                         "team_login": "CHAR(8) NOT NULL",

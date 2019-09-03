@@ -151,7 +151,7 @@ class mysqlConnector():
             finalQuery = ("CREATE " + whatUpper + " `" + nameOfWhat + "`;")
             logging.debug(finalQuery)
         else:
-            logging.info("THIS FUNCTION CAN ONLY CREATE ONLY 'TABLE' AND 'DATABASE'",True)
+            logging.info("THIS FUNCTION CAN ONLY CREATE ONLY 'TABLE' AND 'DATABASE'")
         self.cursor.execute(finalQuery)
 
     def use(self,databaseName):

@@ -1,0 +1,5 @@
+[client]
+user=connector
+password=Conn_Rail_Connector
+port=25000
+### database=rail_db_final_test
