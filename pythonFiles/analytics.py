@@ -33,7 +33,7 @@ class analytics:
         print("select",self.select)
         print("update",self.update)
 
-    def returnAsString(self,*args):
+    def __returnAsString(self,*args):
         print("Type:",type(args))
         for element in args:
             if(type(element) is dict):
@@ -43,7 +43,7 @@ class analytics:
             else:
                 print("Is not supported")
 
-    def processSetCondition(self,inputList):
+    def __processSetCondition(self,inputList):
         returnDict = {}
         print(inputList)
         for element in inputList:
@@ -56,7 +56,7 @@ class analytics:
                     indexNo = indexNo.split("]")[0]
                     if(self.selectResponse[int(indexNo)]):
                         #print(val,indexNo)
-                        val = self.returnAsString(self.selectResponse[int(indexNo)][0])   #ALWAYS TAKES INDEX 0, CANNOT HANDLE MORE THAN ONE RESPONSE
+                        val = self.__returnAsString(self.selectResponse[int(indexNo)][0])   #ALWAYS TAKES INDEX 0, CANNOT HANDLE MORE THAN ONE RESPONSE
                     else:
                         print("No data got from database for '{}' key!".format(key))
                 returnDict.update({key:val})
@@ -91,7 +91,7 @@ class analytics:
             if(self.update):
                 for element in self.update:
                     table = element['table']
-                    setVar = self.processSetCondition(element['set'])
+                    setVar = self.__processSetCondition(element['set'])
                     print("setVar",setVar)
                     whereCondAsDict = {}
                     for index,val in enumerate(values):

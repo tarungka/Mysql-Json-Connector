@@ -409,6 +409,7 @@ class main:
 			return
 		else:
 			analytics.analytics(self.mysqlConnection,**self.analyticsArguments)
+			analytics.generateAnalytics(self.runCondition)
 		return
 		# logger.log("To generate analytics:"+str(self.requestType)+str(self.footer["DATA ABOUT THE REQUEST"]))
 		if(self.requestType.lower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'logout'):	#This is for attendance
