@@ -84,7 +84,7 @@ class main:
 
 	def setConnection(self):	#Establishes a connection between the script and the mysql database
 		logging.info("Connecting to the database")
-		self.mysqlConnection = sql.mysqlConnector(option_files=("/home/rail/github/back_end/pythonFiles/.config/mysql.cnf"),database=self.database)
+		self.mysqlConnection = sql.mysqlConnector(option_files=("/home/rail/github/back_end/pythonFiles/.config/mysql.cnf"),database=self.database,autocommit=True)
 		#self.cursor = self.mysqlConnection.cursor(dictionary=True)
 		logging.info("Connection successful")
 		return
