@@ -5,40 +5,7 @@
     "databases": {
         "rail_test_db": {
             "tables": {
-                "all_studs": {
-                    "table_constrains": {
-                        "usn": "CHAR(10) NOT NULL",
-                        "rail_id": "CHAR(10) NOT NULL",
-                        "student_name": "VARCHAR(100) NOT NULL",
-                        "gender": "CHAR(1) NOT NULL",
-                        "date_of_birth": "DATE NOT NULL",
-                        "time_of_joining_rail": "DATETIME DEFAULT NOW()",
-                        "phone_number": "CHAR(10) NOT NULL",
-                        "email": "VARCHAR(40) NOT NULL",
-                        "associated_team": "VARCHAR(20) NOT NULL",
-                        "projects_done": "INT UNSIGNED DEFAULT 0",
-                        "branch": "VARCHAR(5) NOT NULL",
-                        "time_in_rail": "TIME NOT NULL"
-                    },
-                    "read_list": null,
-                    "index_constrains": [
-                        [
-                            "rail_id"
-                        ],
-                        [
-                            "phone_number"
-                        ],
-                        [
-                            "email"
-                        ],
-                        [
-                            "usn"
-                        ]
-                    ],
-                    "primary_key": "usn",
-                    "foreign_key": null
-                },
-                "cur_studs": {
+                "studs": {
                     "table_constrains": {
                         "usn": "CHAR(10) NOT NULL",
                         "rail_id": "CHAR(10) NOT NULL",
@@ -55,7 +22,8 @@
                         "most_recent_login": "DATETIME DEFAULT NULL",
                         "time_in_rail": "VARCHAR(20) DEFAULT NULL",
                         "team_hash": "CHAR(8) DEFAULT NULL",
-                        "current_role": "VARCHAR(9) NOT NULL"
+                        "current_role": "ENUM('MEMBER','TEAM_LEAD') NOT NULL",
+                        "review_dt_type": "ENUM('GOOD','AVERAGE','BAD') DEFAULT NULL"
                     },
                     "read_list": null,
                     "index_constrains": [
@@ -75,69 +43,23 @@
                     "primary_key": "usn",
                     "foreign_key": null
                 },
-                "cur_teams": {
+                "teams": {
                     "table_constrains": {
-                        "team_hash": "CHAR(8) NOT NULL",
-                        "team_letter": "CHAR(1) NOT NULL",
+                        "team_hash": "CHAR(6) NOT NULL",
                         "team_name": "VARCHAR(30) NOT NULL",
-                        "associated_projects": "VARCHAR(100)",
                         "number_of_members": "TINYINT UNSIGNED NOT NULL",
-                        "team_members": "VARCHAR(55) NOT NULL",
-                        "date_of_team_creation": "DATETIME DEFAULT NOW()"
+                        "date_of_team_creation": "DATE NOT NULL"
                     },
                     "read_list": null,
                     "index_constrains": [
                         [
-                            "team_name"
-                        ],
-                        [
-                            "associated_projects"
-                        ],
-                        [
-                            "team_members"
+                            "team_hash"
                         ]
                     ],
                     "primary_key": "team_hash",
                     "foreign_key": null
                 },
-                "all_projs": {
-                    "table_constrains": {
-                        "team_hash": "CHAR(8) NOT NULL",
-                        "team_name": "VARCHAR(30) NOT NULL",
-                        "number_of_members": "TINYINT UNSIGNED NOT NULL",
-                        "team_members": "VARCHAR(55) NOT NULL",
-                        "project_name": "VARCHAR(30) NOT NULL",
-                        "associated_team": "CHAR(1) NOT NULL",
-                        "project_description": "VARCHAR(200) NOT NULL",
-                        "mentor": "VARCHAR(50) DEFAULT NULL",
-                        "team_lead": "VARCHAR(50) NOT NULL",
-                        "guide": "VARCHAR(50) DEFAULT NULL",
-                        "idea_by": "VARCHAR(50) NOT NULL",
-                        "type_of_project": "VARCHAR(30) NOT NULL",
-                        "expected_duration": "VARCHAR(20) NOT NULL",
-                        "date_start": "DATETIME NOT NULL DEFAULT NOW()",
-                        "date_end": "DATETIME DEFAULT NULL",
-                        "status": "VARCHAR(20) NOT NULL",
-                        "priority": "VARCHAR(20) NOT NULL",
-                        "technology_stack": "VARCHAR(50) NOT NULL"
-                    },
-                    "read_list": null,
-                    "index_constrains": null,
-                    "primary_key": null,
-                    "foreign_key": [
-                        {
-                            "constraint_name": null,
-                            "foreign_table_name": "cur_teams",
-                            "child_attribute": [
-                                "team_hash"
-                            ],
-                            "parent_attribute": [
-                                "team_hash"
-                            ]
-                        }
-                    ]
-                },
-                "cur_projs": {
+                "projs": {
                     "table_constrains": {
                         "team_hash": "CHAR(8) NOT NULL",
                         "project_name": "VARCHAR(30) NOT NULL",
@@ -149,17 +71,19 @@
                         "expected_duration": "VARCHAR(20) NOT NULL",
                         "date_start": "DATE NOT NULL",
                         "date_end": "DATE",
+                        "project_lead": "CHAR(10) NOT NULL",
                         "status": "VARCHAR(20) NOT NULL",
                         "priority": "VARCHAR(20) NOT NULL",
-                        "technology_stack": "VARCHAR(50) NOT NULL"
+                        "technology_stack": "VARCHAR(50) NOT NULL",
+                        "project_id": "CHAR(10) NOT NULL"
                     },
                     "read_list": null,
                     "index_constrains": null,
-                    "primary_key": null,
+                    "primary_key": "project_id",
                     "foreign_key": [
                         {
                             "constraint_name": null,
-                            "foreign_table_name": "cur_teams",
+                            "foreign_table_name": "teams",
                             "child_attribute": [
                                 "team_hash"
                             ],
@@ -169,14 +93,56 @@
                         }
                     ]
                 },
+                "studs_and_teams_mapping_table": {
+                    "table_constrains": {
+                        "team_hash": "CHAR(6) NOT NULL",
+                        "rail_id": "CHAR(10) NOT NULL"
+                    },
+                    "read_list": null,
+                    "index_constrains": [
+                        ["team_hash","rail_id"]
+                    ],
+                    "primary_key": null,
+                    "foreign_key": [
+                        {
+                            "constraint_name": null,
+                            "foreign_table_name": "teams",
+                            "child_attribute": [
+                                "team_hash"
+                            ],
+                            "parent_attribute": [
+                                "team_hash"
+                            ]
+                        },
+                        {
+                            "constraint_name": null,
+                            "foreign_table_name": "studs",
+                            "child_attribute": [
+                                "rail_id"
+                            ],
+                            "parent_attribute": [
+                                "rail_id"
+                            ]
+                        }
+                    ]
+                },
+                "all_purposes": {
+                    "table_constrains": {
+                        "purpose": "CHAR(10) NOT NULL"
+                    },
+                    "read_list": null,
+                    "index_constrains": null,
+                    "primary_key": "purpose",
+                    "foreign_key": null
+                },
                 "attendance": {
                     "table_constrains": {
                         "rail_id": "VARCHAR(11) NOT NULL",
-                        "team_login": "CHAR(8) NOT NULL ",
+                        "team_hash": "CHAR(8) NOT NULL ",
                         "time_in": "DATETIME NOT NULL DEFAULT NOW()",
                         "time_out": "DATETIME DEFAULT NULL",
                         "time_spent": "TIME DEFAULT NULL",
-                        "purpose": "VARCHAR(50) NOT NULL"
+                        "purpose": "CHAR(10) NOT NULL"
                     },
                     "read_list": null,
                     "index_constrains": null,
@@ -184,7 +150,7 @@
                     "foreign_key": [
                         {
                             "constraint_name": null,
-                            "foreign_table_name": "cur_studs",
+                            "foreign_table_name": "studs",
                             "child_attribute": [
                                 "rail_id"
                             ],
@@ -194,20 +160,42 @@
                         },
                         {
                             "constraint_name": null,
-                            "foreign_table_name": "cur_teams",
+                            "foreign_table_name": "teams",
                             "child_attribute": [
-                                "team_login"
+                                "team_hash"
                             ],
                             "parent_attribute": [
                                 "team_hash"
                             ]
+                        },
+                        {
+                            "constraint_name": null,
+                            "foreign_table_name": "all_purposes",
+                            "child_attribute": [
+                                "purpose"
+                            ],
+                            "parent_attribute": [
+                                "purpose"
+                            ]
+                        },
+                        {
+                            "constraint_name": null,
+                            "foreign_table_name": "studs_and_teams_mapping_table",
+                            "child_attribute": [
+                                "team_hash",
+                                "rail_id"
+                            ],
+                            "parent_attribute": [
+                                "team_hash",
+                                "rail_id"
+                            ]
                         }
                     ]
                 },
-                "all_admin": {
+                "staff": {
                     "table_constrains": {
-                        "admin_name": "VARCHAR(50) NOT NULL",
-                        "admin_id": "VARCHAR(10)  ",
+                        "name": "VARCHAR(50) NOT NULL",
+                        "staff_id": "VARCHAR(10)  ",
                         "date_of_birth": "DATETIME DEFAULT NULL",
                         "date_of_account_creation": "DATETIME NOT NULL",
                         "phone_number": "CHAR(10) NOT NULL",
@@ -217,43 +205,32 @@
                     "read_list": null,
                     "index_constrains": [
                         [
-                            "admin_id"
-                        ],
-                        [
                             "email"
                         ]
                     ],
-                    "primary_key": "admin_id",
+                    "primary_key": "staff_id",
                     "foreign_key": null
                 },
-                "cur_admin": {
+                "staff_attendance": {
                     "table_constrains": {
-                        "admin_name": "VARCHAR(50) NOT NULL",
-                        "admin_id": "VARCHAR(10)  ",
-                        "date_of_birth": "DATETIME DEFAULT NULL",
-                        "date_of_account_creation": "DATETIME NOT NULL",
-                        "phone_number": "CHAR(10) NOT NULL",
-                        "email": "VARCHAR(50) NOT NULL",
-                        "password": "VARCHAR(20) NOT NULL"
+                        "admin_id": "VARCHAR(10) NOT NULL",
+                        "time_in": "DATETIME DEFAULT NOW()",
+                        "time_out": "DATETIME DEFAULT NULL",
+                        "time_spent": "TIME DEFAULT NULL"
                     },
                     "read_list": null,
                     "index_constrains": [
                         [
                             "admin_id"
-                        ],
-                        [
-                            "phone_number"
-                        ],
-                        [
-                            "email"
                         ]
                     ],
-                    "primary_key": "admin_id",
+                    "primary_key": null,
                     "foreign_key": null
                 },
                 "events": {
                     "table_constrains": {
                         "rail_id": "CHAR(10) NOT NULL",
+                        "event_id": "CHAR(10) NOT NULL",
                         "time_of_event": "DATETIME  ",
                         "type": "VARCHAR(30) NOT NULL",
                         "topic": "VARCHAR(70) NOT NULL",
@@ -268,43 +245,33 @@
                     },
                     "read_list": null,
                     "index_constrains": null,
-                    "primary_key": null,
+                    "primary_key": "event_id",
                     "foreign_key": null
-                },
-                "admin_attendance": {
-                    "table_constrains": {
-                        "admin_id": "VARCHAR(11) NOT NULL",
-                        "time_in": "DATETIME NOT NULL DEFAULT NOW()",
-                        "time_out": "DATETIME DEFAULT NULL",
-                        "time_spent": "TIME DEFAULT NULL"
-                    },
-                    "index_constrains": null,
-                    "primary_key": null,
-                    "foreign_key": [
-                        {
-                            "constraint_name": null,
-                            "foreign_table_name": "cur_admin",
-                            "child_attribute": [
-                                "admin_id"
-                            ],
-                            "parent_attribute": [
-                                "admin_id"
-                            ]
-                        }
-                    ]
                 },
                 "components": {
                     "table_constrains": {
-                        "component_id": "CHAR(10)",
+                        "component_id": "CHAR(10) NOT NULL",
                         "component_name": "VARCHAR(55) NOT NULL",
                         "date_of_procurement": "DATE",
-                        "if_kit": "ENUM('YES','NO')",
+                        "if_kit": "ENUM('YES','NO') DEFAULT 'NO'",
                         "associated_colour": "VARCHAR(20)",
                         "number_of_times_issued": "INT UNSIGNED DEFAULT '0'",
-                        "group": "VARCHAR(15)",
-                        "component_status": "ENUM('YES','NO')",
+                        "group": "VARCHAR(15) NOT NULL",
+                        "component_status": "ENUM('YES','NO') DEFAULT 'NO'",
                         "most_recent_issue": "DATETIME",
                         "total_time_of_use": "VARCHAR(20)"
+                    },
+                    "read_list": null,
+                    "index_constrains": null,
+                    "primary_key": "component_id",
+                    "foreign_key": null
+                },
+                "kits": {
+                    "table_constrains": {
+                        "kit_id": "CHAR(10) NOT NULL",
+                        "component_id": "CHAR(10) NOT NULL",
+                        "number_of_sub_components": "INT(3) UNSIGNED NOT NULL",
+                        "sub_components": "BLOB NOT NULL"
                     },
                     "read_list": null,
                     "index_constrains": [
@@ -312,26 +279,7 @@
                             "component_id"
                         ]
                     ],
-                    "primary_key": null,
-                    "foreign_key": null
-                },
-                "kits": {
-                    "table_constrains": {
-                        "kit_id": "CHAR(10)",
-                        "component_id": "CHAR(10)",
-                        "number_of_sub_components": "INT(3) UNSIGNED NOT NULL",
-                        "sub_components": "BLOB NOT NULL"
-                    },
-                    "read_list": [
-                        "kit_id",
-                        "sub_components"
-                    ],
-                    "index_constrains": [
-                        [
-                            "kit_id"
-                        ]
-                    ],
-                    "primary_key": null,
+                    "primary_key": "kit_id",
                     "foreign_key": [
                         {
                             "constraint_name": null,
@@ -348,11 +296,12 @@
                 "iss_compnts": {
                     "table_constrains": {
                         "component_id": "CHAR(10) NOT NULL",
-                        "issued_to": "VARCHAR(20) NOT NULL",
-                        "associated_team": "VARCHAR(20) NOT NULL",
+                        "issued_to": "VARCHAR(10) NOT NULL",
+                        "team_hash": "CHAR(6) NOT NULL",
                         "time_of_issue": "DATETIME DEFAULT NOW()",
                         "time_of_return": "DATETIME",
-                        "time_of_use": "VARCHAR(20)"
+                        "time_of_use": "TIME",
+                        "project_id"    :"CHAR(10) NOT NULL"
                     },
                     "read_list": null,
                     "index_constrains": null,
@@ -366,6 +315,26 @@
                             ],
                             "parent_attribute": [
                                 "component_id"
+                            ]
+                        },
+                        {
+                            "constraint_name": null,
+                            "foreign_table_name": "projs",
+                            "child_attribute": [
+                                "project_id"
+                            ],
+                            "parent_attribute": [
+                                "project_id"
+                            ]
+                        },
+                        {
+                            "constraint_name": null,
+                            "foreign_table_name": "teams",
+                            "child_attribute": [
+                                "team_hash"
+                            ],
+                            "parent_attribute": [
+                                "team_hash"
                             ]
                         }
                     ]
