@@ -44,6 +44,18 @@ class mysqlConnector():
             self.mysqlConnection = mysql.connector.connect(**kwargs)
             self.cursor = self.mysqlConnection.cursor(dictionary=True)
             logging.info("Connection successful")
+        except mysql.connector.Error as err:
+            logging.critical("Mysql connector error Error No:%4d:%s" % (err.errno,str(err.msg)))
+            if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            	logging.critical("Access was denied.")
+            elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            	logging.critical("Database does not exist.")
+            elif err.errno == errorcode.ER_BAD_FIELD_ERROR:
+            	logging.critical("Invalid field.")
+            elif err.errno == errorcode.ER_BAD_TABLE_ERROR:
+            	logging.critical("Table does not exist.")
+            else:
+            	logging.critical(str(err.msg))
         except Exception as e:
             logging.critical("Error in connecting to the database:"+str(e))
             UserDefinedError("Error in connecting to the database")

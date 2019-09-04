@@ -28,14 +28,14 @@ class main:
 	4)PLEASE MAKE SURE YOU PASS 'null' AND NOT AN EMPTY LIST OR A DICTIONARY
 	'''
 	def __init__(self,jsonData,levelNumber):		#Constructor which decodes the incoming json data
+		logging.info("Constructor of class __name__:{} __class__:{} was called.".format(__name__,__class__))
 		try:	#Checking if the input data is of string type
 			logging.debug("Input data is of string type, converting into dict format")
 			self.jsonString = json.loads(str(jsonData))
 		except:	#Checking of the input data is of dict type, this happens only when the class create an instance of itself
 			logging.debug("Input data is of dict type, no changes made")
 			self.jsonString = jsonData
-		# logger.log(str(json.dumps(self.jsonString)))
-		logging.info("Input data is:"+str(json.dumps(self.jsonString)))
+		logging.debug("Input data is:"+str(json.dumps(self.jsonString)))
 
 		self.levelNumber = levelNumber
 
@@ -58,23 +58,9 @@ class main:
 		except:
 			logging.warning("Change 'DATA ABOUT THE REQUEST' to 'CONDITION'")
 		'''
-		WRITE THE CODE HERE TO GET DATA ABOUT THE REQUEST AND THE COMMENT FROM THE FOOTER SECTION
+		WRITE THE CODE HERE TO GET THE COMMENT FROM THE FOOTER SECTION
 		'''
 
-
-	#def showData(self):
-	#	print("jsonString",self.jsonString)
-	#	print("header			:",self.header)
-	#	print("---database			:",self.database)
-	#	print("---table name		:",self.table)
-	#	print("---request type		:",self.requestType)
-	#	print("data				:",self.data)
-	#	print("---fields			:",self.fields)
-	#	print("---set				:",self.setClause)
-	#	print("---where				:",self.whereClause)
-	#	print("footer			:",self.footer)
-	#	print("---update			:",self.updateData)
-	#	print("---dependency		:",self.conditionList)
 
 	def getDatabase(self):
 		return self.database
@@ -82,11 +68,15 @@ class main:
 	def getTable(self):
 		return self.table
 
-	def setConnection(self):	#Establishes a connection between the script and the mysql database
-		logging.info("Connecting to the database -- AUTO COMMIT IS ON NEED TO WRITE SAVEPOINT AND ROLLBACK STATEMENTS!")
-		self.mysqlConnection = sql.mysqlConnector(option_files=("/home/rail/github/back_end/pythonFiles/.config/mysql.cnf"),database=self.database,autocommit=True)
-		#self.cursor = self.mysqlConnection.cursor(dictionary=True)
-		logging.info("Connection successful")
+	def setConnection(self,connection=None):	#Establishes a connection between the script and the mysql database
+		if(connection == None):
+			logging.info("Connecting to the database -- AUTO COMMIT IS ON NEED TO WRITE SAVEPOINT AND ROLLBACK STATEMENTS!")
+			self.mysqlConnection = sql.mysqlConnector(option_files=("/home/rail/github/back_end/pythonFiles/.config/mysql.cnf"),database=self.database)
+			#self.cursor = self.mysqlConnection.cursor(dictionary=True)
+			logging.info("Connection successful")
+		else:
+			logging.info("This conneciton in inherited from the calling function/script.")
+			self.mysqlConnection = connection
 		return
 		#################################################
 		#
@@ -140,93 +130,93 @@ class main:
 		# """
 
 
-	def validateData(self):
-		logging.info("Validating the incoming data")
-		flag = False
-		keys = None
-		curObj = None
-		for index in range(0,3):
-			if(index == 0):
-				if(self.fields == None):
-					logging.info("Fields:No data to validate")
-					continue
-				keys = self.fields.keys()
-				curObj = self.fields
-			elif(index == 1):
-				if(self.setClause == None):
-					logging.info("Set:No data to validate")
-					continue
-				keys = self.setClause.keys()
-				curObj = self.setClause
-			elif(index == 2):
-				if(self.whereClause == None):
-					logging.info("Where:No data to validate")
-					return
-				keys = self.whereClause.keys()
-				curObj = self.whereClause
-			for aKey in keys:
-				if(aKey == 'rail_id'):
-					if(not(curObj[aKey].startswith("RSK"))):
-						logging.info("The rail id in invalid!")
-						flag = True
-				elif(aKey == 'gender'):
-					if((curObj[aKey].upper() not in ['M','F'])):
-						logging.info("The gender is invalid :"+curObj[aKey])
-						flag = True
-				elif(aKey == 'date_of_birth'):
-					"""WRITING CODE TO VALIDATE WHEN IT IS SEPERATED BY EITHER '-' OR '/'"""
-					if("-" in curObj[aKey]):
-						splitData = curObj[aKey].rsplit('-')
-					elif("/" in curObj[aKey]):
-						splitData = curObj[aKey].rsplit('/')
-					else:
-						logging.info("Dates must be seperated by either '-' or '/'")
-						flag = True
-					if(len(splitData[0]) != 4 and not(splitData[0].isdigit())):
-						logging.info("The year is entered incorrectly")
-						flag = True
-					if(len(splitData[1]) != 2 and not(splitData[1].isdigit()) and (int(splitData[1])>0 and int(splitData[1])<=12)):
-						logging.info("The month is entered incorrectly")
-						flag = True
-					if(len(splitData[2]) != 2 and not(splitData[2].isdigit()) and (int(splitData[1])>0 and int(splitData[1])<=31)):
-						logging.info("The date is entered incorrectly")
-						flag = True
-				elif(aKey == 'phone_number'):
-					if(len(curObj[aKey]) != 10):
-						logging.info("Phone number error")
-						flag = True
-				elif(aKey == 'branch'):
-					if((curObj[aKey] not in ['CS','EC','TX','CV'])):
-						logging.info("Branch invalid")
-						flag = True
-				elif(aKey == 'login_status'):
-					if((curObj[aKey] not in ['YES','NO'])):
-						logging.info("login_status invalid")
-						flag = True
-				elif(aKey == 'component_status'):
-					if((curObj[aKey] not in ['YES','NO'])):
-						logging.info("component_status invalid")
-						flag = True
-				elif(aKey == 'usn'):								#You need to change this if this is given to somone else
-					if(not(curObj[aKey].startswith('1SK'))):
-						logging.info("USN is invalid")
-						flag = True
-				elif(aKey == 'current_highest_role'):
-					if((curObj[aKey].lower() not in ['member','team lead'])):
-						logging.info("Role if student is not supported")
-						flag = True
-				if(flag == True):
-					print("FailedOperation : Error in data entered, check the logs!")
-					exit(0)
+	# def validateData(self):
+	# 	logging.info("Validating the incoming data")
+	# 	flag = False
+	# 	keys = None
+	# 	curObj = None
+	# 	for index in range(0,3):
+	# 		if(index == 0):
+	# 			if(self.fields == None):
+	# 				logging.info("Fields:No data to validate")
+	# 				continue
+	# 			keys = self.fields.keys()
+	# 			curObj = self.fields
+	# 		elif(index == 1):
+	# 			if(self.setClause == None):
+	# 				logging.info("Set:No data to validate")
+	# 				continue
+	# 			keys = self.setClause.keys()
+	# 			curObj = self.setClause
+	# 		elif(index == 2):
+	# 			if(self.whereClause == None):
+	# 				logging.info("Where:No data to validate")
+	# 				return
+	# 			keys = self.whereClause.keys()
+	# 			curObj = self.whereClause
+	# 		for aKey in keys:
+	# 			if(aKey == 'rail_id'):
+	# 				if(not(curObj[aKey].startswith("RSK"))):
+	# 					logging.info("The rail id in invalid!")
+	# 					flag = True
+	# 			elif(aKey == 'gender'):
+	# 				if((curObj[aKey].upper() not in ['M','F'])):
+	# 					logging.info("The gender is invalid :"+curObj[aKey])
+	# 					flag = True
+	# 			elif(aKey == 'date_of_birth'):
+	# 				"""WRITING CODE TO VALIDATE WHEN IT IS SEPERATED BY EITHER '-' OR '/'"""
+	# 				if("-" in curObj[aKey]):
+	# 					splitData = curObj[aKey].rsplit('-')
+	# 				elif("/" in curObj[aKey]):
+	# 					splitData = curObj[aKey].rsplit('/')
+	# 				else:
+	# 					logging.info("Dates must be seperated by either '-' or '/'")
+	# 					flag = True
+	# 				if(len(splitData[0]) != 4 and not(splitData[0].isdigit())):
+	# 					logging.info("The year is entered incorrectly")
+	# 					flag = True
+	# 				if(len(splitData[1]) != 2 and not(splitData[1].isdigit()) and (int(splitData[1])>0 and int(splitData[1])<=12)):
+	# 					logging.info("The month is entered incorrectly")
+	# 					flag = True
+	# 				if(len(splitData[2]) != 2 and not(splitData[2].isdigit()) and (int(splitData[1])>0 and int(splitData[1])<=31)):
+	# 					logging.info("The date is entered incorrectly")
+	# 					flag = True
+	# 			elif(aKey == 'phone_number'):
+	# 				if(len(curObj[aKey]) != 10):
+	# 					logging.info("Phone number error")
+	# 					flag = True
+	# 			elif(aKey == 'branch'):
+	# 				if((curObj[aKey] not in ['CS','EC','TX','CV'])):
+	# 					logging.info("Branch invalid")
+	# 					flag = True
+	# 			elif(aKey == 'login_status'):
+	# 				if((curObj[aKey] not in ['YES','NO'])):
+	# 					logging.info("login_status invalid")
+	# 					flag = True
+	# 			elif(aKey == 'component_status'):
+	# 				if((curObj[aKey] not in ['YES','NO'])):
+	# 					logging.info("component_status invalid")
+	# 					flag = True
+	# 			elif(aKey == 'usn'):								#You need to change this if this is given to somone else
+	# 				if(not(curObj[aKey].startswith('1SK'))):
+	# 					logging.info("USN is invalid")
+	# 					flag = True
+	# 			elif(aKey == 'current_highest_role'):
+	# 				if((curObj[aKey].lower() not in ['member','team lead'])):
+	# 					logging.info("Role if student is not supported")
+	# 					flag = True
+	# 			if(flag == True):
+	# 				print("FailedOperation : Error in data entered, check the logs!")
+	# 				exit(0)
 
 	def processRequest(self):
 		logging.info("Processing request")
 		self.conditionFlag  = False
 		if(self.conditionList != None): #cannot test for len(self.conditionList) == 0 i.e when there is a empty list passed, raises TypeError
 			for element in self.conditionList:
-				logging.info("LevelNumber: {} - Creating a new sub process with:".format(self.levelNumber)+str(element))
+				logging.info("LevelNumber: {} - Creating a new sub process for conditionList with:".format(self.levelNumber)+str(element))
 				subProcess = main(element,self.levelNumber + 1)
-				subProcess.setConnection()
+				subProcess.setConnection(self.mysqlConnection)
 				if subProcess.processRequest():			#Ok, I have forgotten what this statement is supposed to mean
 					logging.debug("The condition flag is being set to True")
 					self.conditionFlag = True
@@ -250,37 +240,40 @@ class main:
 			elif(self.requestType == "select"):
 				return self.mysqlConnection.select([self.getTable()],self.fields,self.whereClause)
 			elif(self.requestType == "alter"):
-				pass
-			try:
-				for anObject in self.updateList:
-					logging.info("LevelNumber: {} - Creating a new sub process with:".format(self.levelNumber)+str(anObject))
-					subProcess = main(anObject,self.levelNumber + 1)
-					subProcess.setConnection()
-					subProcess.processRequest()
-			except TypeError:
-				pass
-			except BaseException as e:
-				logging.info("Exception Raised:"+str(e))
-				exit(0)
-			self.mysqlConnection.commitChanges()
+				logging.warning("ALTER IS NOT SUPPORTED YET, WILL BE ADDED IN A NEWER VERSION!")
+			if(self.updateList):
+				try:
+					for anObject in self.updateList:
+						logging.info("LevelNumber: {} - Creating a new sub process for updateList with:".format(self.levelNumber)+str(anObject))
+						subProcess = main(anObject,self.levelNumber + 1)
+						subProcess.setConnection(self.mysqlConnection)
+						subProcess.processRequest()
+				except TypeError:
+					logging.critical("TypeError was raised when processing a condition expexted a dict type got {}".format(type(anObject)))
+					exit(0)
+				except BaseException as e:
+					logging.info("Exception Raised:"+str(e))
+					exit(0)
+			if(self.levelNumber == 0):
+				self.mysqlConnection.commitChanges()
 
-	def findValueOfKey(self,toBeSearched):
-		if(self.fields != None):
-			if(toBeSearched in self.fields.keys()):
-				return self.fields[toBeSearched]
-		elif(self.whereClause != None):
-			if(toBeSearched in self.whereClause.keys()):
-				return self.whereClause[toBeSearched]
-		else:
-			logging.error("findValueOfKey:Error could not find the string.")
+	# def findValueOfKey(self,toBeSearched):
+	# 	if(self.fields != None):
+	# 		if(toBeSearched in self.fields.keys()):
+	# 			return self.fields[toBeSearched]
+	# 	elif(self.whereClause != None):
+	# 		if(toBeSearched in self.whereClause.keys()):
+	# 			return self.whereClause[toBeSearched]
+	# 	else:
+	# 		logging.error("findValueOfKey:Error could not find the string.")
 
 
 	def generateAnalytics(self):		#Write # logger function for this
 		if(self.conditionFlag == False):
 			return
 		else:
-			analytics.analytics(self.mysqlConnection,**self.analyticsArguments)
-			analytics.generateAnalytics(self.runCondition)
+			genAnalytics = analytics.analytics(self.mysqlConnection,**self.analyticsArguments)
+			genAnalytics.generateAnalytics(self.runCondition)
 		return
 		# logger.log("To generate analytics:"+str(self.requestType)+str(self.footer["DATA ABOUT THE REQUEST"]))
 		# if(self.requestType.lower() == 'update' and self.footer["DATA ABOUT THE REQUEST"].lower() == 'logout'):	#This is for attendance
@@ -354,7 +347,7 @@ class main:
 if __name__ == '__main__':
 	logging.info("Start of database.py")
 	process = main(sys.argv[1],0)
-	process.validateData()
+	# process.validateData()
 	process.setConnection()
 	process.processRequest()
 	process.generateAnalytics()
