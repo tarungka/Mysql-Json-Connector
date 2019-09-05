@@ -18,6 +18,8 @@ logging.basicConfig(
         level=logging.DEBUG
     )
 
+PATH = "/home/tarun/github/rail/pythonFiles/"
+
 # logger =  # logger.logIt(__file__)
 
 class main:
@@ -71,7 +73,7 @@ class main:
 	def setConnection(self,connection=None):	#Establishes a connection between the script and the mysql database
 		if(connection == None):
 			logging.info("Connecting to the database -- AUTO COMMIT IS ON NEED TO WRITE SAVEPOINT AND ROLLBACK STATEMENTS!")
-			self.mysqlConnection = sql.mysqlConnector(option_files=("/home/rail/github/back_end/pythonFiles/.config/mysql.cnf"),database=self.database)
+			self.mysqlConnection = sql.mysqlConnector(option_files=(PATH+".config/mysql.cnf"),database=self.database)
 			#self.cursor = self.mysqlConnection.cursor(dictionary=True)
 			logging.info("Connection successful")
 		else:

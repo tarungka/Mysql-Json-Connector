@@ -58,7 +58,7 @@ class mysqlConnector():
             	logging.critical(str(err.msg))
         except Exception as e:
             logging.critical("Error in connecting to the database:"+str(e))
-            UserDefinedError("Error in connecting to the database")
+            UserDefinedError("Error please check the logs!")
 
 
     def _getConnection(self):
@@ -259,6 +259,32 @@ class mysqlConnector():
         response = self.cursor.fetchall()
         logging.debug(response)
         return response
+
+    def procedure(self,procedure_name,procedure_parameters,procedures):
+        logging.info("Generating PROCEDURE query(%s)" % (procedure_name))
+        finalQuery = "CREATE PROCEDURE `" + procedure_name + "` ("
+        if(procedure_parameters):
+            for index,element in enumerate(procedure_parameters):
+                if(index == 0):
+                    finalQuery = finalQuery + element
+                    continue
+                finalQuery = finalQuery + "," + element
+        finalQuery = finalQuery + ") BEGIN "
+        for element in procedures:
+            finalQuery = finalQuery + element
+        finalQuery = finalQuery + "END"
+        self.cursor.execute(finalQuery)
+
+    def trigger(self,trigger_name,trigger_time,database_name,table_name,queries):
+        logging.info("Generating TRIGGER query(%s)" % (trigger_name))
+        finalQuery = "CREATE TRIGGER `" + trigger_name + "` " + trigger_time + " ON `" + database_name + "`.`" + table_name + "` FOR EACH ROW BEGIN "
+        for aQuery in queries:
+            finalQuery = finalQuery + aQuery
+        finalQuery = finalQuery + "END"
+        logging.debug(finalQuery)
+        # self.cursor.execute("DELIMITER $$")
+        self.cursor.execute(finalQuery)
+        # self.cursor.execute("DELIMITER ;")
 
     def drop(self,what,db_name):
         """

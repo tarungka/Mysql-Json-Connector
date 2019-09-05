@@ -1,7 +1,4 @@
 {
-    "host": "localhost",
-    "user": "testuser",
-    "password": "testpassword",
     "databases": {
         "rail_test_db": {
             "tables": {
@@ -20,7 +17,7 @@
                         "login_status": "BOOLEAN DEFAULT 0",
                         "component_status": "BOOLEAN DEFAULT 0",
                         "most_recent_login": "DATETIME DEFAULT NULL",
-                        "time_in_rail": "VARCHAR(20) DEFAULT NULL",
+                        "time_in_rail": "TIME DEFAULT NULL",
                         "team_hash": "CHAR(8) DEFAULT NULL",
                         "current_role": "ENUM('MEMBER','TEAM_LEAD') NOT NULL",
                         "review_dt_type": "ENUM('GOOD','AVERAGE','BAD') DEFAULT NULL"
@@ -61,6 +58,7 @@
                 },
                 "projs": {
                     "table_constrains": {
+                        "project_id": "CHAR(10) NOT NULL",
                         "team_hash": "CHAR(8) NOT NULL",
                         "project_name": "VARCHAR(30) NOT NULL",
                         "project_description": "VARCHAR(200) NOT NULL",
@@ -74,8 +72,8 @@
                         "project_lead": "CHAR(10) NOT NULL",
                         "status": "VARCHAR(20) NOT NULL",
                         "priority": "VARCHAR(20) NOT NULL",
-                        "technology_stack": "VARCHAR(50) NOT NULL",
-                        "project_id": "CHAR(10) NOT NULL"
+                        "project_man_hours": "TIME DEFAULT NULL",
+                        "technology_stack": "VARCHAR(50) NOT NULL"
                     },
                     "read_list": null,
                     "index_constrains": null,
@@ -100,7 +98,10 @@
                     },
                     "read_list": null,
                     "index_constrains": [
-                        ["team_hash","rail_id"]
+                        [
+                            "team_hash",
+                            "rail_id"
+                        ]
                     ],
                     "primary_key": null,
                     "foreign_key": [
@@ -301,7 +302,7 @@
                         "time_of_issue": "DATETIME DEFAULT NOW()",
                         "time_of_return": "DATETIME",
                         "time_of_use": "TIME",
-                        "project_id"    :"CHAR(10) NOT NULL"
+                        "project_id": "CHAR(10) NOT NULL"
                     },
                     "read_list": null,
                     "index_constrains": null,
@@ -367,5 +368,53 @@
                 }
             }
         }
-    }
+    },
+    "procedures": [
+        {
+            "procedure_name": "update_studs_most_recent_login",
+            "procedure_parameters": [
+                "IN id CHAR(10)",
+                "IN time DATETIME"
+            ],
+            "procedures": "UPDATE studs SET most_recent_login=time WHERE rail_id=id;"
+        }
+    ],
+    "triggers": [
+        {
+            "trigger_name": "projs_BEFORE_INSERT",
+            "trigger_time": "BEFORE INSERT",
+            "database_name": "rail_test_db",
+            "table_name": "projs",
+            "queries": [
+                "INSERT INTO all_purposes SET purpose = NEW.project_id;"
+            ]
+        },
+        {
+            "trigger_name": "events_BEFORE_INSERT",
+            "trigger_time": "BEFORE INSERT",
+            "database_name": "rail_test_db",
+            "table_name": "events",
+            "queries": [
+                "INSERT INTO all_purposes SET purpose = NEW.event_id;"
+            ]
+        },
+        {
+            "trigger_name": "events_AFTER_INSERT",
+            "trigger_time": "AFTER INSERT",
+            "database_name": "rail_test_db",
+            "table_name": "attendance",
+            "queries": [
+                "IF  SET purpose = NEW.event_id;"
+            ]
+        },
+        {
+            "trigger_name": "attendance_BEFORE_UPDATE",
+            "trigger_time": "BEFORE UPDATE",
+            "database_name": "rail_test_db",
+            "table_name": "attendance",
+            "queries": [
+                "IF OLD.time_spent IS NULL THEN SET NEW.time_spent=TIMEDIFF(NEW.time_out,OLD.time_in); END IF;"
+            ]
+        }
+    ]
 }

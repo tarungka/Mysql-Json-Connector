@@ -45,7 +45,22 @@ def main(jsonCnf):
 			db.create("table",table,dictionary=dictionary,primaryKey=primaryKey,foreignKeys=foreignKeys,indexAttributes=index)
 			print("(success)")
 			logging.info("Creating table %s ...(success)" % (table))
-
+	# proc = jsonCnf["procedures"]
+	# if(proc):
+		# print("Creating procedures ...")
+		# logging.info("Creating procedures ...")
+		# for procedure in proc:
+			# db.procedure(procedure_name=procedure["procedure_name"],procedure_parameters=procedure["procedure_parameter"],procedures=procedure["procedures"])
+			# logging.info("Creating trigger on database {} trigger name {} ...(success)".format(trigger["database_name"],trigger["trigger_name"]))
+			# logging.info("Creating trigger on database {} trigger name {} ...(success)".format(trigger["database_name"],trigger["trigger_name"]))
+	triggers = jsonCnf["triggers"]
+	if(triggers):
+		print("Creating triggers ...")
+		logging.info("Creating triggers ...")
+		for trigger in triggers:
+			db.trigger(trigger_name=trigger["trigger_name"],trigger_time=trigger["trigger_time"],database_name=trigger["database_name"],table_name=trigger["table_name"],queries=trigger["queries"])
+			logging.info("Creating trigger on database {} trigger name {} ...(success)".format(trigger["database_name"],trigger["trigger_name"]))
+			print("Creating trigger on database {} trigger name {} ...(success)".format(trigger["database_name"],trigger["trigger_name"]))
 
 if __name__ == '__main__':
 	logging.info("Start of setup.py")
