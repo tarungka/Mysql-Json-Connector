@@ -45,14 +45,14 @@ def main(jsonCnf):
 			db.create("table",table,dictionary=dictionary,primaryKey=primaryKey,foreignKeys=foreignKeys,indexAttributes=index)
 			print("(success)")
 			logging.info("Creating table %s ...(success)" % (table))
-	# proc = jsonCnf["procedures"]
-	# if(proc):
-		# print("Creating procedures ...")
-		# logging.info("Creating procedures ...")
-		# for procedure in proc:
-			# db.procedure(procedure_name=procedure["procedure_name"],procedure_parameters=procedure["procedure_parameter"],procedures=procedure["procedures"])
-			# logging.info("Creating trigger on database {} trigger name {} ...(success)".format(trigger["database_name"],trigger["trigger_name"]))
-			# logging.info("Creating trigger on database {} trigger name {} ...(success)".format(trigger["database_name"],trigger["trigger_name"]))
+	proc = jsonCnf["procedures"]
+	if(proc):
+		print("Creating procedures ...")
+		logging.info("Creating procedures ...")
+		for procedure in proc:
+			db.procedure(procedure_name=procedure["procedure_name"],procedure_parameters=procedure["procedure_parameters"],procedures=procedure["procedures"])
+			print("Creating trigger {} ...(success)".format(procedure["procedure_name"]))
+			logging.info("Creating trigger {} ...(success)".format(procedure["procedure_name"]))
 	triggers = jsonCnf["triggers"]
 	if(triggers):
 		print("Creating triggers ...")
