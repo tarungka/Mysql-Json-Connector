@@ -22,10 +22,10 @@ def main(jsonCnf):
     for databaseName in allDatabases:
         try:
             db.use(databaseName)
-            # answer = input(
-            #     "Database %s is present, are you sure you want to drop it(Y/N)?" % (databaseName))
-            print("Change the default drop to an option IT IS CURRENTLY DEFAULT YES!!!!!!!!!")
-            answer = 'y'
+            answer = input(
+                "Database %s is present, are you sure you want to drop it(Y/N)?" % (databaseName))
+            # print("Change the default drop to an option IT IS CURRENTLY DEFAULT YES!!!!!!!!!")
+            # answer = 'y'
             if(answer == 'y' or answer == 'Y'):
                 db.drop("database", databaseName)
                 logging.info("Database " + databaseName + " was dropped.")

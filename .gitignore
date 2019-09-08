@@ -3,3 +3,5 @@ __*
 *.smpl
 .vscode
 mysql.cnf
+dataForDatabase/
+testdata.sh

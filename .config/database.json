@@ -36,7 +36,7 @@
                             "usn"
                         ]
                     ],
-                    "primary_key": "usn",
+                    "primary_key": "railid",
                     "foreign_key": null
                 },
                 "teams": {
@@ -412,7 +412,7 @@
             ]
         },
         {
-            "trigger_name": "events_AFTER_INSERT",
+            "trigger_name": "attendance_AFTER_INSERT",
             "trigger_time": "AFTER INSERT",
             "database_name": "rail_test_db",
             "table_name": "attendance",

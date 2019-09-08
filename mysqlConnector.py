@@ -127,8 +127,8 @@ class mysqlConnector():
                 self.cursor.execute(query)
             except mysql.connector.ProgrammingError as err:
                 NonCriticalError("MYSQL ERROR:{}".format(err))
-            except:
-                UserDefinedError("Error not handeled!")
+            except Exception as e:
+                UserDefinedError("Error not handeled!:{}".format(str(e)))
         else:
             logging.debug("executeQuery called with no arguments")
 
@@ -462,6 +462,7 @@ class mysqlConnector():
         """
         Commits the changes made!
         """
+        logging.warning("COMMITTING CHANGES TO DATABASE.")
         self.mysqlConnection.commit()
 
     def closeConnection_(self):
