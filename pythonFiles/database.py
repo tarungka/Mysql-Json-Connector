@@ -8,8 +8,6 @@ import mysqlConnector as sql
 import analytics
 import logging
 import os
-# import # logger
-#import query
 
 logging.basicConfig(
         filename='railApplication.log',
@@ -19,8 +17,6 @@ logging.basicConfig(
     )
 
 PATH = "/home/tarun/github/rail/pythonFiles/"
-
-# logger =  # logger.logIt(__file__)
 
 class main:
 	'''
@@ -72,12 +68,12 @@ class main:
 
 	def setConnection(self,connection=None):	#Establishes a connection between the script and the mysql database
 		if(connection == None):
-			logging.info("Connecting to the database -- AUTO COMMIT IS ON NEED TO WRITE SAVEPOINT AND ROLLBACK STATEMENTS!")
+			# logging.info("Connecting to the database -- AUTO COMMIT IS ON NEED TO WRITE SAVEPOINT AND ROLLBACK STATEMENTS!")
 			self.mysqlConnection = sql.mysqlConnector(option_files=(PATH+".config/mysql.cnf"),database=self.database)
 			#self.cursor = self.mysqlConnection.cursor(dictionary=True)
 			logging.info("Connection successful")
 		else:
-			logging.info("This conneciton in inherited from the calling function/script.")
+			logging.info("This connection in inherited from the calling function/script.")
 			self.mysqlConnection = connection
 		return
 		#################################################

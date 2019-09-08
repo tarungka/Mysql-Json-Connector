@@ -9,15 +9,15 @@
                         "student_name": "VARCHAR(100) NOT NULL",
                         "gender": "CHAR(1) NOT NULL",
                         "date_of_birth": "DATE NOT NULL",
-                        "time_of_joining_rail": "DATETIME DEFAULT NOW()",
+                        "time_of_joining_rail": "DATETIME NOT NULL DEFAULT NOW()",
                         "phone_number": "VARCHAR(10) NOT NULL",
                         "email": "VARCHAR(40) NOT NULL",
-                        "projects_done": "INT UNSIGNED DEFAULT 0",
-                        "branch": "VARCHAR(3) NOT NULL",
-                        "login_status": "BOOLEAN DEFAULT 0",
-                        "component_status": "BOOLEAN DEFAULT 0",
+                        "projects_done": "INT(3) UNSIGNED NOT NULL DEFAULT 0",
+                        "branch": "CHAR(2) NOT NULL",
+                        "login_status": "ENUM('YES','NO') NOT NULL DEFAULT 'NO'",
+                        "component_status": "ENUM('YES','NO') NOT NULL DEFAULT 'NO'",
                         "most_recent_login": "DATETIME DEFAULT NULL",
-                        "time_in_rail": "TIME DEFAULT NULL",
+                        "time_in_rail": "TIME NOT NULL DEFAULT '00:00:00'",
                         "current_role": "ENUM('MEMBER','TEAM_LEAD') NOT NULL",
                         "review_dt_type": "ENUM('GOOD','AVERAGE','BAD') DEFAULT NULL"
                     },
@@ -71,7 +71,7 @@
                         "project_lead": "CHAR(10) NOT NULL",
                         "status": "VARCHAR(20) NOT NULL",
                         "priority": "VARCHAR(20) NOT NULL",
-                        "project_man_hours": "TIME DEFAULT NULL",
+                        "project_man_hours": "TIME NOT NULL DEFAULT '00:00:00'",
                         "technology_stack": "VARCHAR(50) NOT NULL"
                     },
                     "read_list": null,
@@ -214,7 +214,7 @@
                 "staff_attendance": {
                     "table_constrains": {
                         "admin_id": "VARCHAR(10) NOT NULL",
-                        "time_in": "DATETIME DEFAULT NOW()",
+                        "time_in": "DATETIME NOT NULL DEFAULT NOW()",
                         "time_out": "DATETIME DEFAULT NULL",
                         "time_spent": "TIME DEFAULT NULL"
                     },
@@ -251,15 +251,15 @@
                 "components": {
                     "table_constrains": {
                         "component_id": "CHAR(10) NOT NULL",
-                        "component_name": "VARCHAR(55) NOT NULL",
-                        "date_of_procurement": "DATE",
-                        "if_kit": "ENUM('YES','NO') DEFAULT 'NO'",
-                        "associated_colour": "VARCHAR(20)",
-                        "number_of_times_issued": "INT UNSIGNED DEFAULT '0'",
-                        "group": "VARCHAR(15) NOT NULL",
-                        "component_status": "ENUM('YES','NO') DEFAULT 'NO'",
-                        "most_recent_issue": "DATETIME",
-                        "total_time_of_use": "VARCHAR(20)"
+                        "component_name": "VARCHAR(60) NOT NULL",
+                        "date_of_procurement": "DATE NOT NULL",
+                        "if_kit": "ENUM('YES','NO') NOT NULL DEFAULT 'NO'",
+                        "associated_colour": "VARCHAR(20) NOT NULL",
+                        "number_of_times_issued": "INT UNSIGNED NOT NULL DEFAULT '0'",
+                        "group": "VARCHAR(20) NOT NULL",
+                        "component_status": "ENUM('YES','NO') NOT NULL DEFAULT 'NO'",
+                        "most_recent_issue": "DATETIME DEFAULT NULL",
+                        "total_time_of_use": "TIME NOT NULL DEFAULT '00:00:00'"
                     },
                     "read_list": null,
                     "index_constrains": null,
@@ -298,7 +298,7 @@
                         "component_id": "CHAR(10) NOT NULL",
                         "issued_to": "VARCHAR(10) NOT NULL",
                         "team_hash": "CHAR(6) NOT NULL",
-                        "time_of_issue": "DATETIME DEFAULT NOW()",
+                        "time_of_issue": "DATETIME NOT NULL DEFAULT NOW()",
                         "time_of_return": "DATETIME",
                         "time_of_use": "TIME",
                         "project_id": "CHAR(10) NOT NULL"
