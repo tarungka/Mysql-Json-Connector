@@ -261,7 +261,7 @@ The following are the queries generated and executed by the connector:
 CREATE DATABASE `test_db`;
 ```
 
-### To create the tables:
+###### To create the tables:
 ```sql
 --TABLE students
 CREATE TABLE students(`name` VARCHAR(60) NOT NULL,`id` CHAR(10) NOT NULL,`login_status` ENUM('YES','NO') NOT NULL DEFAULT 'NO',PRIMARY KEY(id),INDEX(`id`),INDEX(`id`,`name`));
