@@ -1,10 +1,10 @@
 # **RESEARCH AND INNOVATION LAB**
-### **Rail Management**
-### This the backend to connect to the mysql database of the RAIL application.
+### **PROJECT : Rail Management**
 ---
 An application dedicated to run the Research and Innovation Lab(RAIL) at Govt.SKSJTI college of Engineering,Bangalore,India
 ---
 ### **Developers** : **[Tarun Gopalkrishna A](https://github.com/Kinngman05)**
+### This the backend to connect to the mysql database of the RAIL application.
 
 ## **Requirements and Installations**
 #### **Database:**
@@ -236,7 +236,6 @@ The following has *1 database*,*3 tables*,*2 procedures*,*2 triggers*.
       "database_name": "test_db",
       "table_name": "attendance",
       "queries": [
-        "CALL update_studs_most_recent_login(NEW.rail_id,NEW.time_in);",
         "CALL set_login_status_to_True(NEW.id);"
       ]
     },
@@ -283,7 +282,23 @@ CREATE TRIGGER `events_AFTER_INSERT` AFTER INSERT ON `test_db`.`attendance` FOR 
 CREATE TRIGGER `attendance_BEFORE_UPDATE` BEFORE UPDATE ON `test_db`.`attendance` FOR EACH ROW BEGIN IF OLD.time_spent IS NULL THEN SET NEW.time_spent=TIMEDIFF(NEW.time_out,OLD.time_in); END IF;CALL set_login_status_to_False(NEW.id);END
 ```
 
-### **This documentation incomplete, will we completed ASAP!**
+##### To peform `CRUD` operations on the created database:
+> Refer the `json_sekelton_config` for the minimum json format needed to peform any opereaion on the database.
+
+###### To inserting records into the created database:
+
+```bash
+echo "Registering a student"
+./database.py '{"HEADER":{"DATABASE":"test_db","TABLE_NAME":"students","REQUEST_TYPE":"insert"},"DATA":{"FIELDS":{"id":"TEST_ID_01","name":"Tester"},"SET":null,"WHERE":null},"FOOTER":{"DATA ABOUT THE REQUEST":"reg_stud","COMMENT":"","UPDATE":null,"DEP":null}}'
+echo "Registering team"
+./database.py '{"HEADER":{"DATABASE":"test_db","TABLE_NAME":"teams","REQUEST_TYPE":"insert"},"DATA":{"FIELDS":{"team_hash":"TST_TM","team_name":"TESTING TEAM","team_lead":"TEST_ID_01"},"SET":null,"WHERE":null},"FOOTER":{"DATA ABOUT THE REQUEST":"reg_team","COMMENT":"","UPDATE":null,"DEP":null}}'
+```
+When inserting into `attendace` we can set a trigger(i.e `attendance_AFTER_INSERT`) in the intial setup of the database(like we have) or  we could use the following format:
+```bash
+echo "Student login"
+./database.py '{"HEADER":{"DATABASE":"test_db","TABLE_NAME":"attendance","REQUEST_TYPE":"insert"},"DATA":{"FIELDS":{"team_hash":"TST_TM","team_name":"TESTING TEAM","id":"TEST_ID_01"},"SET":null,"WHERE":null},"FOOTER":{"DATA ABOUT THE REQUEST":"login","COMMENT":"","UPDATE":[{"HEADER":{"DATABASE":"test_db","TABLE_NAME":"students","REQUEST_TYPE":"update"},"DATA":{"FIELDS":null,"SET":{"login_status":"YES"},"WHERE":{"id":"TEST_ID_01"}},"FOOTER":{"DATA ABOUT THE REQUEST":"login","COMMENT":"","UPDATE":null,"DEP":null}}],"DEP":null}}'
+```
+>If you are using the trigger then set the "UPDATE" field within the "FOOTER" to null in the outer query.
 
 #### **Mentor and Idea by**
  - Prof.Mahadevaiah Siddaiah

@@ -1,4 +1,5 @@
-//BARE MINIMUN FOR THE JSON FORMAT
+###BARE MINIMUM FOR THE JSON FORMAT(A GENERAL FORMAT)
+```json
 {
     "HEADER"    :   {
         "DATABASE"          : "",
@@ -13,12 +14,13 @@
     "FOOTER"    :   {
         "DATA ABOUT THE REQUEST"  : "",
         "COMMENT"   : "",
-        "UPDATE"    : [],
-        "DEP"       : []
+        "UPDATE"    : null,
+        "DEP"       : null
     }
 }
-
-//FOR A SELECT STATEMENT
+```
+###FOR A SELECT STATEMENT
+```json
 {
     "HEADER"    :   {
         "DATABASE"          : "",
@@ -33,11 +35,13 @@
     "FOOTER"    :   {
         "DATA ABOUT THE REQUEST"  : "",
         "COMMENT"   : "",
-        "UPDATE"    : [],
-        "DEP"       : []
+        "UPDATE"    : null,
+        "DEP"       : null
     }
 }
-//FOR A INSERT STATEMENT
+```
+###FOR AN INSERT STATEMENT
+```json
 {
     "HEADER"    :   {
         "DATABASE"          : "",
@@ -52,11 +56,13 @@
     "FOOTER"    :   {
         "DATA ABOUT THE REQUEST"  : "",
         "COMMENT"   : "",
-        "UPDATE"    : [],
-        "DEP"       : []
+        "UPDATE"    : null,
+        "DEP"       : null
     }
 }
-//FOR A UPDATE STATEMENT
+```
+###FOR AN UPDATE STATEMENT
+```json
 {
     "HEADER"    :   {
         "DATABASE"          : "",
@@ -71,11 +77,13 @@
     "FOOTER"    :   {
         "DATA ABOUT THE REQUEST"  : "",
         "COMMENT"   : "",
-        "UPDATE"    : [],
-        "DEP"       : []
+        "UPDATE"    : null,
+        "DEP"       : null
     }
 }
-//FOR A DELETE STATEMENT -- HAS NOT BEEN IMPLEMENTD YET, WILL BE IN THE LATER VERSION OF THE THE APP
+```
+###FOR A DELETE STATEMENT -- HAS NOT BEEN IMPLEMENTED YET, WILL BE IN THE LATER VERSION OF THE THE APP
+```json
 {
     "HEADER"    :   {
         "DATABASE"          : "",
@@ -90,8 +98,9 @@
     "FOOTER"    :   {
         "DATA ABOUT THE REQUEST"  : "",
         "COMMENT"   : "",
-        "UPDATE"    : [],
-        "DEP"       : []
+        "UPDATE"    : null,
+        "DEP"       : null
     }
 }
-//FOR A ALTER STATEMENT -- HAS NOT BEEN DEFINED YET(PROBABLY WILL NEVER BE DEFINED AS THERE NEVER MIGHT BE A USE FOR IT)
+```
+###FOR A ALTER STATEMENT -- HAS NOT BEEN DEFINED YET(PROBABLY WILL NEVER BE DEFINED AS THERE NEVER MIGHT BE A USE FOR IT)
