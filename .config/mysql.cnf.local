@@ -1,5 +1,0 @@
-[client]
-user=testuser
-password=testpassword
-port=3306
-### database=rail_db_final_test

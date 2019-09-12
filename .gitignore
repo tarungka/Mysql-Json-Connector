@@ -5,3 +5,4 @@ __*
 mysql.cnf
 dataForDatabase/
 testdata.sh
+.config/

@@ -37,7 +37,7 @@ class NonCriticalError(Exception):
     """Called when there is an error from mysql but is not critical"""
 
     def __init__(self, errorMessage):
-        logging.info(errorMessage)
+        logging.warning(errorMessage)
         print(errorMessage)
 
 
@@ -62,7 +62,7 @@ class mysqlConnector():
                 logging.info("Connection successful")
         except KeyError:
             logging.info("Creating a new connection with arguments")
-            logging.debug("The arguments are", kwargs)
+            logging.debug("The arguments are:"+str(kwargs))
             self.mysqlConnection = mysql.connector.connect(**kwargs)
             self.cursor = self.mysqlConnection.cursor(dictionary=True)
             logging.info("Connection successful")
@@ -101,21 +101,32 @@ class mysqlConnector():
         """
         returnData = []
         for data in dataList:
-            for tableName in tableNames:
-                val = [m.start() for m in finditer(tableName, data)]
-                if(val and ("." in data)):
-                    if("=" in data):
-                        returnData.append(
-                            "=".join(self._add_back_ticks(tableNames, data.split("="))))
-                        break
-                    else:
-                        if(len(val) != 1):
-                            raise UserDefinedError(
-                                "The list must contain only one element")
-                        x = data[0:val[0]+len(tableName)+1]
-                        y = "`" + (data)[val[0]+len(tableName)+1:] + "`"
-                        returnData.append(x+y)
-        return returnData
+            if("." in dataList and (dataList[-1] != "`" and dataList[0] != "`")):
+                db,tbl = data.split(".")
+                returnData.append("`"+db+"`.`"+tbl+"`")
+            else:
+                returnData.append("`"+data+"`")
+        # for data in dataList:
+        #     for tableName in tableNames:
+        #         val = [m.start() for m in finditer(tableName, data)]
+        #         if(val and ("." in data)):
+        #             if("=" in data):
+        #                 returnData.append(
+        #                     "=".join(self._add_back_ticks(tableNames, data.split("="))))
+        #                 break
+        #             else:
+        #                 if(len(val) != 1):
+        #                     raise UserDefinedError(
+        #                         "The list must contain only one element")
+        #                 x = data[0:val[0]+len(tableName)+1]
+        #                 y = "`" + (data)[val[0]+len(tableName)+1:] + "`"
+        #                 returnData.append(x+y)
+        if((returnData == None) or (returnData == [])):
+            logging.critical("Method FAILED TO PERFORM INTENDEND ACTION")
+            raise UserDefinedError("CRITICAL:mysqlConnector module failed!")
+        else:
+            #print("RET_DATA__::__::",returnData)
+            return returnData
 
     def executeQuery(self, query=None):
         """
@@ -186,7 +197,7 @@ class mysqlConnector():
             }
 
             `index` is a list of lists with index constraint:
-            Example:[["id","phone_number"],["phone_numbe"]]
+            Example:[["id","phone_number"],["phone_number"]]
         """
         whatUpper = what.upper()
         logging.info("Generating CREATE query for %s(%s) ..." %
@@ -376,7 +387,7 @@ class mysqlConnector():
         # logging.debug(finalQuery)
         self.executeQuery(finalQuery)
         response = self.cursor.fetchall()
-        logging.debug("The response from SELECT is:", response)
+        logging.debug("The response from SELECT is:"+str(response))
         return response
 
     def procedure(self, procedure_name, procedure_parameters, procedures):

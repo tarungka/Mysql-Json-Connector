@@ -16,7 +16,22 @@ logging.basicConfig(
         level=logging.DEBUG
     )
 
-PATH = "/home/tarun/github/rail/pythonFiles/"
+PATH = None
+pathToExeFromCurDir = sys.argv[0]
+current_directory = os.getcwd()
+#print(current_directory)
+#print(pathToExeFromCurDir)
+if(pathToExeFromCurDir.startswith("/")):
+	#print("AbsolutePath")
+	PATH = pathToExeFromCurDir
+elif(pathToExeFromCurDir.startswith(".")):
+	#print("RelativePath with current directory specified.")
+	PATH = current_directory + pathToExeFromCurDir[1:]
+else:
+	#print("RelativePath")
+	PATH = current_directory + "/" + pathToExeFromCurDir
+PATH = PATH.rsplit("/",1)[0] + "/"
+logging.debug(PATH)
 
 class main:
 	'''
@@ -101,6 +116,7 @@ class main:
 				else:
 					logging.info("The condition flag is being set to False")
 					self.conditionFlag = False
+					logging.warning("THIS CURRENT DEPENDICY HAS FAILED!!! ABORTING TRANSACTION")
 					break
 		else:
 			logging.info("conditionList is null")
@@ -116,7 +132,10 @@ class main:
 			elif(self.requestType == "update"):
 				self.mysqlConnection.update(self.getTable(),self.setClause,self.whereClause)
 			elif(self.requestType == "select"):
-				return self.mysqlConnection.select([self.getTable()],self.fields,self.whereClause)
+				try:
+					return self.mysqlConnection.select([self.getTable()],self.fields,self.whereClause)
+				except AssertionError as err:
+					logging.critical("ASSERTION ERROR IN SELECT("+str(type([self.getTable()]))+","+str(type(self.fields))+","+str(type(self.whereClause))+")")
 			elif(self.requestType == "alter"):
 				logging.warning("ALTER IS NOT SUPPORTED YET, WILL BE ADDED IN A NEWER VERSION!")
 			if(self.updateList):
@@ -134,6 +153,8 @@ class main:
 					exit(0)
 			if(self.levelNumber == 0):
 				self.mysqlConnection.commitChanges()
+		else:
+			logging.critical("Queries condition has not executed")
 
 
 	def generateAnalytics(self):		#Write # logger function for this
@@ -143,8 +164,11 @@ class main:
 		if(self.conditionFlag == False):
 			return
 		else:
-			genAnalytics = analytics.analytics(self.mysqlConnection,**self.analyticsArguments)
-			genAnalytics.generateAnalytics(self.runCondition)
+			try:
+				genAnalytics = analytics.analytics(self.mysqlConnection,**self.analyticsArguments)
+				genAnalytics.generateAnalytics(self.runCondition)
+			except AttributeError as err:
+				logging.warning("This may occur when it is a SELECT statement. ERROR:"+str(err))
 		return
 
 
@@ -158,6 +182,7 @@ if __name__ == '__main__':
 		process.generateAnalytics()
 	else:
 		logging.critical("Invalid number of arguments was passed the script.")
+		logging.info(sys.argv)
 	logging.info("End of database.py")
 else:
 	print("This code does not support being imported as a module")
