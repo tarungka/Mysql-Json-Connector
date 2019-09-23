@@ -9,12 +9,6 @@ import analytics
 import logging
 import os
 
-logging.basicConfig(
-        filename='railApplication.log',
-        format='%(asctime)s.%(msecs)-3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S',
-        level=logging.DEBUG
-    )
 
 PATH = None
 pathToExeFromCurDir = sys.argv[0]
@@ -31,7 +25,16 @@ else:
 	#print("RelativePath")
 	PATH = current_directory + "/" + pathToExeFromCurDir
 PATH = PATH.rsplit("/",1)[0] + "/"
-logging.debug(PATH)
+
+
+
+logging.basicConfig(
+        filename= PATH+'railApplication.log',
+        format='%(asctime)s.%(msecs)-3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',
+        level=logging.DEBUG
+    )
+
 
 class main:
 	'''
@@ -135,7 +138,7 @@ class main:
 				try:
 					return self.mysqlConnection.select([self.getTable()],self.fields,self.whereClause)
 				except AssertionError as err:
-					logging.critical("ASSERTION ERROR IN SELECT("+str(type([self.getTable()]))+","+str(type(self.fields))+","+str(type(self.whereClause))+")")
+					logging.critical("ASSERTION ERROR IN SELECT("+str(type([self.getTable()]))+","+str(type(self.fields))+","+str(type(self.whereClause))+") or could be "+str(err))
 			elif(self.requestType == "alter"):
 				logging.warning("ALTER IS NOT SUPPORTED YET, WILL BE ADDED IN A NEWER VERSION!")
 			if(self.updateList):
@@ -154,7 +157,7 @@ class main:
 			if(self.levelNumber == 0):
 				self.mysqlConnection.commitChanges()
 		else:
-			logging.critical("Queries condition has not executed")
+			logging.critical("Queries condition has not been executed")
 
 
 	def generateAnalytics(self):		#Write # logger function for this
@@ -176,6 +179,7 @@ class main:
 if __name__ == '__main__':
 	logging.info("Start of database.py")
 	if(len(sys.argv) == 2):
+		logging.debug("The path is:"+PATH)
 		process = main(sys.argv[1],0)
 		process.setConnection()
 		process.processRequest()

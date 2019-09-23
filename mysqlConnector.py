@@ -3,10 +3,28 @@ import mysql.connector
 from mysql.connector import errorcode
 import logging
 from re import finditer
+import os
+import sys
+
+PATH = None
+pathToExeFromCurDir = sys.argv[0]
+current_directory = os.getcwd()
+#print(current_directory)
+#print(pathToExeFromCurDir)
+if(pathToExeFromCurDir.startswith("/")):
+	#print("AbsolutePath")
+	PATH = pathToExeFromCurDir
+elif(pathToExeFromCurDir.startswith(".")):
+	#print("RelativePath with current directory specified.")
+	PATH = current_directory + pathToExeFromCurDir[1:]
+else:
+	#print("RelativePath")
+	PATH = current_directory + "/" + pathToExeFromCurDir
+PATH = PATH.rsplit("/",1)[0] + "/"
 
 
 logging.basicConfig(
-    filename='railApplication.log',
+    filename= PATH+'railApplication.log',
     format='%(asctime)s.%(msecs)-3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
     datefmt='%Y-%m-%d %H:%M:%S',
     level=logging.DEBUG
@@ -42,10 +60,12 @@ class NonCriticalError(Exception):
 
 
 class mysqlConnector():
+
     """
     This class is used to connect to the mysql database and perform basic mysql processes.
     It supports CREATE,USE,INSERT,UPDATE,DELETE,SELECT,DROP,PROCEDURE AND TRIGGER functionalities.
     It supports only WHERE condition as of now(ONLY ONE VALUE CAN BEW MATCHED)
+    Check if you must use == or is for comparing the datatypes for assert in the functions
     """
 
     def __init__(self, **kwargs):
@@ -95,38 +115,32 @@ class mysqlConnector():
         """
         return self.cursor
 
-    def _add_back_ticks(self, tableNames, dataList):
+    def _add_back_ticks(self, dataList):
         """
         Add backticks to the database name and the table name to avoid mysql query errors.
         """
-        returnData = []
-        for data in dataList:
-            if("." in dataList and (dataList[-1] != "`" and dataList[0] != "`")):
-                db,tbl = data.split(".")
-                returnData.append("`"+db+"`.`"+tbl+"`")
+        logging.warning("THIS METHOD IS NEW AND COULD BE BUGGY, CONTACT DEVELOPER IN CASE OF ERROR!")
+        try:
+            assert (type(dataList) is list)
+            logging.debug("Input data is"+str(dataList))
+            returnData = []
+            for data in dataList:
+                if("." in data and (data[-1] != "`" and data[0] != "`")): #This is still buggy
+                    db,tbl = data.split(".")
+                    returnData.append("`"+db+"`.`"+tbl+"`")
+                else:
+                    returnData.append("`"+data+"`")
+            if((returnData == None) or (returnData == [])):
+                logging.critical("Method FAILED TO PERFORM INTENDEND ACTION")
+                raise UserDefinedError("CRITICAL:mysqlConnector module failed!")
             else:
-                returnData.append("`"+data+"`")
-        # for data in dataList:
-        #     for tableName in tableNames:
-        #         val = [m.start() for m in finditer(tableName, data)]
-        #         if(val and ("." in data)):
-        #             if("=" in data):
-        #                 returnData.append(
-        #                     "=".join(self._add_back_ticks(tableNames, data.split("="))))
-        #                 break
-        #             else:
-        #                 if(len(val) != 1):
-        #                     raise UserDefinedError(
-        #                         "The list must contain only one element")
-        #                 x = data[0:val[0]+len(tableName)+1]
-        #                 y = "`" + (data)[val[0]+len(tableName)+1:] + "`"
-        #                 returnData.append(x+y)
-        if((returnData == None) or (returnData == [])):
-            logging.critical("Method FAILED TO PERFORM INTENDEND ACTION")
-            raise UserDefinedError("CRITICAL:mysqlConnector module failed!")
-        else:
-            #print("RET_DATA__::__::",returnData)
-            return returnData
+                logging.debug("Output data is"+str(returnData))
+                return returnData
+        except AssertionError as err:
+            logging.critical("dataList must be of list type but is of type"+str(type(dataList)))
+            UserDefinedError("CRITICAL ERROR")
+        except Exception as err:
+            UserDefinedError("Exception not handeled:"+str(err))
 
     def executeQuery(self, query=None):
         """
@@ -207,7 +221,7 @@ class mysqlConnector():
                 logging.info(
                     "dictionary passed is empty(null) ... aborting create")
                 return
-            finalQuery = ("CREATE " + whatUpper + " " + nameOfWhat + "(")
+            finalQuery = ("CREATE " + whatUpper + " `" + nameOfWhat + "`(")
             key = list(dictionary.keys())
             value = list(dictionary.values())
             length = len(key)
@@ -216,7 +230,7 @@ class mysqlConnector():
                 finalQuery = (finalQuery + ",`" +
                               key[index + 1] + "` " + value[index + 1])
             if(primaryKey):
-                finalQuery = finalQuery + ",PRIMARY KEY(" + primaryKey + ")"
+                finalQuery = finalQuery + ",PRIMARY KEY(`" + primaryKey + "`)"
             if(foreignKeys):
                 for number, eachKey in enumerate(foreignKeys):
                     constraintName = eachKey['constraint_name']
@@ -251,10 +265,8 @@ class mysqlConnector():
                         finalQuery = finalQuery + "," + "`" + element + "`"
                     finalQuery = finalQuery + ")"
             finalQuery = finalQuery + ");"
-            # logging.debug(finalQuery)
         elif(whatUpper == "DATABASE"):
             finalQuery = ("CREATE " + whatUpper + " `" + nameOfWhat + "`;")
-            # logging.debug(finalQuery)
         else:
             logging.warning(
                 "THIS FUNCTION CAN ONLY CREATE ONLY 'TABLE' AND 'DATABASE'")
@@ -265,9 +277,8 @@ class mysqlConnector():
         Generates a USE query.
         """
         logging.info("Creating USE query({})".format(databaseName))
-        finalQuery = "USE {};".format(databaseName)
+        finalQuery = "USE {};".format("".join(self._add_back_ticks([databaseName])))
         self.executeQuery(finalQuery)
-        # logging.debug(finalQuery)
 
     def insert(self, tableName, insDict):
         """
@@ -276,7 +287,7 @@ class mysqlConnector():
         `insDict` is a dict datatype with key as column name and value as the value to insert.
         """
         logging.info("Generating CREATE query(%s) ..." % (tableName))
-        finalQuery = ("INSERT INTO %s(" % (tableName))
+        finalQuery = ("INSERT INTO `%s`(" % (tableName))
         key = list(insDict.keys())
         value = list(insDict.values())
         length = len(key)
@@ -293,7 +304,6 @@ class mysqlConnector():
             finalQuery = finalQuery + "," + "'" + \
                 str(value[index + 1]).replace("'", r"\'") + "'"
         finalQuery = finalQuery + ");"
-        # logging.debug(finalQuery)
         self.executeQuery(finalQuery)
 
     def delete(self, tableName, whereDict):
@@ -312,7 +322,6 @@ class mysqlConnector():
             finalQuery = finalQuery + " AND " + \
                 key[index + 1] + "=" + "'" + str(value[index + 1]) + "'"
         finalQuery = finalQuery + ";"
-        # logging.debug(finalQuery)
         self.executeQuery(finalQuery)
 
     def update(self, tableName, setDict, whereDict):
@@ -324,7 +333,7 @@ class mysqlConnector():
         `whereDict` is a dict datatype with key as column name and value as the value of the rows to update.
         """
         logging.info("Generating UPDATE query(%s) ..." % (tableName))
-        finalQuery = ("UPDATE %s SET " % (tableName))
+        finalQuery = ("UPDATE `%s` SET " % (tableName))
         key = list(setDict.keys())
         value = list(setDict.values())
         length = len(key)
@@ -344,7 +353,6 @@ class mysqlConnector():
             finalQuery = finalQuery + " AND " + \
                 key[index + 1] + "=" + "'" + value[index + 1] + "'"
         finalQuery = finalQuery + ";"
-        # logging.debug(finalQuery)
         self.executeQuery(finalQuery)
 
     def select(self, tables, dataList, whereDict=None, conditions=None):
@@ -367,24 +375,22 @@ class mysqlConnector():
         logging.info("Generating SELECT query(%s)" % (tables))
         finalQuery = ("SELECT ")
         length = len(dataList)
-        finalQuery = finalQuery + \
-            ",".join(self._add_back_ticks(tables, dataList))
-        finalQuery = finalQuery + " FROM " + ",".join(tables)
+        finalQuery = finalQuery + ",".join(self._add_back_ticks(dataList))
+        finalQuery = finalQuery + " FROM " + ",".join(self._add_back_ticks(tables))
         if(whereDict != None):
             finalQuery = finalQuery + " WHERE "
             key = list(whereDict.keys())
             length = len(key)
-            finalQuery = finalQuery + key[0] + \
+            finalQuery = finalQuery + "".join(self._add_back_ticks([key[0]])) + \
                 "=" + "'" + whereDict[key[0]] + "'"
             for index in range((length - 1)):
                 finalQuery = finalQuery + " AND " + \
-                    key[index + 1] + "=" + "'" + \
+                    "".join(self._add_back_ticks([key[index + 1]])) + "=" + "'" + \
                     whereDict[key[index + 1]] + "'"
         if(conditions):
             finalQuery = finalQuery + " " + conditions + ";"
         else:
             finalQuery = finalQuery + ";"
-        # logging.debug(finalQuery)
         self.executeQuery(finalQuery)
         response = self.cursor.fetchall()
         logging.debug("The response from SELECT is:"+str(response))
@@ -398,7 +404,7 @@ class mysqlConnector():
 
         `procedure_parameters` is a list of parametes passed to the procedure.
 
-        `procedures` is a string of queries to be executed.
+        `procedures` is a list of queries to be executed.
 
         Example:
         {
@@ -457,7 +463,6 @@ class mysqlConnector():
         for aQuery in queries:
             finalQuery = finalQuery + aQuery
         finalQuery = finalQuery + "END"
-        # logging.debug(finalQuery)
         self.executeQuery(finalQuery)
 
     def drop(self, what, db_name):
@@ -465,9 +470,8 @@ class mysqlConnector():
         As of now only supports dropping a database.
         """
         logging.info("Dropping {}({})".format(what, db_name))
-        finalQuery = "DROP DATABASE {}".format(db_name)
+        finalQuery = "DROP DATABASE {};".format("".join(self._add_back_ticks([db_name])))
         self.executeQuery(finalQuery)
-        # logging.debug("DROP DATABASE {}".format(db_name))
 
     def commitChanges(self):
         """

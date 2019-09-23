@@ -2,6 +2,24 @@
 import mysqlConnector as sql
 import json
 import logging
+import os
+import sys
+
+PATH = None
+pathToExeFromCurDir = sys.argv[0]
+current_directory = os.getcwd()
+#print(current_directory)
+#print(pathToExeFromCurDir)
+if(pathToExeFromCurDir.startswith("/")):
+	#print("AbsolutePath")
+	PATH = pathToExeFromCurDir
+elif(pathToExeFromCurDir.startswith(".")):
+	#print("RelativePath with current directory specified.")
+	PATH = current_directory + pathToExeFromCurDir[1:]
+else:
+	#print("RelativePath")
+	PATH = current_directory + "/" + pathToExeFromCurDir
+PATH = PATH.rsplit("/",1)[0] + "/"
 
 
 logging.basicConfig(
@@ -16,7 +34,7 @@ def main(jsonCnf):
     """
     Creates a database with tables, procedures and triggers.
     """
-    db = sql.mysqlConnector(option_files=".config/mysql.cnf")
+    db = sql.mysqlConnector(option_files=PATH+".config/mysql.cnf")
     databases = (jsonCnf["databases"])
     allDatabases = databases.keys()
     for databaseName in allDatabases:
@@ -29,9 +47,10 @@ def main(jsonCnf):
             if(answer == 'y' or answer == 'Y'):
                 db.drop("database", databaseName)
                 logging.info("Database " + databaseName + " was dropped.")
+                print("Database " + databaseName + " was dropped.")
             else:
-                logging.info("There already exists a database by the name " +
-                             databaseName + " please drop it.")
+                logging.info("There already exists a database by the name " + databaseName + " please drop it.")
+                print("There already exists a database by the name " + databaseName + " please drop it.")
                 return
         except:
             logging.info("No database by the name '" +
@@ -80,7 +99,8 @@ def main(jsonCnf):
 
 if __name__ == '__main__':
     logging.info("Start of setup.py")
-    with open('.config/database.json') as configFile:
+    logging.debug("The path is:"+PATH+'.config/database.json')
+    with open(PATH+'.config/database.json') as configFile:
         logging.debug("Successfully opened the config file.")
         jsonCnf = json.load(configFile)
         main(jsonCnf)
