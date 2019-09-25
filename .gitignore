@@ -1,0 +1,10 @@
+*.log
+__*
+*.smpl
+.vscode
+mysql.cnf
+dataForDatabase/
+testdata.sh
+.config/
+ideas_problems.txt
+com_test.sh
