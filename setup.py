@@ -8,42 +8,30 @@ import sys
 PATH = None
 pathToExeFromCurDir = sys.argv[0]
 current_directory = os.getcwd()
-#print(current_directory)
-#print(pathToExeFromCurDir)
 if(pathToExeFromCurDir.startswith("/")):
-	#print("AbsolutePath")
 	PATH = pathToExeFromCurDir
 elif(pathToExeFromCurDir.startswith(".")):
-	#print("RelativePath with current directory specified.")
 	PATH = current_directory + pathToExeFromCurDir[1:]
 else:
-	#print("RelativePath")
 	PATH = current_directory + "/" + pathToExeFromCurDir
 PATH = PATH.rsplit("/",1)[0] + "/"
 
 
 logging.basicConfig(
-    filename='railApplication.log',
+    filename=PATH+'railApplication.log',
     format='%(asctime)s.%(msecs)-3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
     datefmt='%Y-%m-%d %H:%M:%S',
     level=logging.DEBUG
 )
 
 
-def main(jsonCnf):
-    """
-    Creates a database with tables, procedures and triggers.
-    """
-    db = sql.mysqlConnector(option_files=PATH+".config/mysql.cnf")
-    databases = (jsonCnf["databases"])
+def createDatabase(db,databases):
     allDatabases = databases.keys()
     for databaseName in allDatabases:
         try:
             db.use(databaseName)
             answer = input(
                 "Database %s is present, are you sure you want to drop it(Y/N)?" % (databaseName))
-            # print("Change the default drop to an option IT IS CURRENTLY DEFAULT YES!!!!!!!!!")
-            # answer = 'y'
             if(answer == 'y' or answer == 'Y'):
                 db.drop("database", databaseName)
                 logging.info("Database " + databaseName + " was dropped.")
@@ -73,7 +61,8 @@ def main(jsonCnf):
                       foreignKeys=foreignKeys, indexAttributes=index)
             print("(success)")
             logging.info("Creating table %s ...(success)" % (table))
-    proc = jsonCnf["procedures"]
+
+def createProcedure(db,proc):
     if(proc):
         print("Creating procedures ...")
         logging.info("Creating procedures ...")
@@ -84,7 +73,8 @@ def main(jsonCnf):
                 procedure["procedure_name"]))
             logging.info("Creating trigger {} ...(success)".format(
                 procedure["procedure_name"]))
-    triggers = jsonCnf["triggers"]
+
+def createTrigger(db,triggers):
     if(triggers):
         print("Creating triggers ...")
         logging.info("Creating triggers ...")
@@ -96,6 +86,24 @@ def main(jsonCnf):
             print("Creating trigger on database {} trigger name {} ...(success)".format(
                 trigger["database_name"], trigger["trigger_name"]))
 
+def createView(db,views):
+    """ Unfinished """
+    pass
+
+def main(jsonCnf):
+    """
+    Creates a database with tables, procedures and triggers.
+    """
+    db = sql.mysqlConnector(option_files=PATH+".config/mysql.cnf")
+    try:
+        createDatabase(db,jsonCnf["databases"])
+        createProcedure(db,jsonCnf["procedures"])
+        createTrigger(db,jsonCnf["triggers"])
+    except:
+        pass    #Look at what error needs to be given
+    else:
+        db.commitChanges()
+
 
 if __name__ == '__main__':
     logging.info("Start of setup.py")
@@ -103,6 +111,7 @@ if __name__ == '__main__':
     with open(PATH+'.config/database.json') as configFile:
         logging.debug("Successfully opened the config file.")
         jsonCnf = json.load(configFile)
+        # sys.setrecursionlimit(15000)
         main(jsonCnf)
     logging.info("End of setup.py")
 else:
