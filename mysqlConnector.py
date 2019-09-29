@@ -120,7 +120,7 @@ class mysqlConnector():
         logging.debug("Calling executeQuery")
         if(query):
             try:
-                logging.debug("Connection id "+str(self._getConnectionId())+"->"+query)
+                logging.debug("Connection id "+str(self._getConnectionId())+",the query is:"+query)
                 self.cursor.execute(query)
             except mysql.connector.ProgrammingError as err:
                 if err.errno == errorcode.ER_PARSE_ERROR:

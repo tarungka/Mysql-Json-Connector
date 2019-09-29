@@ -37,9 +37,17 @@ class main:
     4)PLEASE MAKE SURE YOU PASS 'null' AND NOT AN EMPTY LIST OR A DICTIONARY
     '''
     # Constructor which decodes the incoming json data
-    def __init__(self, jsonData, levelNumber):
+    def __init__(self, jsonData=None, levelNumber=None):
         logging.info("Constructor of class __name__:{} __class__:{} was called in levelNumber:{}".format(
             __name__, __class__, levelNumber))
+        if(jsonData == None and levelNumber == None):
+            logging.info("No parameters passed at object creation")
+        elif(jsonData != None and levelNumber != None):
+            self.input(jsonData,levelNumber)
+        else:
+            logging.critical("Input parameters error!")
+
+    def input(self, jsonData, levelNumber):
         # The following piece of code is used to convert the data to dict format if it inst already in that format
         try:  # Checking if the input data is of string type
             logging.debug(
@@ -81,6 +89,11 @@ class main:
         '''
         WRITE THE CODE HERE TO GET THE COMMENT FROM THE FOOTER SECTION
         '''
+        try:
+            self.mysqlConnection.use(self.database)
+        except:
+            logging.debug("Failed to connect to the database, this is when you are using non-persistent connections")
+
 
     def getDatabase(self):
         """
@@ -101,13 +114,17 @@ class main:
         """
         if(connection == None):
             logging.info("Creating a new connection to the database")
-            self.mysqlConnection = sql.mysqlConnector(option_files=(
-                PATH+".config/mysql.cnf"), database=self.database)
+            self.mysqlConnection = sql.mysqlConnector(option_files=(PATH+".config/mysql.cnf"))
             logging.info("Connection successful")
         else:
             logging.info(
                 "This connection in inherited from the calling function/script.")
             self.mysqlConnection = connection
+        try:
+            self.mysqlConnection.use(self.database)
+        except AttributeError:
+            logging.debug("Failed to connect to the database, this is when you are using persistent connections")
+
 
     def processRequest(self):
         """
