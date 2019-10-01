@@ -10,7 +10,7 @@ import json
 #
 #
 #
-_PORT_NUMBER = 49500
+_PORT_NUMBER = 49501
 _BUFFER_SIZE = 2048
 _MAX_CONNECT = 5        #Maximum number of connections
 #
@@ -80,11 +80,14 @@ try:
         logging.debug("The data is:"+data.decode('utf-8'))
         process.input(data.decode('utf-8'), 0)  #decoding from bytes to utf-8
         response = process.processRequest()
+        print(response)
+        print("----")
+        print(str(response))
         logging.debug("The response is:"+str(response))
         reply = {}
-        reply.update({"reply_code":200})
-        reply.update({"data":str(response)}) #In the next version convert this into a pickle
-        clientSocket.sendall(bytes(json.dumps(reply),"utf-8"))
+        reply.update({'reply_code':200})
+        reply.update({'data':f'{response}'}) #In the next version convert this into a pickle
+        clientSocket.sendall(bytes(str(reply),"utf-8"))
         process.generateAnalytics()
 except KeyboardInterrupt:
     logging.info("KeyboardInterrupt")
