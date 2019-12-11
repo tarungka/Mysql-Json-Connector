@@ -5,21 +5,17 @@ import logging
 from re import finditer
 import os
 import sys
+import errors
 
 PATH = None
 pathToExeFromCurDir = sys.argv[0]
 current_directory = os.getcwd()
-#print(current_directory)
-#print(pathToExeFromCurDir)
 if(pathToExeFromCurDir.startswith("/")):
-	#print("AbsolutePath")
-	PATH = pathToExeFromCurDir
+    PATH = pathToExeFromCurDir
 elif(pathToExeFromCurDir.startswith(".")):
-	#print("RelativePath with current directory specified.")
-	PATH = current_directory + pathToExeFromCurDir[1:]
+    PATH = current_directory + pathToExeFromCurDir[1:]
 else:
-	#print("RelativePath")
-	PATH = current_directory + "/" + pathToExeFromCurDir
+    PATH = current_directory + "/" + pathToExeFromCurDir
 PATH = PATH.rsplit("/",1)[0] + "/"
 
 
@@ -29,34 +25,6 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S',
     level=logging.DEBUG
 )
-
-
-class UserDefinedError(Exception):
-    """Writing user defined errors"""
-
-    def __init__(self, errorString):
-        """Write documentation for this"""
-        print(errorString)
-        exit(0)
-
-
-class InsufficientDataError(Exception):
-    """Called when there is insufficient data passed to the class"""
-
-    def __init__(self):
-        self.showError()
-        return
-
-    def showError(self):
-        print("Insufficient data passed")
-
-
-class NonCriticalError(Exception):
-    """Called when there is an error from mysql but is not critical"""
-
-    def __init__(self, errorMessage):
-        logging.warning(errorMessage)
-        print(errorMessage)
 
 
 class mysqlConnector():
@@ -101,7 +69,10 @@ class mysqlConnector():
                 logging.critical(str(err.msg))
         except Exception as e:
             logging.critical("Error in connecting to the database:"+str(e))
-            UserDefinedError("Error please check the logs!")
+            errors.UserDefinedError("Error please check the logs!")
+
+    def _getConnectionId(self):
+        return self.mysqlConnection.connection_id
 
     def _getConnection(self):
         """
@@ -132,33 +103,55 @@ class mysqlConnector():
                     returnData.append("`"+data+"`")
             if((returnData == None) or (returnData == [])):
                 logging.critical("Method FAILED TO PERFORM INTENDEND ACTION")
-                raise UserDefinedError("CRITICAL:mysqlConnector module failed!")
+                raise errors.UserDefinedError("CRITICAL:mysqlConnector module failed!")
             else:
                 logging.debug("Output data is"+str(returnData))
                 return returnData
         except AssertionError as err:
             logging.critical("dataList must be of list type but is of type"+str(type(dataList)))
-            UserDefinedError("CRITICAL ERROR")
+            errors.UserDefinedError("CRITICAL ERROR")
         except Exception as err:
-            UserDefinedError("Exception not handeled:"+str(err))
+            errors.UserDefinedError("Exception not handeled:"+str(err.__class__)+str(err))
 
-    def executeQuery(self, query=None):
+    def convertToUsableData(self,dataList):
+        assert type(dataList) is list
+        usableList = []
+        logging.debug("The input dataList is:"+str(dataList))
+        for aResponse in dataList:
+            usableDict = {}
+            for key in aResponse:
+                usableDict[key] = str(aResponse[key])
+            usableList.append(usableDict)
+        logging.debug("Usable data is:"+str(usableList))
+        return usableList
+
+    def executeQuery(self, query=None,raiseExternally=False):
         """
         Execute a query.
+        Write the part for raiseExternally part
+        ER_BAD_DB_ERROR is db missing
         """
+        logging.debug("Calling executeQuery")
+        # if(query and raiseExternally): Write code for this
         if(query):
             try:
-                logging.debug(query)
+                logging.debug("Connection id "+str(self._getConnectionId())+",the query is:"+query)
                 self.cursor.execute(query)
             except mysql.connector.ProgrammingError as err:
-                NonCriticalError("MYSQL ERROR:{}".format(err))
+                if err.errno == errorcode.ER_PARSE_ERROR:
+                    errors.UserDefinedError("ERROR IN THE SYNTAX {}".format(str(err)))
+                elif err.errno == errorcode.ER_BAD_DB_ERROR:
+                    raise errors.UnknownDatabaseError()
+                else:
+                    errors.NonCriticalError("MYSQL ERROR:{},{}".format(err,err.errno))
             except Exception as e:
-                UserDefinedError("Error not handeled!:{}".format(str(e)))
+                errors.UserDefinedError("Error not handeled!:{}:{}".format(str(e.__class__),str(e)))
         else:
             logging.debug("executeQuery called with no arguments")
 
     def create(self, what, nameOfWhat, dictionary=None, primaryKey=None, foreignKeys=None, indexAttributes=None):
         """
+        NOTE FOR DEVELOPER: MIGHT NEED TO MAKE IT KWARGS LATER OR SPLIT IT TO DIFFERENT FUNCTIONS
         Generates a CREATE query.
         Following are the datatypes of the parameters:
         VARIABLE                    DATATYPE
@@ -266,7 +259,9 @@ class mysqlConnector():
                     finalQuery = finalQuery + ")"
             finalQuery = finalQuery + ");"
         elif(whatUpper == "DATABASE"):
-            finalQuery = ("CREATE " + whatUpper + " `" + nameOfWhat + "`;")
+            finalQuery = ("CREATE " + whatUpper + " `" + nameOfWhat + "`;")  # Change to call _add_back_ticks
+        elif(whatUpper == "VIEW"):
+            finalQuery = ("CREATE " + whatUpper + " " + nameOfWhat + " AS " + dictionary)
         else:
             logging.warning(
                 "THIS FUNCTION CAN ONLY CREATE ONLY 'TABLE' AND 'DATABASE'")
@@ -304,6 +299,7 @@ class mysqlConnector():
             finalQuery = finalQuery + "," + "'" + \
                 str(value[index + 1]).replace("'", r"\'") + "'"
         finalQuery = finalQuery + ");"
+        logging.debug(f"insert finalQuery {finalQuery}")
         self.executeQuery(finalQuery)
 
     def delete(self, tableName, whereDict):
@@ -355,7 +351,7 @@ class mysqlConnector():
         finalQuery = finalQuery + ";"
         self.executeQuery(finalQuery)
 
-    def select(self, tables, dataList, whereDict=None, conditions=None):
+    def select(self, tables, dataList, whereDict=None, conditions=None,**kwargs):
         """
         Generates a SELECT query.
 
@@ -394,7 +390,13 @@ class mysqlConnector():
         self.executeQuery(finalQuery)
         response = self.cursor.fetchall()
         logging.debug("The response from SELECT is:"+str(response))
-        return response
+        someVar = kwargs.pop("user_data",True)
+        if(someVar):
+            logging.info("Returning as user usable data")
+            return self.convertToUsableData(response)
+        else:
+            logging.info("Not returning as user usable data")
+            return response
 
     def procedure(self, procedure_name, procedure_parameters, procedures):
         """
@@ -480,11 +482,19 @@ class mysqlConnector():
         logging.warning("COMMITTING CHANGES TO DATABASE.")
         self.mysqlConnection.commit()
 
-    def closeConnection_(self):
+    def rollbackChanges(self):
+        """
+        Rollback the transaction
+        """
+        logging.warning("ROLLING BACK THE CHANGES.")
+        self.mysqlConnection.rollback()
+
+    def closeConnection(self):
         """
         This is still under development as its giving me errors when using this, please do not use this method.
         """
-        self.mysqlConnection.closeConnection()
+        self.cursor.close()
+        self.mysqlConnection.close()
 
 
 if __name__ == "__main__":
