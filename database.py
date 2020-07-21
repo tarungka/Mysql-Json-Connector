@@ -1,11 +1,7 @@
 #!/usr/bin/python3
-import mysql.connector
-from mysql.connector import errorcode
 import sys
-import datetime
 import json
 import mysqlConnector as sql
-import analytics
 import logging
 import os
 
@@ -23,7 +19,7 @@ PATH = PATH.rsplit("/", 1)[0] + "/"
 
 
 logging.basicConfig(
-    filename=PATH+'railApplication.log',
+    filename=PATH+'application.log',
     format='%(asctime)s.%(msecs)-3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
     datefmt='%Y-%m-%d %H:%M:%S',
     level=logging.DEBUG
@@ -54,17 +50,18 @@ class main:
                 "Input data is of string type, converting into dict format")
             self.jsonString = json.loads(str(jsonData))
             logging.debug("SUCCESS")
-        # except KeyboardInterrupt:
-            # pass
         except json.decoder.JSONDecodeError:  # Checking of the input data is of dict type, this happens only when the class create an instance of itself!
             logging.debug("Input data is of dict type, no changes made")
             self.jsonString = jsonData
             logging.debug("SUCCESS")
 
-        logging.debug(str(self.jsonString))
-        logging.debug("Input data is:"+str(json.dumps(self.jsonString)))
+        logging.debug("The jsonString is of datatype:"+str(type(self.jsonString)))
 
-        assert type(self.jsonString) is dict
+        # logging.debug(str(self.jsonString))
+        logging.debug("Input data is:"+str(self.jsonString))
+
+        # assert type(self.jsonString) is dict
+        logging.debug("The jsonString is of datatype:"+str(type(self.jsonString)))
 
         self.levelNumber = levelNumber
 
@@ -83,15 +80,14 @@ class main:
         self.conditionList = self.footer["DEP"]  # dep name within header
         try:
             self.runCondition = self.footer["CONDITION"]  # Run analytics
-            self.analyticsArguments = self.data["FIELDS"]
         except:
             logging.warning("Change 'DATA ABOUT THE REQUEST' to 'CONDITION'")
         '''
         WRITE THE CODE HERE TO GET THE COMMENT FROM THE FOOTER SECTION
         '''
         try:
-            self.mysqlConnection.use(self.database)
-        except:
+            self.mysqlConnection.use(self.database) #This can raise unknown database error -- Needs to be caught correctly
+        except Exception:           #Not sure if this is correct
             logging.debug("Failed to connect to the database, this is when you are using non-persistent connections")
 
 
@@ -159,14 +155,14 @@ class main:
         # cannot test for len(self.conditionList) == 0 i.e when there is a empty list passed, raises TypeError
         if(self.conditionList == None or self.conditionFlag == True):
             '''
-            KIMS THAT WHEN A SELECT IS USED IT RETURNS DATA AND CANNOT BE USED TO UPDATE ANOTHER TABLE.
+            NOTE: THAT WHEN A SELECT IS USED IT RETURNS DATA AND CANNOT BE USED TO UPDATE ANOTHER TABLE.
             I NEED TO RESTRUCTURE IT TO BE ABLE TO RETURN AS WELL AS RUN AN UPDATE.
             '''
             if(self.requestType == "insert"):
                 self.mysqlConnection.insert(self.getTable(), self.fields)
             elif(self.requestType == "delete"):
                 self.mysqlConnection.delete(
-                    self.getTable(), self.fields, self.whereClause)
+                    self.getTable(), self.whereClause)
             elif(self.requestType == "update"):
                 self.mysqlConnection.update(
                     self.getTable(), self.setClause, self.whereClause)
@@ -199,21 +195,6 @@ class main:
         else:
             logging.critical("Queries condition has not been executed")
 
-    def generateAnalytics(self):  # Write # logger function for this
-        """
-        This is still incomplete
-        """
-        if(self.conditionFlag == False):
-            return
-        else:
-            try:
-                genAnalytics = analytics.analytics(
-                    self.mysqlConnection, **self.analyticsArguments)
-                genAnalytics.generateAnalytics(self.runCondition)
-            except AttributeError as err:
-                logging.warning(
-                    "This may occur when it is a SELECT statement. ERROR:"+str(err))
-        return
 
     def closeConnection(self):
         self.mysqlConnection.closeConnection()
@@ -226,7 +207,6 @@ if __name__ == '__main__':
         process = main(sys.argv[1], 0)
         process.setConnection()
         process.processRequest()
-        process.generateAnalytics()
         process.closeConnection()
     else:
         logging.critical("Invalid number of arguments was passed the script.")

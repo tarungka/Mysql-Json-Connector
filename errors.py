@@ -15,7 +15,7 @@ else:
 PATH = PATH.rsplit("/",1)[0] + "/"
 
 logging.basicConfig(
-    filename= PATH+'railApplication.log',
+    filename= PATH+'application.log',
     format='%(asctime)s.%(msecs)-3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
     datefmt='%Y-%m-%d %H:%M:%S',
     level=logging.DEBUG
@@ -49,6 +49,13 @@ class NonCriticalError(Exception):
     def __init__(self, errorMessage):
         logging.warning(errorMessage)
         print(errorMessage)
+
+class UnknownDatabaseError(Exception):
+    """Called when database does not exits"""
+
+    def __init__(self,errorMessage=None):
+        if(errorMessage):
+            logging.warning(errorMessage)
 
 if __name__ == "__main__":
     pass

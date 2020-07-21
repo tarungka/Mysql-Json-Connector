@@ -20,7 +20,7 @@ PATH = PATH.rsplit("/",1)[0] + "/"
 
 
 logging.basicConfig(
-    filename= PATH+'railApplication.log',
+    filename= PATH+'application.log',
     format='%(asctime)s.%(msecs)-3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
     datefmt='%Y-%m-%d %H:%M:%S',
     level=logging.DEBUG
@@ -113,11 +113,26 @@ class mysqlConnector():
         except Exception as err:
             errors.UserDefinedError("Exception not handeled:"+str(err.__class__)+str(err))
 
-    def executeQuery(self, query=None):
+    def convertToUsableData(self,dataList):
+        assert type(dataList) is list
+        usableList = []
+        logging.debug("The input dataList is:"+str(dataList))
+        for aResponse in dataList:
+            usableDict = {}
+            for key in aResponse:
+                usableDict[key] = str(aResponse[key])
+            usableList.append(usableDict)
+        logging.debug("Usable data is:"+str(usableList))
+        return usableList
+
+    def executeQuery(self, query=None,raiseExternally=False):
         """
         Execute a query.
+        Write the part for raiseExternally part
+        ER_BAD_DB_ERROR is db missing
         """
         logging.debug("Calling executeQuery")
+        # if(query and raiseExternally): Write code for this
         if(query):
             try:
                 logging.debug("Connection id "+str(self._getConnectionId())+",the query is:"+query)
@@ -125,8 +140,12 @@ class mysqlConnector():
             except mysql.connector.ProgrammingError as err:
                 if err.errno == errorcode.ER_PARSE_ERROR:
                     errors.UserDefinedError("ERROR IN THE SYNTAX {}".format(str(err)))
+                elif err.errno == errorcode.ER_BAD_DB_ERROR:
+                    raise errors.UnknownDatabaseError()
                 else:
-                    errors.NonCriticalError("MYSQL ERROR:{}".format(err))
+                    errors.NonCriticalError("MYSQL ERROR:{},{}".format(err,err.errno))
+            except mysql.connector.Error as err:
+                    errors.NonCriticalError("MYSQL CONNECTOR ERROR:{}".format(str(err)))
             except Exception as e:
                 errors.UserDefinedError("Error not handeled!:{}:{}".format(str(e.__class__),str(e)))
         else:
@@ -134,13 +153,14 @@ class mysqlConnector():
 
     def create(self, what, nameOfWhat, dictionary=None, primaryKey=None, foreignKeys=None, indexAttributes=None):
         """
+        NOTE FOR DEVELOPER: MIGHT NEED TO MAKE IT KWARGS LATER OR SPLIT IT TO DIFFERENT FUNCTIONS
         Generates a CREATE query.
         Following are the datatypes of the parameters:
         VARIABLE                    DATATYPE
         what                        str
         nameOfWhat                  str
         dictionary                  dict
-        primaryKey                  str or None
+        primaryKey                  list or None
         foreignKeys                 list or None
         index                       list or None
 
@@ -158,7 +178,7 @@ class mysqlConnector():
         }
 
         `primarykey` is the name of the primary key
-        Example: "id"
+        Example: ["id","id2"]
 
         `foreignKeys` is a list of dicts of the following format:
         [
@@ -205,7 +225,13 @@ class mysqlConnector():
                 finalQuery = (finalQuery + ",`" +
                               key[index + 1] + "` " + value[index + 1])
             if(primaryKey):
-                finalQuery = finalQuery + ",PRIMARY KEY(`" + primaryKey + "`)"
+                finalQuery = finalQuery + ",PRIMARY KEY("
+                for index, element in enumerate(primaryKey):
+                    if(index == 0):
+                        finalQuery = finalQuery + "`" + element + "`"
+                        continue
+                    finalQuery = finalQuery + "," + "`" + element + "`"
+                finalQuery = finalQuery + ")"
             if(foreignKeys):
                 for number, eachKey in enumerate(foreignKeys):
                     constraintName = eachKey['constraint_name']
@@ -229,7 +255,7 @@ class mysqlConnector():
                             finalQuery = finalQuery + "`" + element + "`"
                             continue
                         finalQuery = finalQuery + "," + "`" + element + "`"
-                    finalQuery = finalQuery + ")"
+                    finalQuery = finalQuery + ") ON DELETE CASCADE"
             if(indexAttributes):
                 for eachIndex in indexAttributes:
                     finalQuery = finalQuery + ",INDEX("
@@ -242,6 +268,8 @@ class mysqlConnector():
             finalQuery = finalQuery + ");"
         elif(whatUpper == "DATABASE"):
             finalQuery = ("CREATE " + whatUpper + " `" + nameOfWhat + "`;")  # Change to call _add_back_ticks
+        elif(whatUpper == "VIEW"):
+            finalQuery = ("CREATE " + whatUpper + " " + nameOfWhat + " AS " + dictionary)
         else:
             logging.warning(
                 "THIS FUNCTION CAN ONLY CREATE ONLY 'TABLE' AND 'DATABASE'")
@@ -279,6 +307,7 @@ class mysqlConnector():
             finalQuery = finalQuery + "," + "'" + \
                 str(value[index + 1]).replace("'", r"\'") + "'"
         finalQuery = finalQuery + ");"
+        logging.debug(f"insert finalQuery {finalQuery}")
         self.executeQuery(finalQuery)
 
     def delete(self, tableName, whereDict):
@@ -289,13 +318,17 @@ class mysqlConnector():
         """
         logging.info("Generating DELETE query(%s) ..." % (tableName))
         finalQuery = ("DELETE FROM " + tableName + " WHERE ")
-        key = list(whereDict.keys())
-        value = list(whereDict.values())
-        length = len(key)
-        finalQuery = finalQuery + key[0] + "=" + "'" + str(value[0]) + "'"
-        for index in range(length - 1):
-            finalQuery = finalQuery + " AND " + \
-                key[index + 1] + "=" + "'" + str(value[index + 1]) + "'"
+        directQuery = whereDict.get("__QUERY__")
+        if(directQuery):
+            finalQuery = finalQuery + directQuery
+        else:
+            key = list(whereDict.keys())
+            value = list(whereDict.values())
+            length = len(key)
+            finalQuery = finalQuery + key[0] + "=" + "'" + str(value[0]) + "'"
+            for index in range(length - 1):
+                finalQuery = finalQuery + " AND " + \
+                    key[index + 1] + "=" + "'" + str(value[index + 1]) + "'"
         finalQuery = finalQuery + ";"
         self.executeQuery(finalQuery)
 
@@ -312,7 +345,11 @@ class mysqlConnector():
         key = list(setDict.keys())
         value = list(setDict.values())
         length = len(key)
-        finalQuery = finalQuery + key[0] + "=" + "'" + value[0] + "'"
+        try:
+            finalQuery = finalQuery + key[0] + "=" + "'" + value[0] + "'"
+        except TypeError:
+            if(value[0]):
+                finalQuery = finalQuery + key[0] + "=" + "'" + str(value[0]) + "'"
         for index in range(length - 1):
             finalQuery = finalQuery + "," + \
                 key[index + 1] + "=" + "'" + value[index + 1] + "'"
@@ -330,7 +367,7 @@ class mysqlConnector():
         finalQuery = finalQuery + ";"
         self.executeQuery(finalQuery)
 
-    def select(self, tables, dataList, whereDict=None, conditions=None):
+    def select(self, tables, dataList, whereDict=None, conditions=None,**kwargs):
         """
         Generates a SELECT query.
 
@@ -356,12 +393,16 @@ class mysqlConnector():
             finalQuery = finalQuery + " WHERE "
             key = list(whereDict.keys())
             length = len(key)
-            finalQuery = finalQuery + "".join(self._add_back_ticks([key[0]])) + \
-                "=" + "'" + whereDict[key[0]] + "'"
-            for index in range((length - 1)):
-                finalQuery = finalQuery + " AND " + \
-                    "".join(self._add_back_ticks([key[index + 1]])) + "=" + "'" + \
-                    whereDict[key[index + 1]] + "'"
+            directQuery = whereDict.get("__QUERY__")
+            if(directQuery):
+                finalQuery = finalQuery + directQuery
+            else:
+                finalQuery = finalQuery + "".join(self._add_back_ticks([key[0]])) + \
+                    "=" + "'" + whereDict[key[0]] + "'"
+                for index in range((length - 1)):
+                    finalQuery = finalQuery + " AND " + \
+                        "".join(self._add_back_ticks([key[index + 1]])) + "=" + "'" + \
+                        whereDict[key[index + 1]] + "'"
         if(conditions):
             finalQuery = finalQuery + " " + conditions + ";"
         else:
@@ -369,7 +410,13 @@ class mysqlConnector():
         self.executeQuery(finalQuery)
         response = self.cursor.fetchall()
         logging.debug("The response from SELECT is:"+str(response))
-        return response
+        someVar = kwargs.pop("user_data",True)
+        if(someVar):
+            logging.info("Returning as user usable data")
+            return self.convertToUsableData(response)
+        else:
+            logging.info("Not returning as user usable data")
+            return response
 
     def procedure(self, procedure_name, procedure_parameters, procedures):
         """
