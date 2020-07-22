@@ -121,7 +121,6 @@ class main:
         except AttributeError:
             logging.debug("Failed to connect to the database, this is when you are using persistent connections")
 
-
     def processRequest(self):
         """
         Process the request sent by the front end/calling script.
@@ -198,7 +197,6 @@ class main:
 
     def closeConnection(self):
         self.mysqlConnection.closeConnection()
-
 
 if __name__ == '__main__':
     logging.info("Start of database.py")

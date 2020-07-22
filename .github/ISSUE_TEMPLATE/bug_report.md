@@ -28,5 +28,4 @@ If applicable, add screenshots to help explain your problem.
  - Version of mysql [e.g. 5.7.25]
 
 ### **Additional context**
- - e-mail logs at tarungopalkrishna@gmail.com
  - Add any other context about the problem here.
