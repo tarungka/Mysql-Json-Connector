@@ -2,37 +2,28 @@
 import sys
 import json
 import mysqlConnector as sql
-import analytics
 import logging
 import os
 
-#
-# Code to get the directory of the source code
-#
+
 PATH = None
 pathToExeFromCurDir = sys.argv[0]
 current_directory = os.getcwd()
 if(pathToExeFromCurDir.startswith("/")):
     PATH = pathToExeFromCurDir
 elif(pathToExeFromCurDir.startswith(".")):
-    PATH = os.path.join(current_directory, pathToExeFromCurDir[1:])
+    PATH = current_directory + pathToExeFromCurDir[1:]
 else:
-    PATH = os.path.join(current_directory, pathToExeFromCurDir)
+    PATH = current_directory + "/" + pathToExeFromCurDir
 PATH = PATH.rsplit("/", 1)[0] + "/"
 
-logging.debug("The path of to the source code is:"+str(PATH))
 
-#
-# Logging configuration
-#
 logging.basicConfig(
-    filename=PATH+'railApplication.log',
+    filename=PATH+'application.log',
     format='%(asctime)s.%(msecs)-3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
     datefmt='%Y-%m-%d %H:%M:%S',
     level=logging.DEBUG
 )
-
-
 
 
 class main:
@@ -41,41 +32,43 @@ class main:
     2)WRITE BETTER DOCUMENTATION AS YOU GO
     4)PLEASE MAKE SURE YOU PASS 'null' AND NOT AN EMPTY LIST OR A DICTIONARY
     '''
-
     # Constructor which decodes the incoming json data
     def __init__(self, jsonData=None, levelNumber=None):
-        logging.info("Constructor of class __name__:{} __class__:{} was called in levelNumber:{}".format(__name__, __class__, levelNumber))
+        logging.info("Constructor of class __name__:{} __class__:{} was called in levelNumber:{}".format(
+            __name__, __class__, levelNumber))
         if(jsonData == None and levelNumber == None):
             logging.info("No parameters passed at object creation")
         elif(jsonData != None and levelNumber != None):
-            self.input(jsonData, levelNumber)
+            self.input(jsonData,levelNumber)
         else:
             logging.critical("Input parameters error!")
 
     def input(self, jsonData, levelNumber):
         # The following piece of code is used to convert the data to dict format if it inst already in that format
         try:  # Checking if the input data is of string type
-            logging.debug("Input data is of string type, converting into dict format")
+            logging.debug(
+                "Input data is of string type, converting into dict format")
             self.jsonString = json.loads(str(jsonData))
             logging.debug("SUCCESS")
         except json.decoder.JSONDecodeError:  # Checking of the input data is of dict type, this happens only when the class create an instance of itself!
-            logging.debug("FAILED")
             logging.debug("Input data is of dict type, no changes made")
             self.jsonString = jsonData
             logging.debug("SUCCESS")
-        logging.debug("The jsonString is of datatype:" +str(type(self.jsonString)))
+
+        logging.debug("The jsonString is of datatype:"+str(type(self.jsonString)))
+
         # logging.debug(str(self.jsonString))
         logging.debug("Input data is:"+str(self.jsonString))
+
         # assert type(self.jsonString) is dict
-        logging.debug("The jsonString is of datatype:" +str(type(self.jsonString)))
+        logging.debug("The jsonString is of datatype:"+str(type(self.jsonString)))
 
         self.levelNumber = levelNumber
 
         self.header = self.jsonString["HEADER"]  # Gets the header
         self.database = self.header["DATABASE"]  # database name within header
         self.table = self.header["TABLE_NAME"]  # table name name within header
-        # request type name within header
-        self.requestType = self.header["REQUEST_TYPE"]
+        self.requestType = self.header["REQUEST_TYPE"]  # request type name within header
 
         self.data = self.jsonString["DATA"]  # Gets the data
         self.fields = self.data["FIELDS"]  # fields name within header
@@ -87,17 +80,16 @@ class main:
         self.conditionList = self.footer["DEP"]  # dep name within header
         try:
             self.runCondition = self.footer["CONDITION"]  # Run analytics
-            self.analyticsArguments = self.data["FIELDS"]
-        except KeyError:
+        except:
             logging.warning("Change 'DATA ABOUT THE REQUEST' to 'CONDITION'")
         '''
         WRITE THE CODE HERE TO GET THE COMMENT FROM THE FOOTER SECTION
         '''
         try:
-            # This can raise unknown database error -- Needs to be caught correctly
-            self.mysqlConnection.use(self.database)
-        except NameError:  # Not sure if this is correct
+            self.mysqlConnection.use(self.database) #This can raise unknown database error -- Needs to be caught correctly
+        except Exception:           #Not sure if this is correct
             logging.debug("Failed to connect to the database, this is when you are using non-persistent connections")
+
 
     def getDatabase(self):
         """
@@ -121,7 +113,8 @@ class main:
             self.mysqlConnection = sql.mysqlConnector(option_files=(PATH+".config/mysql.cnf"))
             logging.info("Connection successful")
         else:
-            logging.info("This connection in inherited from the calling function/script.")
+            logging.info(
+                "This connection in inherited from the calling function/script.")
             self.mysqlConnection = connection
         try:
             self.mysqlConnection.use(self.database)
@@ -147,7 +140,7 @@ class main:
                 # If the condition is true then a list of data is returned, else None type is returned and the if case
                 # is not executed.
                 ###################
-                if subProcess.processRequest():
+                if subProcess.processRequest():  # If select returns a data if is executed, if None is returned then else is executed
                     logging.info("The condition flag is being set to True")
                     self.conditionFlag = True
                 else:
@@ -161,14 +154,14 @@ class main:
         # cannot test for len(self.conditionList) == 0 i.e when there is a empty list passed, raises TypeError
         if(self.conditionList == None or self.conditionFlag == True):
             '''
-            KIMS THAT WHEN A SELECT IS USED IT RETURNS DATA AND CANNOT BE USED TO UPDATE ANOTHER TABLE.
+            NOTE: THAT WHEN A SELECT IS USED IT RETURNS DATA AND CANNOT BE USED TO UPDATE ANOTHER TABLE.
             I NEED TO RESTRUCTURE IT TO BE ABLE TO RETURN AS WELL AS RUN AN UPDATE.
             '''
             if(self.requestType == "insert"):
                 self.mysqlConnection.insert(self.getTable(), self.fields)
             elif(self.requestType == "delete"):
                 self.mysqlConnection.delete(
-                    self.getTable(), self.fields, self.whereClause)
+                    self.getTable(), self.whereClause)
             elif(self.requestType == "update"):
                 self.mysqlConnection.update(
                     self.getTable(), self.setClause, self.whereClause)
@@ -201,20 +194,6 @@ class main:
         else:
             logging.critical("Queries condition has not been executed")
 
-    def generateAnalytics(self):  # Write # logger function for this
-        """
-        This is still incomplete
-        """
-        if(self.conditionFlag == False):
-            return
-        else:
-            try:
-                genAnalytics = analytics.analytics(
-                    self.mysqlConnection, **self.analyticsArguments)
-                genAnalytics.generateAnalytics(self.runCondition)
-            except AttributeError as err:
-                logging.warning("This may occur when it is a SELECT statement. ERROR:"+str(err))
-        return
 
     def closeConnection(self):
         self.mysqlConnection.closeConnection()
@@ -226,7 +205,6 @@ if __name__ == '__main__':
         process = main(sys.argv[1], 0)
         process.setConnection()
         process.processRequest()
-        process.generateAnalytics()
         process.closeConnection()
     else:
         logging.critical("Invalid number of arguments was passed the script.")

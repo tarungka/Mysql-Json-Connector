@@ -1,10 +1,8 @@
-# **RESEARCH AND INNOVATION LAB**
-### **PROJECT : Rail Management**
+# **DATA VISUALIZER**
 ---
-An application dedicated to run the Research and Innovation Lab(RAIL) at Govt.SKSJTI college of Engineering,Bangalore,India
+An application to visualize data in realtime.
 ---
 ### **Developers** : **[Tarun Gopalkrishna A](https://github.com/Kinngman05)**
-### This the backend to connect to the mysql database of the RAIL application.
 
 ## **Requirements and Installations**
 #### **Database:**
@@ -18,6 +16,18 @@ An application dedicated to run the Research and Innovation Lab(RAIL) at Govt.SK
  * [**mysql-connector**](https://pypi.org/project/mysql-connector-python/)
    ```bash
    pip3 install mysql-connector-python
+   ```
+ * [**Flask-SocketIO**](https://flask-socketio.readthedocs.io/en/latest/)
+   ```bash
+   pip3 install Flask-SocketIO
+   ```
+ * [**flask-cors**](https://flask-cors.readthedocs.io/en/latest/)
+   ```bash
+   pip3 install Flask-SocketIO
+   ```
+ * [**pandas**](https://pandas.pydata.org/)
+   ```bash
+   pip3 install Flask-SocketIO
    ```
 #### **Working:**
 ###### **To connect to the database:**
@@ -43,42 +53,37 @@ In the `.config` directory create a `database.json` file in the following format
           },
           "read_list": null,
           "index_constrains": [
-            [
-              "COLUMN_NAME_1"
-            ],
-            [
-              "COLUMN_NAME_1",
-              "COLUMN_NAME_2"
-            ]
+            ["COLUMN_NAME_1"],
+            ["COLUMN_NAME_1", "COLUMN_NAME_2"]
           ],
-          "primary_key": "COLUMN_NAME_1",
-          "foreign_key": null
+          "primary_key": ["COLUMN_NAME_1"],
+          "foreign_key": null,
+          "initial_data": [
+            {
+              "COLUMN_NAME_1": "VALUE_1",
+              "COLUMN_NAME_2": "VALUE_2",
+              "COLUMN_NAME_N": "VALUE_N"
+            }
+          ]
         },
-        "TABLE_NAME_1": {
+        "TABLE_NAME_2": {
           "table_constrains": {
             "COLUMN_NAME_1": "DATATYPE_1",
             "COLUMN_NAME_2": "DATATYPE_2",
             "COLUMN_NAME_N": "DATATYPE_N"
           },
           "read_list": null,
-          "index_constrains": [
-            [
-              "COLUMN_NAME_2"
-            ]
-          ],
+          "index_constrains": [["COLUMN_NAME_2"]],
           "primary_key": "COLUMN_NAME_1",
           "foreign_key": [
             {
               "constraint_name": "FOREIGN_KEY_NAME",
               "foreign_table_name": "TABLE_NAME_1",
-              "parent_attribute": [
-                "COLUMN_NAME_1"
-              ],
-              "child_attribute": [
-                "COLUMN_NAME_1"
-              ]
+              "parent_attribute": ["COLUMN_NAME_1"],
+              "child_attribute": ["COLUMN_NAME_1"]
             }
-          ]
+          ],
+          "initial_data": null
         }
       }
     }
@@ -86,39 +91,44 @@ In the `.config` directory create a `database.json` file in the following format
   "procedures": [
     {
       "procedure_name": "PROCEDURE_NAME",
-      "procedure_parameters": [
-        "IN PARAMETER_1 DATATYPE_1"
-      ],
-      "procedures": "PROCEDURE_QUERY"
+      "procedure_parameters": ["IN PARAMETER_1 DATATYPE_1"],
+      "procedures": [
+        "PROCEDURE_QUERY_1",
+        "PROCEDURE_QUERY_2",
+        "PROCEDURE_QUERY_N"
+      ]
     },
     {
       "procedure_name": "PROCEDURE_NAME",
-      "procedure_parameters": [
-        "IN PARAMETER_1 DATATYPE_1"
-      ],
-      "procedures": "PROCEDURE_QUERY"
+      "procedure_parameters": ["IN PARAMETER_1 DATATYPE_1"],
+      "procedures": [
+        "PROCEDURE_QUERY_1",
+        "PROCEDURE_QUERY_2",
+        "PROCEDURE_QUERY_N"
+      ]
     }
   ],
   "triggers": [
     {
       "trigger_name": "TRIGGER_NAME",
-      "trigger_time": "TRIGGER TIME",
+      "trigger_time": "TRIGGER_TIME",
       "database_name": "DATABASE_NAME_1",
       "table_name": "TABLE_NAME_1",
-      "queries": [
-        "QUERY_1",
-        "QUERY_2"
-      ]
+      "queries": ["QUERY_1", "QUERY_2"]
     },
     {
       "trigger_name": "TRIGGER_NAME",
-      "trigger_time": "TRIGGER TIME",
+      "trigger_time": "TRIGGER_TIME",
       "database_name": "DATABASE_NAME_1",
       "table_name": "TABLE_NAME_1",
-      "queries": [
-        "QUERY_1",
-        "QUERY_2"
-      ]
+      "queries": ["QUERY_1", "QUERY_2"]
+    }
+  ],
+  "initial_data": null,
+  "views": [
+    {
+      "name": "VIEW_NAME",
+      "query": "QUERY_STRING_TO_MAKE_VIEW"
     }
   ]
 }
@@ -135,20 +145,21 @@ The following has *1 database*,*3 tables*,*2 procedures*,*2 triggers*.
           "table_constrains": {
             "name": "VARCHAR(60) NOT NULL",
             "id": "CHAR(10) NOT NULL",
+            "team_name": "VARCHAR(30) NOT NULL",
             "login_status": "ENUM('YES','NO') NOT NULL DEFAULT 'NO'"
           },
           "read_list": null,
-          "index_constrains": [
-            [
-              "id"
-            ],
-            [
-              "id",
-              "name"
-            ]
-          ],
-          "primary_key": "id",
-          "foreign_key": null
+          "index_constrains": [["id"], ["id", "name"]],
+          "primary_key": ["id"],
+          "foreign_key": null,
+          "initial_data": [
+            {
+              "name": "John Maverik",
+              "id": "0123456789",
+              "team_name": "Cool kids",
+              "login_status": "NO"
+            }
+          ]
         },
         "teams": {
           "table_constrains": {
@@ -157,24 +168,17 @@ The following has *1 database*,*3 tables*,*2 procedures*,*2 triggers*.
             "team_lead": "CHAR(10) NOT NULL"
           },
           "read_list": null,
-          "index_constrains": [
-            [
-              "team_hash"
-            ]
-          ],
+          "index_constrains": [["team_hash"]],
           "primary_key": "team_hash",
           "foreign_key": [
             {
               "constraint_name": "foreign_key_name",
               "foreign_table_name": "students",
-              "parent_attribute": [
-                "id"
-              ],
-              "child_attribute": [
-                "team_lead"
-              ]
+              "parent_attribute": ["id"],
+              "child_attribute": ["team_lead"]
             }
-          ]
+          ],
+          "initial_data": null
         },
         "attendance": {
           "table_constrains": {
@@ -191,24 +195,17 @@ The following has *1 database*,*3 tables*,*2 procedures*,*2 triggers*.
             {
               "constraint_name": null,
               "foreign_table_name": "students",
-              "parent_attribute": [
-                "id"
-              ],
-              "child_attribute": [
-                "id"
-              ]
+              "parent_attribute": ["id"],
+              "child_attribute": ["id"]
             },
             {
               "constraint_name": null,
               "foreign_table_name": "teams",
-              "parent_attribute": [
-                "team_hash"
-              ],
-              "child_attribute": [
-                "team_hash"
-              ]
+              "parent_attribute": ["team_hash"],
+              "child_attribute": ["team_hash"]
             }
-          ]
+          ],
+          "initial_data": null
         }
       }
     }
@@ -216,17 +213,13 @@ The following has *1 database*,*3 tables*,*2 procedures*,*2 triggers*.
   "procedures": [
     {
       "procedure_name": "set_login_status_to_True",
-      "procedure_parameters": [
-        "IN _id CHAR(10)"
-      ],
-      "procedures": "UPDATE students SET login_status=TRUE WHERE id=_id;"
+      "procedure_parameters": ["IN _id CHAR(10)"],
+      "procedures": ["UPDATE students SET login_status=TRUE WHERE id=_id;"]
     },
     {
       "procedure_name": "set_login_status_to_False",
-      "procedure_parameters": [
-        "IN _id CHAR(10)"
-      ],
-      "procedures": "UPDATE students SET login_status=FALSE WHERE id=_id;"
+      "procedure_parameters": ["IN _id CHAR(10)"],
+      "procedures": ["UPDATE students SET login_status=FALSE WHERE id=_id;"]
     }
   ],
   "triggers": [
@@ -235,9 +228,7 @@ The following has *1 database*,*3 tables*,*2 procedures*,*2 triggers*.
       "trigger_time": "AFTER INSERT",
       "database_name": "test_db",
       "table_name": "attendance",
-      "queries": [
-        "CALL set_login_status_to_True(NEW.id);"
-      ]
+      "queries": ["CALL set_login_status_to_True(NEW.id);"]
     },
     {
       "trigger_name": "attendance_BEFORE_UPDATE",
@@ -248,6 +239,13 @@ The following has *1 database*,*3 tables*,*2 procedures*,*2 triggers*.
         "IF OLD.time_spent IS NULL THEN SET NEW.time_spent=TIMEDIFF(NEW.time_out,OLD.time_in); END IF;",
         "CALL set_login_status_to_False(NEW.id);"
       ]
+    }
+  ],
+  "initial_data": null,
+  "views": [
+    {
+      "name": "final_table",
+      "query": "SELECT name,id,login_status,team_hash,student.team_name,team_lead FROM student,teams WHERE student.team_name=team.team_name"
     }
   ]
 }
@@ -281,9 +279,13 @@ CREATE PROCEDURE `set_login_status_to_False` (IN _id CHAR(10)) BEGIN UPDATE stud
 CREATE TRIGGER `events_AFTER_INSERT` AFTER INSERT ON `test_db`.`attendance` FOR EACH ROW BEGIN CALL set_login_status_to_True(NEW.id);END
 CREATE TRIGGER `attendance_BEFORE_UPDATE` BEFORE UPDATE ON `test_db`.`attendance` FOR EACH ROW BEGIN IF OLD.time_spent IS NULL THEN SET NEW.time_spent=TIMEDIFF(NEW.time_out,OLD.time_in); END IF;CALL set_login_status_to_False(NEW.id);END
 ```
+###### To create view:
+```sql
+CREATE VIEW final_table AS SELECT name,id,login_status,team_hash,student.team_name,team_lead FROM student,teams WHERE student.team_name=team.team_name;
+```
 
 ##### To peform `CRUD` operations on the created database:
-> Refer the `json_sekelton_config` for the minimum json format needed to peform any opereaion on the database.
+> Refer the `json_sekelton_config` for the minimum json format needed to peform any opereaion on the database. -- Need to update this!
 
 ###### To inserting records into the created database:
 
@@ -299,7 +301,3 @@ echo "Student login"
 ./database.py '{"HEADER":{"DATABASE":"test_db","TABLE_NAME":"attendance","REQUEST_TYPE":"insert"},"DATA":{"FIELDS":{"team_hash":"TST_TM","team_name":"TESTING TEAM","id":"TEST_ID_01"},"SET":null,"WHERE":null},"FOOTER":{"DATA ABOUT THE REQUEST":"login","COMMENT":"","UPDATE":[{"HEADER":{"DATABASE":"test_db","TABLE_NAME":"students","REQUEST_TYPE":"update"},"DATA":{"FIELDS":null,"SET":{"login_status":"YES"},"WHERE":{"id":"TEST_ID_01"}},"FOOTER":{"DATA ABOUT THE REQUEST":"login","COMMENT":"","UPDATE":null,"DEP":null}}],"DEP":null}}'
 ```
 >If you are using the trigger then set the "UPDATE" field within the "FOOTER" to null in the outer query.
-
-#### **Mentor and Idea by**
- - Prof.Mahadevaiah Siddaiah
- - Email : railatsk@gmail.com
