@@ -251,7 +251,7 @@ The following has *1 database*,*3 tables*,*2 procedures*,*2 triggers*.
 }
 ```
 
-The following are the queries generated and executed by the connector:
+The following are the queries generated and executed by the connector when `setup.py` is run:
 
 ###### To create the database:
 ```sql
@@ -261,7 +261,7 @@ CREATE DATABASE `test_db`;
 ###### To create the tables:
 ```sql
 --TABLE students
-CREATE TABLE students(`name` VARCHAR(60) NOT NULL,`id` CHAR(10) NOT NULL,`login_status` ENUM('YES','NO') NOT NULL DEFAULT 'NO',PRIMARY KEY(id),INDEX(`id`),INDEX(`id`,`name`));
+CREATE TABLE students(`name` VARCHAR(60) NOT NULL,`id` CHAR(10) NOT NULL,`team_name` VARCHAR(30) NOT NULL,`login_status` ENUM('YES','NO') NOT NULL DEFAULT 'NO',PRIMARY KEY(id),INDEX(`id`),INDEX(`id`,`name`));
 --TABLE teams
 CREATE TABLE teams(`team_hash` CHAR(10) NOT NULL,`team_name` VARCHAR(30) NOT NULL,`team_lead` CHAR(10) NOT NULL,PRIMARY KEY(team_hash),CONSTRAINT `foreign_key_name` FOREIGN KEY (`team_lead`) REFERENCES `students` (`id`),INDEX(`team_hash`));
 --TABLE attendance
@@ -291,7 +291,7 @@ CREATE VIEW final_table AS SELECT name,id,login_status,team_hash,student.team_na
 
 ```bash
 echo "Registering a student"
-./database.py '{"HEADER":{"DATABASE":"test_db","TABLE_NAME":"students","REQUEST_TYPE":"insert"},"DATA":{"FIELDS":{"id":"TEST_ID_01","name":"Tester"},"SET":null,"WHERE":null},"FOOTER":{"DATA ABOUT THE REQUEST":"reg_stud","COMMENT":"","UPDATE":null,"DEP":null}}'
+./database.py '{"HEADER":{"DATABASE":"test_db","TABLE_NAME":"students","REQUEST_TYPE":"insert"},"DATA":{"FIELDS":{"id":"TEST_ID_01","name":"Tester","team_name": "TESTING TEAM"},"SET":null,"WHERE":null},"FOOTER":{"DATA ABOUT THE REQUEST":"reg_stud","COMMENT":"","UPDATE":null,"DEP":null}}'
 echo "Registering team"
 ./database.py '{"HEADER":{"DATABASE":"test_db","TABLE_NAME":"teams","REQUEST_TYPE":"insert"},"DATA":{"FIELDS":{"team_hash":"TST_TM","team_name":"TESTING TEAM","team_lead":"TEST_ID_01"},"SET":null,"WHERE":null},"FOOTER":{"DATA ABOUT THE REQUEST":"reg_team","COMMENT":"","UPDATE":null,"DEP":null}}'
 ```
