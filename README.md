@@ -23,11 +23,11 @@ An application to perform CRUD operations on MySQL using a JSON object
    ```
  * [**flask-cors**](https://flask-cors.readthedocs.io/en/latest/)
    ```bash
-   pip3 install Flask-SocketIO
+   pip3 install flask-cors
    ```
  * [**pandas**](https://pandas.pydata.org/)
    ```bash
-   pip3 install Flask-SocketIO
+   pip3 install pandas
    ```
 #### **Working:**
 ###### **To connect to the database:**
