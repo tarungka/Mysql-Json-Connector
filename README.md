@@ -1,6 +1,6 @@
-# **DATA VISUALIZER**
+# **Mysql-Json-Connector**
 ---
-An application to visualize data in realtime.
+An application to perform CRUD operations on MySQL using a JSON object
 ---
 ### **Developers** : **[Tarun Gopalkrishna A](https://github.com/Kinngman05)**
 
