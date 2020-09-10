@@ -34,8 +34,7 @@ class main:
     '''
     # Constructor which decodes the incoming json data
     def __init__(self, jsonData=None, levelNumber=None):
-        logging.info("Constructor of class __name__:{} __class__:{} was called in levelNumber:{}".format(
-            __name__, __class__, levelNumber))
+        logging.info("Constructor of class __name__:{} __class__:{} was called in levelNumber:{}".format(__name__, __class__, levelNumber))
         if(jsonData == None and levelNumber == None):
             logging.info("No parameters passed at object creation")
         elif(jsonData != None and levelNumber != None):
@@ -46,8 +45,7 @@ class main:
     def input(self, jsonData, levelNumber):
         # The following piece of code is used to convert the data to dict format if it inst already in that format
         try:  # Checking if the input data is of string type
-            logging.debug(
-                "Input data is of string type, converting into dict format")
+            logging.debug("Input data is of string type, converting into dict format")
             self.jsonString = json.loads(str(jsonData))
             logging.debug("SUCCESS")
         except json.decoder.JSONDecodeError:  # Checking of the input data is of dict type, this happens only when the class create an instance of itself!
@@ -65,19 +63,27 @@ class main:
 
         self.levelNumber = levelNumber
 
-        self.header = self.jsonString["HEADER"]  # Gets the header
-        self.database = self.header["DATABASE"]  # database name within header
-        self.table = self.header["TABLE_NAME"]  # table name name within header
-        self.requestType = self.header["REQUEST_TYPE"]  # request type name within header
+        self.header = self.jsonString.pop("HEADER",None)  # Gets the header
+        if(self.header == None):
+            raise AssertionError("The query must contain a HEADER!")
+        self.database = self.header.pop("DATABASE",None)  # database name within header
+        self.table = self.header.pop("TABLE_NAME",None)  # table name name within header
+        self.requestType = self.header.pop("REQUEST_TYPE",None)  # request type name within header
+        if(self.requestType == None):
+            raise AssertionError("The query must have a REQUEST_TYPE")
 
-        self.data = self.jsonString["DATA"]  # Gets the data
-        self.fields = self.data["FIELDS"]  # fields name within header
-        self.setClause = self.data["SET"]  # setClause name within header
-        self.whereClause = self.data["WHERE"]  # whereClause name within header
+        self.data = self.jsonString.pop("DATA",None)  # Gets the data
+        # if(self.data == None):
+        #     raise AssertionError("The query does not contain a DATA!")
+        self.fields = self.data.pop("FIELDS",None)  # fields name within header
+        self.setClause = self.data.pop("SET",None)  # setClause name within header
+        self.whereClause = self.data.pop("WHERE",None)  # whereClause name within header
 
-        self.footer = self.jsonString["FOOTER"]  # Gets the footer
-        self.updateList = self.footer["UPDATE"]  # update name within header
-        self.conditionList = self.footer["DEP"]  # dep name within header
+        self.footer = self.jsonString.pop("FOOTER",None)  # Gets the footer
+        # if(self.footer == None):
+        #     raise AssertionError("The query does not contain a FOOTER!")
+        self.updateList = self.footer.pop("UPDATE",None)  # update name within header
+        self.conditionList = self.footer.pop("DEP",None)  # dep name within header
         try:
             self.runCondition = self.footer["CONDITION"]  # Run analytics
         except:
@@ -140,7 +146,7 @@ class main:
                 # If the condition is true then a list of data is returned, else None type is returned and the if case
                 # is not executed.
                 ###################
-                if subProcess.processRequest():  # If select returns a data if is executed, if None is returned then else is executed
+                if subProcess.processRequest():  # If select returns data this is executed, if None is returned then else is executed
                     logging.info("The condition flag is being set to True")
                     self.conditionFlag = True
                 else:
@@ -159,12 +165,14 @@ class main:
             '''
             if(self.requestType == "insert"):
                 self.mysqlConnection.insert(self.getTable(), self.fields)
+            elif(self.requestType == "describe"):
+                return self.mysqlConnection.describe(self.getTable())
+            elif(self.requestType == "show"):
+                return self.mysqlConnection.show()
             elif(self.requestType == "delete"):
-                self.mysqlConnection.delete(
-                    self.getTable(), self.whereClause)
+                self.mysqlConnection.delete(self.getTable(), self.whereClause)
             elif(self.requestType == "update"):
-                self.mysqlConnection.update(
-                    self.getTable(), self.setClause, self.whereClause)
+                self.mysqlConnection.update(self.getTable(), self.setClause, self.whereClause)
             elif(self.requestType == "select"):
                 try:
                     return self.mysqlConnection.select([self.getTable()], self.fields, self.whereClause)

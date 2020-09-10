@@ -151,6 +151,28 @@ class mysqlConnector():
         else:
             logging.debug("executeQuery called with no arguments")
 
+    def show(self):
+        self.executeQuery("SHOW DATABASES")
+        response = self.cursor.fetchall()
+        logging.debug(f"The show databases are {response}")
+        databases = []
+        for database in response:
+            if(database['Database'] == 'information_schema'):
+                continue
+            databases.append(database['Database'])
+        result = {}
+        logging.debug(f"The databases are {databases}")
+        for database in databases:
+            tables = []
+            self.use(database)
+            self.executeQuery("SHOW TABLES")
+            response = self.cursor.fetchall()
+            for element in response:
+                for table_name in element:
+                    tables.append(element[table_name])
+            result.update({ database : tables })
+        return result
+
     def create(self, what, nameOfWhat, dictionary=None, primaryKey=None, foreignKeys=None, indexAttributes=None):
         """
         NOTE FOR DEVELOPER: MIGHT NEED TO MAKE IT KWARGS LATER OR SPLIT IT TO DIFFERENT FUNCTIONS
@@ -274,6 +296,18 @@ class mysqlConnector():
             logging.warning(
                 "THIS FUNCTION CAN ONLY CREATE ONLY 'TABLE' AND 'DATABASE'")
         self.executeQuery(finalQuery)
+
+    def describe(self, table_name):
+        """
+        Generates a DESCRIBE query.
+        """
+        logging.info("Creating DESCRIBE query({})".format(table_name))
+        finalQuery = "DESCRIBE {};".format("".join(self._add_back_ticks([table_name])))
+        self.executeQuery(finalQuery)
+        response = self.cursor.fetchall()
+        logging.debug("The response from DESCRIBE is:"+str(response))
+        return response
+
 
     def use(self, databaseName):
         """

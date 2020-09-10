@@ -21,14 +21,6 @@ An application to perform CRUD operations on MySQL using a JSON object
    ```bash
    pip3 install Flask-SocketIO
    ```
- * [**flask-cors**](https://flask-cors.readthedocs.io/en/latest/)
-   ```bash
-   pip3 install flask-cors
-   ```
- * [**pandas**](https://pandas.pydata.org/)
-   ```bash
-   pip3 install pandas
-   ```
 #### **Working:**
 ###### **To connect to the database:**
 Firstly, create a separate `user` for the `mysql-connector`(recommended for security and safety purposes)
