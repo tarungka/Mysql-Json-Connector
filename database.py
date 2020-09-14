@@ -92,7 +92,8 @@ class main:
         WRITE THE CODE HERE TO GET THE COMMENT FROM THE FOOTER SECTION
         '''
         try:
-            self.mysqlConnection.use(self.database) #This can raise unknown database error -- Needs to be caught correctly
+            if(self.database):
+                self.mysqlConnection.use(self.database) #This can raise unknown database error -- Needs to be caught correctly
         except Exception:           #Not sure if this is correct
             logging.debug("Failed to connect to the database, this is when you are using non-persistent connections")
 
