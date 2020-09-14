@@ -79,13 +79,16 @@ class main:
             self.fields = self.data.pop("FIELDS",None)  # fields name within header
             self.setClause = self.data.pop("SET",None)  # setClause name within header
             self.whereClause = self.data.pop("WHERE",None)  # whereClause name within header
-
+        else:
+            self.fields = self.setClause = self.whereClause = None
         self.footer = self.jsonString.pop("FOOTER",None)  # Gets the footer
         # if(self.footer == None):
         #     raise AssertionError("The query does not contain a FOOTER!")
         if(self.footer):
             self.updateList = self.footer.pop("UPDATE",None)  # update name within header
             self.conditionList = self.footer.pop("DEP",None)  # dep name within header
+        else:
+            self.updateList = self.conditionList = None
         try:
             self.runCondition = self.footer["CONDITION"]  # Run analytics
         except:
