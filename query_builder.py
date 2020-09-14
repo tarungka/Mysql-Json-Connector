@@ -59,7 +59,7 @@ class query_builder():
         if(self.req_type == 'insert'):
             if(self.database and self.table and self.fields):
                 header.update({"DATABASE": self.database})
-                header.update({"TABLE": self.table})
+                header.update({"TABLE_NAME": self.table})
                 header.update({"REQUEST_TYPE": self.req_type})
                 data.update({"FIELDS": self.fields})
                 footer.update({"COMMENT": self.comment})
@@ -71,7 +71,7 @@ class query_builder():
         elif(self.req_type == 'select'):
             if(self.database and self.table and self.fields):
                 header.update({"DATABASE": self.database})
-                header.update({"TABLE": self.table})
+                header.update({"TABLE_NAME": self.table})
                 header.update({"REQUEST_TYPE": self.req_type})
                 data.update({"FIELDS": self.fields})
                 data.update({"WHERE": self.where})
@@ -83,7 +83,7 @@ class query_builder():
         elif(self.req_type == 'update'):
             if(self.database and self.table and self.fields):
                 header.update({"DATABASE": self.database})
-                header.update({"TABLE": self.table})
+                header.update({"TABLE_NAME": self.table})
                 header.update({"REQUEST_TYPE": self.req_type})
                 data.update({"FIELDS": self.fields})
                 data.update({"SET": self.set_field})
@@ -95,13 +95,13 @@ class query_builder():
                 self.result.update({"FOOTER": footer})
         elif(self.req_type == 'describe'):
             header.update({"DATABASE": self.database})
-            header.update({"TABLE": self.table})
+            header.update({"TABLE_NAME": self.table})
             header.update({"REQUEST_TYPE": self.req_type})
             self.result.update({"HEADER": header})
         elif(self.req_type == 'delete'):
             if(self.database and self.table and self.fields):
                 header.update({"DATABASE": self.database})
-                header.update({"TABLE": self.table})
+                header.update({"TABLE_NAME": self.table})
                 header.update({"REQUEST_TYPE": self.req_type})
                 data.update({"WHERE": self.where})
                 footer.update({"DEP": self.dep})
