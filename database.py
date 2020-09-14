@@ -75,15 +75,17 @@ class main:
         self.data = self.jsonString.pop("DATA",None)  # Gets the data
         # if(self.data == None):
         #     raise AssertionError("The query does not contain a DATA!")
-        self.fields = self.data.pop("FIELDS",None)  # fields name within header
-        self.setClause = self.data.pop("SET",None)  # setClause name within header
-        self.whereClause = self.data.pop("WHERE",None)  # whereClause name within header
+        if(self.data):
+            self.fields = self.data.pop("FIELDS",None)  # fields name within header
+            self.setClause = self.data.pop("SET",None)  # setClause name within header
+            self.whereClause = self.data.pop("WHERE",None)  # whereClause name within header
 
         self.footer = self.jsonString.pop("FOOTER",None)  # Gets the footer
         # if(self.footer == None):
         #     raise AssertionError("The query does not contain a FOOTER!")
-        self.updateList = self.footer.pop("UPDATE",None)  # update name within header
-        self.conditionList = self.footer.pop("DEP",None)  # dep name within header
+        if(self.footer):
+            self.updateList = self.footer.pop("UPDATE",None)  # update name within header
+            self.conditionList = self.footer.pop("DEP",None)  # dep name within header
         try:
             self.runCondition = self.footer["CONDITION"]  # Run analytics
         except:
