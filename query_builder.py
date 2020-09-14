@@ -60,7 +60,7 @@ class query_builder():
             if(self.database and self.table and self.fields):
                 header.update({"DATABASE": self.database})
                 header.update({"TABLE": self.table})
-                header.update({"REQUEST": self.req_type})
+                header.update({"REQUEST_TYPE": self.req_type})
                 data.update({"FIELDS": self.fields})
                 footer.update({"COMMENT": self.comment})
                 footer.update({"DEP": self.dep})
@@ -72,7 +72,7 @@ class query_builder():
             if(self.database and self.table and self.fields):
                 header.update({"DATABASE": self.database})
                 header.update({"TABLE": self.table})
-                header.update({"REQUEST": self.req_type})
+                header.update({"REQUEST_TYPE": self.req_type})
                 data.update({"FIELDS": self.fields})
                 data.update({"WHERE": self.where})
                 footer.update({"DEP": self.dep})
@@ -84,7 +84,7 @@ class query_builder():
             if(self.database and self.table and self.fields):
                 header.update({"DATABASE": self.database})
                 header.update({"TABLE": self.table})
-                header.update({"REQUEST": self.req_type})
+                header.update({"REQUEST_TYPE": self.req_type})
                 data.update({"FIELDS": self.fields})
                 data.update({"SET": self.set_field})
                 data.update({"WHERE": self.where})
@@ -96,13 +96,13 @@ class query_builder():
         elif(self.req_type == 'describe'):
             header.update({"DATABASE": self.database})
             header.update({"TABLE": self.table})
-            header.update({"REQUEST": self.req_type})
+            header.update({"REQUEST_TYPE": self.req_type})
             self.result.update({"HEADER": header})
         elif(self.req_type == 'delete'):
             if(self.database and self.table and self.fields):
                 header.update({"DATABASE": self.database})
                 header.update({"TABLE": self.table})
-                header.update({"REQUEST": self.req_type})
+                header.update({"REQUEST_TYPE": self.req_type})
                 data.update({"WHERE": self.where})
                 footer.update({"DEP": self.dep})
                 footer.update({"UPDATE": self.update})
@@ -112,7 +112,7 @@ class query_builder():
         elif(self.req_type == 'alter'):
             pass
         elif(self.req_type == 'show'):
-            header.update({"REQUEST": self.req_type})
+            header.update({"REQUEST_TYPE": self.req_type})
             self.result.update({"HEADER": header})
 
     def get_query(self):

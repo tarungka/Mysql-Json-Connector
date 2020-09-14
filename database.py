@@ -136,8 +136,7 @@ class main:
         # cannot test for len(self.conditionList) == 0 i.e when there is a empty list passed, raises TypeError
         if(self.conditionList != None):
             for element in self.conditionList:
-                logging.info(
-                    "LevelNumber: {} - Creating a new sub process for conditionList with:".format(self.levelNumber)+str(element))
+                logging.info("LevelNumber: {} - Creating a new sub process for conditionList with:".format(self.levelNumber)+str(element))
                 subProcess = main(element, self.levelNumber + 1)
                 subProcess.setConnection(self.mysqlConnection)
                 ###################

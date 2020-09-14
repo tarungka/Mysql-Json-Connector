@@ -55,8 +55,7 @@ class mysqlConnector():
             self.cursor = self.mysqlConnection.cursor(dictionary=True)
             logging.info("Connection successful")
         except mysql.connector.Error as err:
-            logging.critical("Mysql connector error Error No:%4d:%s" %
-                             (err.errno, str(err.msg)))
+            logging.critical("Mysql connector error Error No:%4d:%s" %(err.errno, str(err.msg)))
             if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
                 logging.critical("Access was denied.")
             elif err.errno == errorcode.ER_BAD_DB_ERROR:
