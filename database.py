@@ -45,12 +45,12 @@ class main:
     def input(self, jsonData, levelNumber):
         # The following piece of code is used to convert the data to dict format if it inst already in that format
         try:  # Checking if the input data is of string type
-            logging.debug("Input data is of string type, converting into dict format")
             self.jsonString = json.loads(str(jsonData))
+            logging.debug("Input data is of string type, converting into dict format")
             logging.debug("SUCCESS")
         except json.decoder.JSONDecodeError:  # Checking of the input data is of dict type, this happens only when the class create an instance of itself!
-            logging.debug("Input data is of dict type, no changes made")
             self.jsonString = jsonData
+            logging.debug("Input data is of dict type, no changes made")
             logging.debug("SUCCESS")
 
         logging.debug("The jsonString is of datatype:"+str(type(self.jsonString)))

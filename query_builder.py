@@ -116,7 +116,7 @@ class query_builder():
             self.result.update({"HEADER": header})
 
     def get_query(self):
-        return self.result
+        return self.result.copy()
 
     def to_json(self):
         return json.dumps(self.result)
