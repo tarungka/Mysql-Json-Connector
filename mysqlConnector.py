@@ -16,11 +16,11 @@ elif(pathToExeFromCurDir.startswith(".")):
     PATH = current_directory + pathToExeFromCurDir[1:]
 else:
     PATH = current_directory + "/" + pathToExeFromCurDir
-PATH = PATH.rsplit("/",1)[0] + "/"
+PATH = PATH.rsplit("/", 1)[0] + "/"
 
 
 logging.basicConfig(
-    filename= PATH+'application.log',
+    filename=PATH+'application.log',
     format='%(asctime)s.%(msecs)-3d:%(filename)s:%(funcName)s:%(levelname)s:%(lineno)d:%(message)s',
     datefmt='%Y-%m-%d %H:%M:%S',
     level=logging.DEBUG
@@ -55,7 +55,8 @@ class mysqlConnector():
             self.cursor = self.mysqlConnection.cursor(dictionary=True)
             logging.info("Connection successful")
         except mysql.connector.Error as err:
-            logging.critical("Mysql connector error Error No:%4d:%s" %(err.errno, str(err.msg)))
+            logging.critical("Mysql connector error Error No:%4d:%s" %
+                             (err.errno, str(err.msg)))
             if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
                 logging.critical("Access was denied.")
             elif err.errno == errorcode.ER_BAD_DB_ERROR:
@@ -89,30 +90,35 @@ class mysqlConnector():
         """
         Add backticks to the database name and the table name to avoid mysql query errors.
         """
-        logging.warning("THIS METHOD IS NEW AND COULD BE BUGGY, CONTACT DEVELOPER IN CASE OF ERROR!")
+        logging.warning(
+            "THIS METHOD IS NEW AND COULD BE BUGGY, CONTACT DEVELOPER IN CASE OF ERROR!")
         try:
             assert (type(dataList) is list)
             logging.debug("Input data is"+str(dataList))
             returnData = []
             for data in dataList:
-                if("." in data and (data[-1] != "`" and data[0] != "`")): #This is still buggy
-                    db,tbl = data.split(".")
+                # This is still buggy
+                if("." in data and (data[-1] != "`" and data[0] != "`")):
+                    db, tbl = data.split(".")
                     returnData.append("`"+db+"`.`"+tbl+"`")
                 else:
                     returnData.append("`"+data+"`")
             if((returnData == None) or (returnData == [])):
                 logging.critical("Method FAILED TO PERFORM INTENDEND ACTION")
-                raise errors.UserDefinedError("CRITICAL:mysqlConnector module failed!")
+                raise errors.UserDefinedError(
+                    "CRITICAL:mysqlConnector module failed!")
             else:
                 logging.debug("Output data is"+str(returnData))
                 return returnData
         except AssertionError as err:
-            logging.critical("dataList must be of list type but is of type"+str(type(dataList)))
+            logging.critical(
+                "dataList must be of list type but is of type"+str(type(dataList)))
             errors.UserDefinedError("CRITICAL ERROR")
         except Exception as err:
-            errors.UserDefinedError("Exception not handeled:"+str(err.__class__)+str(err))
+            errors.UserDefinedError(
+                "Exception not handeled:"+str(err.__class__)+str(err))
 
-    def convertToUsableData(self,dataList):
+    def convertToUsableData(self, dataList):
         assert type(dataList) is list
         usableList = []
         logging.debug("The input dataList is:"+str(dataList))
@@ -124,7 +130,7 @@ class mysqlConnector():
         logging.debug("Usable data is:"+str(usableList))
         return usableList
 
-    def executeQuery(self, query=None,raiseExternally=False):
+    def executeQuery(self, query=None, raiseExternally=False):
         """
         Execute a query.
         Write the part for raiseExternally part
@@ -134,19 +140,24 @@ class mysqlConnector():
         # if(query and raiseExternally): Write code for this
         if(query):
             try:
-                logging.debug("Connection id "+str(self._getConnectionId())+",the query is:"+query)
+                logging.debug(
+                    "Connection id "+str(self._getConnectionId())+",the query is:"+query)
                 self.cursor.execute(query)
             except mysql.connector.ProgrammingError as err:
                 if err.errno == errorcode.ER_PARSE_ERROR:
-                    errors.UserDefinedError("ERROR IN THE SYNTAX {}".format(str(err)))
+                    errors.UserDefinedError(
+                        "ERROR IN THE SYNTAX {}".format(str(err)))
                 elif err.errno == errorcode.ER_BAD_DB_ERROR:
                     raise errors.UnknownDatabaseError()
                 else:
-                    errors.NonCriticalError("MYSQL ERROR:{},{}".format(err,err.errno))
+                    errors.NonCriticalError(
+                        "MYSQL ERROR:{},{}".format(err, err.errno))
             except mysql.connector.Error as err:
-                    errors.NonCriticalError("MYSQL CONNECTOR ERROR:{}".format(str(err)))
+                errors.NonCriticalError(
+                    "MYSQL CONNECTOR ERROR:{}".format(str(err)))
             except Exception as e:
-                errors.UserDefinedError("Error not handeled!:{}:{}".format(str(e.__class__),str(e)))
+                errors.UserDefinedError(
+                    "Error not handeled!:{}:{}".format(str(e.__class__), str(e)))
         else:
             logging.debug("executeQuery called with no arguments")
 
@@ -169,7 +180,7 @@ class mysqlConnector():
             for element in response:
                 for table_name in element:
                     tables.append(element[table_name])
-            result.update({ database : tables })
+            result.update({database: tables})
         return result
 
     def create(self, what, nameOfWhat, dictionary=None, primaryKey=None, foreignKeys=None, indexAttributes=None):
@@ -288,9 +299,11 @@ class mysqlConnector():
                     finalQuery = finalQuery + ")"
             finalQuery = finalQuery + ");"
         elif(whatUpper == "DATABASE"):
-            finalQuery = ("CREATE " + whatUpper + " `" + nameOfWhat + "`;")  # Change to call _add_back_ticks
+            # Change to call _add_back_ticks
+            finalQuery = ("CREATE " + whatUpper + " `" + nameOfWhat + "`;")
         elif(whatUpper == "VIEW"):
-            finalQuery = ("CREATE " + whatUpper + " " + nameOfWhat + " AS " + dictionary)
+            finalQuery = ("CREATE " + whatUpper + " " +
+                          nameOfWhat + " AS " + dictionary)
         else:
             logging.warning(
                 "THIS FUNCTION CAN ONLY CREATE ONLY 'TABLE' AND 'DATABASE'")
@@ -301,19 +314,20 @@ class mysqlConnector():
         Generates a DESCRIBE query.
         """
         logging.info("Creating DESCRIBE query({})".format(table_name))
-        finalQuery = "DESCRIBE {};".format("".join(self._add_back_ticks([table_name])))
+        finalQuery = "DESCRIBE {};".format(
+            "".join(self._add_back_ticks([table_name])))
         self.executeQuery(finalQuery)
         response = self.cursor.fetchall()
         logging.debug("The response from DESCRIBE is:"+str(response))
         return response
-
 
     def use(self, databaseName):
         """
         Generates a USE query.
         """
         logging.info("Creating USE query({})".format(databaseName))
-        finalQuery = "USE {};".format("".join(self._add_back_ticks([databaseName])))
+        finalQuery = "USE {};".format(
+            "".join(self._add_back_ticks([databaseName])))
         self.executeQuery(finalQuery)
 
     def insert(self, tableName, insDict):
@@ -382,7 +396,8 @@ class mysqlConnector():
             finalQuery = finalQuery + key[0] + "=" + "'" + value[0] + "'"
         except TypeError:
             if(value[0]):
-                finalQuery = finalQuery + key[0] + "=" + "'" + str(value[0]) + "'"
+                finalQuery = finalQuery + key[0] + \
+                    "=" + "'" + str(value[0]) + "'"
         for index in range(length - 1):
             finalQuery = finalQuery + "," + \
                 key[index + 1] + "=" + "'" + value[index + 1] + "'"
@@ -400,7 +415,7 @@ class mysqlConnector():
         finalQuery = finalQuery + ";"
         self.executeQuery(finalQuery)
 
-    def select(self, tables, dataList, whereDict=None, conditions=None,**kwargs):
+    def select(self, tables, dataList, whereDict=None, conditions=None, **kwargs):
         """
         Generates a SELECT query.
 
@@ -421,7 +436,8 @@ class mysqlConnector():
         finalQuery = ("SELECT ")
         length = len(dataList)
         finalQuery = finalQuery + ",".join(self._add_back_ticks(dataList))
-        finalQuery = finalQuery + " FROM " + ",".join(self._add_back_ticks(tables))
+        finalQuery = finalQuery + " FROM " + \
+            ",".join(self._add_back_ticks(tables))
         if(whereDict != None):
             finalQuery = finalQuery + " WHERE "
             key = list(whereDict.keys())
@@ -443,7 +459,7 @@ class mysqlConnector():
         self.executeQuery(finalQuery)
         response = self.cursor.fetchall()
         logging.debug("The response from SELECT is:"+str(response))
-        someVar = kwargs.pop("user_data",True)
+        someVar = kwargs.pop("user_data", True)
         if(someVar):
             logging.info("Returning as user usable data")
             return self.convertToUsableData(response)
@@ -525,7 +541,8 @@ class mysqlConnector():
         As of now only supports dropping a database.
         """
         logging.info("Dropping {}({})".format(what, db_name))
-        finalQuery = "DROP DATABASE {};".format("".join(self._add_back_ticks([db_name])))
+        finalQuery = "DROP DATABASE {};".format(
+            "".join(self._add_back_ticks([db_name])))
         self.executeQuery(finalQuery)
 
     def commitChanges(self):

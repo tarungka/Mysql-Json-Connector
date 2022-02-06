@@ -3,7 +3,7 @@ import json
 
 class query_builder():
 
-    def __init__(self, *args, **kwargs): #I need to write more in the init function
+    def __init__(self, *args, **kwargs):  # I need to write more in the init function
         self.database = None
         self.table = None
         self.req_type = None
@@ -25,7 +25,8 @@ class query_builder():
         self.table = table
 
     def set_req_type(self, req_type):
-        assert type(req_type) == str and req_type in ['insert', 'update', 'describe', 'delete', 'select', 'alter','show']
+        assert type(req_type) == str and req_type in [
+            'insert', 'update', 'describe', 'delete', 'select', 'alter', 'show']
         self.req_type = req_type
 
     def set_fields(self, fields):
@@ -120,7 +121,6 @@ class query_builder():
 
     def to_json(self):
         return json.dumps(self.result)
-
 
 
 if __name__ == "__main__":

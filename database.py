@@ -33,12 +33,14 @@ class main:
     4)PLEASE MAKE SURE YOU PASS 'null' AND NOT AN EMPTY LIST OR A DICTIONARY
     '''
     # Constructor which decodes the incoming json data
+
     def __init__(self, jsonData=None, levelNumber=None):
-        logging.info("Constructor of class __name__:{} __class__:{} was called in levelNumber:{}".format(__name__, __class__, levelNumber))
+        logging.info("Constructor of class __name__:{} __class__:{} was called in levelNumber:{}".format(
+            __name__, __class__, levelNumber))
         if(jsonData == None and levelNumber == None):
             logging.info("No parameters passed at object creation")
         elif(jsonData != None and levelNumber != None):
-            self.input(jsonData,levelNumber)
+            self.input(jsonData, levelNumber)
         else:
             logging.critical("Input parameters error!")
 
@@ -46,47 +48,58 @@ class main:
         # The following piece of code is used to convert the data to dict format if it inst already in that format
         try:  # Checking if the input data is of string type
             self.jsonString = json.loads(str(jsonData))
-            logging.debug("Input data is of string type, converting into dict format")
+            logging.debug(
+                "Input data is of string type, converting into dict format")
             logging.debug("SUCCESS")
         except json.decoder.JSONDecodeError:  # Checking of the input data is of dict type, this happens only when the class create an instance of itself!
             self.jsonString = jsonData
             logging.debug("Input data is of dict type, no changes made")
             logging.debug("SUCCESS")
 
-        logging.debug("The jsonString is of datatype:"+str(type(self.jsonString)))
+        logging.debug("The jsonString is of datatype:" +
+                      str(type(self.jsonString)))
 
         # logging.debug(str(self.jsonString))
         logging.debug("Input data is:"+str(self.jsonString))
 
         # assert type(self.jsonString) is dict
-        logging.debug("The jsonString is of datatype:"+str(type(self.jsonString)))
+        logging.debug("The jsonString is of datatype:" +
+                      str(type(self.jsonString)))
 
         self.levelNumber = levelNumber
 
-        self.header = self.jsonString.pop("HEADER",None)  # Gets the header
+        self.header = self.jsonString.pop("HEADER", None)  # Gets the header
         if(self.header == None):
             raise AssertionError("The query must contain a HEADER!")
-        self.database = self.header.pop("DATABASE",None)  # database name within header
-        self.table = self.header.pop("TABLE_NAME",None)  # table name name within header
-        self.requestType = self.header.pop("REQUEST_TYPE",None)  # request type name within header
+        # database name within header
+        self.database = self.header.pop("DATABASE", None)
+        # table name name within header
+        self.table = self.header.pop("TABLE_NAME", None)
+        # request type name within header
+        self.requestType = self.header.pop("REQUEST_TYPE", None)
         if(self.requestType == None):
             raise AssertionError("The query must have a REQUEST_TYPE")
 
-        self.data = self.jsonString.pop("DATA",None)  # Gets the data
+        self.data = self.jsonString.pop("DATA", None)  # Gets the data
         # if(self.data == None):
         #     raise AssertionError("The query does not contain a DATA!")
         if(self.data):
-            self.fields = self.data.pop("FIELDS",None)  # fields name within header
-            self.setClause = self.data.pop("SET",None)  # setClause name within header
-            self.whereClause = self.data.pop("WHERE",None)  # whereClause name within header
+            # fields name within header
+            self.fields = self.data.pop("FIELDS", None)
+            # setClause name within header
+            self.setClause = self.data.pop("SET", None)
+            # whereClause name within header
+            self.whereClause = self.data.pop("WHERE", None)
         else:
             self.fields = self.setClause = self.whereClause = None
-        self.footer = self.jsonString.pop("FOOTER",None)  # Gets the footer
+        self.footer = self.jsonString.pop("FOOTER", None)  # Gets the footer
         # if(self.footer == None):
         #     raise AssertionError("The query does not contain a FOOTER!")
         if(self.footer):
-            self.updateList = self.footer.pop("UPDATE",None)  # update name within header
-            self.conditionList = self.footer.pop("DEP",None)  # dep name within header
+            self.updateList = self.footer.pop(
+                "UPDATE", None)  # update name within header
+            self.conditionList = self.footer.pop(
+                "DEP", None)  # dep name within header
         else:
             self.updateList = self.conditionList = None
         try:
@@ -98,10 +111,11 @@ class main:
         '''
         try:
             if(self.database):
-                self.mysqlConnection.use(self.database) #This can raise unknown database error -- Needs to be caught correctly
-        except Exception:           #Not sure if this is correct
-            logging.debug("Failed to connect to the database, this is when you are using non-persistent connections")
-
+                # This can raise unknown database error -- Needs to be caught correctly
+                self.mysqlConnection.use(self.database)
+        except Exception:  # Not sure if this is correct
+            logging.debug(
+                "Failed to connect to the database, this is when you are using non-persistent connections")
 
     def getDatabase(self):
         """
@@ -122,7 +136,8 @@ class main:
         """
         if(connection == None):
             logging.info("Creating a new connection to the database")
-            self.mysqlConnection = sql.mysqlConnector(option_files=(PATH+".config/mysql.cnf"))
+            self.mysqlConnection = sql.mysqlConnector(
+                option_files=(PATH+".config/mysql.cnf"))
             logging.info("Connection successful")
         else:
             logging.info(
@@ -131,7 +146,8 @@ class main:
         try:
             self.mysqlConnection.use(self.database)
         except AttributeError:
-            logging.debug("Failed to connect to the database, this is when you are using persistent connections")
+            logging.debug(
+                "Failed to connect to the database, this is when you are using persistent connections")
 
     def processRequest(self):
         """
@@ -142,7 +158,8 @@ class main:
         # cannot test for len(self.conditionList) == 0 i.e when there is a empty list passed, raises TypeError
         if(self.conditionList != None):
             for element in self.conditionList:
-                logging.info("LevelNumber: {} - Creating a new sub process for conditionList with:".format(self.levelNumber)+str(element))
+                logging.info(
+                    "LevelNumber: {} - Creating a new sub process for conditionList with:".format(self.levelNumber)+str(element))
                 subProcess = main(element, self.levelNumber + 1)
                 subProcess.setConnection(self.mysqlConnection)
                 ###################
@@ -177,7 +194,8 @@ class main:
             elif(self.requestType == "delete"):
                 self.mysqlConnection.delete(self.getTable(), self.whereClause)
             elif(self.requestType == "update"):
-                self.mysqlConnection.update(self.getTable(), self.setClause, self.whereClause)
+                self.mysqlConnection.update(
+                    self.getTable(), self.setClause, self.whereClause)
             elif(self.requestType == "select"):
                 try:
                     return self.mysqlConnection.select([self.getTable()], self.fields, self.whereClause)
@@ -207,9 +225,9 @@ class main:
         else:
             logging.critical("Queries condition has not been executed")
 
-
     def closeConnection(self):
         self.mysqlConnection.closeConnection()
+
 
 if __name__ == '__main__':
     logging.info("Start of database.py")

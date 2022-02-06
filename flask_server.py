@@ -50,7 +50,8 @@ def handle_my_custom_event():
 
 @socketio.on('query')
 def process_query(query):
-    logging.debug('received query: ' + str(query) + "query type:" + str(type(query)))
+    logging.debug('received query: ' + str(query) +
+                  "query type:" + str(type(query)))
     process.input(query, 0)
     result = process.processRequest()
     if(result):
@@ -75,7 +76,6 @@ def validate_user(credentials):
 def handle_message(message):
     logging.info(f"Message from {request.remote_addr}:{message}")
     print(f"Message from {request.remote_addr}:{message}")
-
 
 
 @socketio.on_error_default  # handles all namespaces without an explicit error handler

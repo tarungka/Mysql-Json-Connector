@@ -30,18 +30,22 @@ def createDatabase(db, databases):
     for databaseName in allDatabases:
         try:
             db.use(databaseName)
-            answer = input(f"Database '{databaseName}' is present, are you sure you want to drop it(Y/N)?")
+            answer = input(
+                f"Database '{databaseName}' is present, are you sure you want to drop it(Y/N)?")
             if(answer == 'y' or answer == 'Y'):
                 db.drop("database", databaseName)
                 logging.info("Database " + databaseName + " was dropped.")
                 print("Database " + databaseName + " was dropped.")
             else:
-                logging.info(f"There already exists a database by the name `{databaseName}` please drop it.")
-                print(f"There already exists a database by the name `{databaseName}` please drop it.")
+                logging.info(
+                    f"There already exists a database by the name `{databaseName}` please drop it.")
+                print(
+                    f"There already exists a database by the name `{databaseName}` please drop it.")
                 exit(0)
         # Ok this gets buggy when its only "except:" or "except BaseException as e", Why?-- Is it because exit(0) raises an BaseException?
         except Exception as e:
-            logging.info(f"No database by the name `{databaseName}`,no need to drop.{str(e)}")
+            logging.info(
+                f"No database by the name `{databaseName}`,no need to drop.{str(e)}")
     for databaseName in allDatabases:
         print("Creating database %s ..." % (databaseName), end='')
         db.create("database", databaseName)
@@ -61,15 +65,18 @@ def createDatabase(db, databases):
             foreignKeys = theTable["foreign_key"]
             initial_data = theTable["initial_data"]
             print("Creating table '%s' ..." % (table), end='')
-            db.create("table", table, dictionary=dictionary, primaryKey=primaryKey,foreignKeys=foreignKeys, indexAttributes=index)
+            db.create("table", table, dictionary=dictionary, primaryKey=primaryKey,
+                      foreignKeys=foreignKeys, indexAttributes=index)
             print("(success)")
             logging.info("Creating table %s ...(success)" % (table))
             if(initial_data):
                 for eachData in initial_data:
-                    print(f"Inserting intital data in table '{table}' ...",end='')
-                    db.insert(table,eachData)
+                    print(
+                        f"Inserting intital data in table '{table}' ...", end='')
+                    db.insert(table, eachData)
                     print("(success)")
-                    logging.info(f"Inserting intital data in table '{table}' ...(success)")
+                    logging.info(
+                        f"Inserting intital data in table '{table}' ...(success)")
 
 
 def createProcedure(db, proc):
@@ -78,9 +85,12 @@ def createProcedure(db, proc):
         logging.info("Creating procedures ...")
         # print(proc)
         for procedure in proc:
-            print("Creating procedure {} ...(success)".format(procedure["procedure_name"]))
-            db.procedure(procedure_name=procedure["procedure_name"],procedure_parameters=procedure["procedure_parameters"], procedures=procedure["procedures"])
-            logging.info("Creating procedure {} ...(success)".format(procedure["procedure_name"]))
+            print("Creating procedure {} ...(success)".format(
+                procedure["procedure_name"]))
+            db.procedure(procedure_name=procedure["procedure_name"],
+                         procedure_parameters=procedure["procedure_parameters"], procedures=procedure["procedures"])
+            logging.info("Creating procedure {} ...(success)".format(
+                procedure["procedure_name"]))
 
 
 def createTrigger(db, triggers):
@@ -88,9 +98,12 @@ def createTrigger(db, triggers):
         print("Creating triggers ...")
         logging.info("Creating triggers ...")
         for trigger in triggers:
-            db.trigger(trigger_name=trigger["trigger_name"], trigger_time=trigger["trigger_time"],database_name=trigger["database_name"], table_name=trigger["table_name"], queries=trigger["queries"])
-            logging.info("Creating trigger on database {} trigger name {} ...(success)".format(trigger["database_name"], trigger["trigger_name"]))
-            print("Creating trigger on database {} trigger name {} ...(success)".format(trigger["database_name"], trigger["trigger_name"]))
+            db.trigger(trigger_name=trigger["trigger_name"], trigger_time=trigger["trigger_time"],
+                       database_name=trigger["database_name"], table_name=trigger["table_name"], queries=trigger["queries"])
+            logging.info("Creating trigger on database {} trigger name {} ...(success)".format(
+                trigger["database_name"], trigger["trigger_name"]))
+            print("Creating trigger on database {} trigger name {} ...(success)".format(
+                trigger["database_name"], trigger["trigger_name"]))
 
 
 def createView(db, views):
@@ -99,10 +112,9 @@ def createView(db, views):
         print("Creating views...")
         logging.info("Creating views...")
         for view in views:
-            db.create("view",view["name"],view["query"])
+            db.create("view", view["name"], view["query"])
             logging.info("Creating view '{}'".format(view["name"]))
             print("Creating view '{}'".format(view["name"]))
-
 
 
 def insertInitialData(db, data):
@@ -111,7 +123,6 @@ def insertInitialData(db, data):
     the procedures and triggers
     """
     pass
-
 
 
 def main(jsonCnf):
